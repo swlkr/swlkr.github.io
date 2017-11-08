@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/swlkr
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://swlkr.com
+  * I am swlkr (https://keybase.io/swlkr) on keybase.
+  * I have a public key ASB1kRb-gUCv5fCy8ojaXwvipORF96hCMPKfrOLyDZQh1go
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101c69f4b8fed95148bd9c6a338dc617723ffadf9786ccde114d1e4580778b605ee0a",
+      "host": "keybase.io",
+      "kid": "0120759116fe8140afe5f0b2f288da5f0be2a4e445f7a84230f29face2f20d9421d60a",
+      "uid": "a116ba7e3493b9ed4499cd2a7d5e7219",
+      "username": "swlkr"
+    },
+    "merkle_root": {
+      "ctime": 1510180194,
+      "hash": "5635941e199b39200349619b1d1413e74eeffdbbb11a305731b20bd93deb09fdf847d855454c47d3c4464adafe2763f4fef769f622c03691b516517fa3f8a3dc",
+      "hash_meta": "2f5d0631d30226ae99289e4777def72bc305e50cc5b72d7925d1f3c8a5342f21",
+      "seqno": 1682451
+    },
+    "service": {
+      "hostname": "swlkr.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.34"
+  },
+  "ctime": 1510180213,
+  "expire_in": 504576000,
+  "prev": "cc86b43f197f5a42472877bd3675ea1cd1778d138a05030b4263b5eae8390e6d",
+  "seqno": 14,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgdZEW/oFAr+XwsvKI2l8L4qTkRfeoQjDyn6zi8g2UIdYKp3BheWxvYWTFAz97ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTAxYzY5ZjRiOGZlZDk1MTQ4YmQ5YzZhMzM4ZGM2MTc3MjNmZmFkZjk3ODZjY2RlMTE0ZDFlNDU4MDc3OGI2MDVlZTBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNzU5MTE2ZmU4MTQwYWZlNWYwYjJmMjg4ZGE1ZjBiZTJhNGU0NDVmN2E4NDIzMGYyOWZhY2UyZjIwZDk0MjFkNjBhIiwidWlkIjoiYTExNmJhN2UzNDkzYjllZDQ0OTljZDJhN2Q1ZTcyMTkiLCJ1c2VybmFtZSI6InN3bGtyIn0sIm1lcmtsZV9yb290Ijp7ImN0aW1lIjoxNTEwMTgwMTk0LCJoYXNoIjoiNTYzNTk0MWUxOTliMzkyMDAzNDk2MTliMWQxNDEzZTc0ZWVmZmRiYmIxMWEzMDU3MzFiMjBiZDkzZGViMDlmZGY4NDdkODU1NDU0YzQ3ZDNjNDQ2NGFkYWZlMjc2M2Y0ZmVmNzY5ZjYyMmMwMzY5MWI1MTY1MTdmYTNmOGEzZGMiLCJoYXNoX21ldGEiOiIyZjVkMDYzMWQzMDIyNmFlOTkyODllNDc3N2RlZjcyYmMzMDVlNTBjYzViNzJkNzkyNWQxZjNjOGE1MzQyZjIxIiwic2Vxbm8iOjE2ODI0NTF9LCJzZXJ2aWNlIjp7Imhvc3RuYW1lIjoic3dsa3IuY29tIiwicHJvdG9jb2wiOiJodHRwczoifSwidHlwZSI6IndlYl9zZXJ2aWNlX2JpbmRpbmciLCJ2ZXJzaW9uIjoxfSwiY2xpZW50Ijp7Im5hbWUiOiJrZXliYXNlLmlvIGdvIGNsaWVudCIsInZlcnNpb24iOiIxLjAuMzQifSwiY3RpbWUiOjE1MTAxODAyMTMsImV4cGlyZV9pbiI6NTA0NTc2MDAwLCJwcmV2IjoiY2M4NmI0M2YxOTdmNWE0MjQ3Mjg3N2JkMzY3NWVhMWNkMTc3OGQxMzhhMDUwMzBiNDI2M2I1ZWFlODM5MGU2ZCIsInNlcW5vIjoxNCwidGFnIjoic2lnbmF0dXJlIn2jc2lnxECC69dO7CwMw6hnhFmb+CQIcAmBwnqzysXQP7oD65tkbyEN11hBGA+MnyDzlN/mo2fiYQpqVD3PR1RA/0Hmf0EPqHNpZ190eXBlIKRoYXNogqR0eXBlCKV2YWx1ZcQgfMADGFe6zgl7vDJTyNMg5svDGPqiadhufJ3GJNC/tDijdGFnzQICp3ZlcnNpb24B
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/swlkr
+
+==================================================================

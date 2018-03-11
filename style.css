@@ -1,0 +1,31 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  height: 100%;
+  grid-template-columns:1fr;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  grid-template-rows: 200px 1fr 60px;
+}
+
+header {
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  grid-area: footer;
+}

@@ -6,36 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
     <title>swlkr</title>
     <link rel="stylesheet" href="tachyons.min.css" />
-    <style>
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      }
-    </style>
-    <script src="https://use.fontawesome.com/dea1c735af.js"></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="mw6 pa3 center">
-    <img class="br-100 pa1 ba b--black-10 h3 w3" src="profile.jpg" />
-    <h3>Sean Walker</h3>
-    <div class="gray f5">Hi, I'm Sean and I'm trying to make stuff people want</div>
-    <p>
-      Hey, my name is Sean Walker and I’ve been writing software for 20 years, 10 of
-      those years I’ve actually been getting paid to do it! Some of my favorite things
-      are traveling around looking for awesome places to take pictures with my wife,
-      eating sushi and writing code to solve problems with dynamic languages.
-    </p>
-    <footer class="pv4 ph3 ph5-ns tc">
-      <a class="link dim black dib h2 w2 br-100 mr3 pa2" href="https://twitter.com/swlkr" title="">
-        <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
-      </a>
-      <a class="link dim black dib h2 w2 mr3 pa2" href="https://github.com/swlkr" title="">
-        <i class="fa fa-github fa-2x" aria-hidden="true"></i>
-      </a>
-      <a class="link dim black dib h2 w2 mr3 pa2" href="https://dribbble.com/swlkr" title="">
-        <i class="fa fa-dribbble fa-2x" aria-hidden="true"></i>
-      </a>
-      <a class="link dim black dib h2 w2 mr3 pa2" href="https://medium.com/@swlkr" title="">
-        <i class="fa fa-medium fa-2x" aria-hidden="true"></i>
-      </a>
-    </footer>
+  <body>
+    <div class="grid">
+      <header class="tc pt4 mw6 center black-80 lh-copy">
+        <a class="link" href="index.html">
+          <img class="br-100 pa1 ba b--black-10 h3 w3" src="profile.jpg" />
+        </a>
+        <a class="link black-80 underline" href="index.html">
+          <div class="sans-serif f5 fw3">@swlkr</div>
+        </a>
+          <div class="sans-serif f5 fw3">Living on the road. National parks: 7/59 ⛺️ <br/> Maker of <a class="link black-80 underline" href="http://outsidelist.com">Outside List</a> and <a class="link black-80 underline" href="https://github.com/swlkr/coast">Coast on Clojure</a></div>
+        </a>
+      </header>
+
+      <!-- posts -->
+      <main>
+        <div class="pa4 mw6 center">
+
+        <!-- post -->
+        <div class="f6 black-40 sans-serif fw3">March 10 2018</div>
+        <a class="f3 fw6 lh-title dim link black-80" href="posts/coast-alpha-03-10-2018.html">
+          coast on clojure: alpha - an even easier way to make classic full stack websites
+        </a>
+        <div class="f5 fw3 black-70 lh-copy">
+          <p>
+            Hot on the heels of coast 1.0 comes coast.alpha, why dot alpha and not 2.0?
+            <br /><br />
+            Because...
+          </p>
+        </div>
+        <!-- end post -->
+        </div>
+      </main>
+      <!-- end posts -->
+
+      <footer class="tc">
+        <a class="link dim black dib h3 w3" href="https://twitter.com/swlkr" title="">
+          <img src="twitter.svg" />
+        </a>
+        <a class="link dim black dib h3 w3" href="https://github.com/swlkr" title="">
+          <img src="github.svg" />
+        </a>
+        <a class="link dim black dib h3 w3" href="https://instagram.com/swlkr" title="">
+          <img src="instagram.svg" />
+        </a>
+      </footer>
+    </div>
   </body>
 </html>

@@ -29,3 +29,19 @@ main {
 footer {
   grid-area: footer;
 }
+
+@media(max-width: 768px) {
+  .full-width {
+    overflow: auto;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+}
+
+.bg-ocean {
+  background-color: #2b303b
+}

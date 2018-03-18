@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
+    <title>swlkr</title>
+    <link rel="stylesheet" href="../tachyons.min.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../ocean.css">
+  </head>
+  <body>
+    <div class="grid">
+      <header class="tc pt4 mw6 center black-80 lh-copy">
+        <a class="link" href="../index.html">
+          <img class="br-100 pa1 ba b--black-10 h3 w3" src="../profile.jpg" />
+        </a>
+        <a class="link black-80 underline" href="../index.html">
+          <div class="sans-serif f5 fw3">@swlkr</div>
+        </a>
+          <div class="sans-serif f5 fw3">Professionally homeless
+            <br/>
+            Making
+            <a class="link black-80 underline" href="https://outsidelist.com">Outside List</a>,
+            <a class="link black-80 underline" href="http://hollabackapp.com">Hollaback</a>,<br/>
+            <a class="link black-80 underline" href="http://havenofomo.com">Have No Fomo</a> and
+            <a class="link black-80 underline" href="https://github.com/swlkr/coast">Coast on Clojure</a>
+        </a>
+      </header>
+
+      <!-- posts -->
+      <main>
+        <div class="pa4 mw7 center san-serif">
+          <div class="mb5">
+            <div class="tc f1 fw6 lh-solid">coast.beta - The easy clojure web application framework</div>
+            <div class="f4 black-40 sans-serif fw2 tc lh-copy">March 18 2018</div>
+          </div>
+
+          <div class="sans-serif black-80 lh-copy fw4 f4">
+            <h1>Coast on Clojure: Beta</h1>
+            <p>When it’s time to make a website, what do you really want? You want to associate a url with a bit of code. You don’t want route files and you don’t want to be googling dependencies left and right, you want to stand up a website in as few lines of code as possible, the closer to zero code you can get, the better. That’s what the goal of coast.beta is, you can generate crud websites from the command line, living the dream.</p>
+            <h2>Routing</h2>
+            <p>Typically clojure websites have routes that take an HTTP method, a url and a function, and the functions themselves don’t know what’s going on, they don’t care. I do agree with that much of it, good abstraction and all of that. What I don’t agree with is this:</p>
+  <div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">(defn hello [request]
+  [:div "hello world!"])
+
+(def routes [[:get "/" home]])
+
+(def app (coast/app routes))</code></pre>
+</div>
+</div>
+
+<p>You have to write a function, then set up the route separately, it’s ok when everything fits on one screen, but quickly gets out of hand across multiple files or even the same file with more code. It’s unorthodox to not require files explicitly, but when it comes to routing, I think it’s ok to get meta with clojure’s functions:</p>
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">; src/controllers/home.clj
+; there's optional ring middleware functions too
+(defn index {:get "/index" :middleware []} [request]
+  [:div "hello world"])
+
+; src/server.clj
+(def app (coast/app))</code></pre></div></div>
+<p>That’s it, no more requiring, no separate routes file, controller functions are routes, doesn’t get much easier than that. If you really want to see all the routes at once, try <code class='code-inline'>(coast.beta/routes)</code> from the repl.</p>
+<h2>Models</h2>
+<p>Since clojure doesn’t have objects, there can’t be an ORM. Prepare yourself for the raw, awesome power of SQL. Similar to the way you want to tie a url to function that emits html, you also want to tie a function to a bit of SQL on the other end. There are other ways to do this, but the best way I’ve found is instead of trying to treat SQL like a data structure or use another DSL that’s missing joins or something, just use SQL. Here’s a SQL file with comments</p>
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="sql">-- resources/sql/posts.db.sql
+-- name: list
+select *
+from posts
+where
+  offset = :offset
+  and
+  limit = :limit
+</code></pre></div></div>
+
+<p>Here a clojure function with the same name as the name in the sql comments.</p>
+
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">(ns db.posts
+  (:require [coast.db :refer [defq])
+  (:refer-clojure :exclude [list]))
+
+(defq list "/resources/sql/posts.sql")
+
+(list {:offset 0 :limit 10}) ; =&gt; [{:id 1 :title "" :body ""}]</code></pre></div></div>
+
+<p>When you call that function, you get data. It seems like there’s something missing, but there isn’t.</p>
+<h2>Views</h2>
+<p>Unlike sql I don’t have a fondness for closing angle brackets in html, so I did away with it in favor of a clojure vector based representation of html:</p>
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">(defn layout [request body]
+  [:html
+    [:head
+      [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
+      [:meta {:charset "utf-8"}]
+
+      [:link {:href "/css/app.css" :type "text/css" :rel "stylesheet"}]
+      [:script {:src "/js/app.js" :type "text/javascript"}]]
+    [:body
+     body]])</code></pre></div></div>
+
+<p>And that’s that. Models, views, controllers and routes.</p>
+<h2>Generators</h2>
+<p>Why write all of this code when you don’t have to. Generate code statically, not in a macro and now we have the best of all worlds, quick code generation that you can edit and it’s just sitting there statically! Macros would have been similar but less visible.</p>
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="bash">coast gen migration create-posts title:text body:text
+coast gen model posts
+coast gen controller posts
+coast gen view posts
+coast gen mvc posts</code></pre></div></div>
+
+<h2>Testing</h2>
+<p>There is testing too, not like capital T testing, since I usually make websites with no users, there’s no point to test anything. What I do do 😐 though is test my app at the repl, don’t even need a running http server to test things, you can make your coast app, bind it and call it as a function that takes a ring request map.</p>
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">; src/controllers/home.clj
+(ns controllers.home)
+
+(defn index {:get "/"} [request]
+  [:div "hello world!"])
+
+; server.clj
+(ns server
+  (:require [coast.beta :as coast]))
+
+(def app (coast/app {}))
+
+(app {:request-method :get :uri "/"}) ; =&gt; &lt;div&gt;hello world&lt;/div&gt;</code></pre></div></div>
+
+<p>The way coast (and clojure ring websites in general) works is that you then pass this function to an HTTP server that does all the dirty work of actually handling sockets and things, pretty cool right?</p>
+<h2>Background Jobs</h2>
+<p>I have come up with a very basic background jobs system, but it’s kind of a piece of garbage, it just polls the database every 10 seconds looking for jobs  to run. Here’s what jobs look like</p>
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="bash"><span class="sf_code_syntax_comment"># set up the jobs table
+</span>coast gen jobs
+make db/migrate</code></pre></div></div>
+
+<p>Now that you have the jobs schema in the database, you can go ahead and start queuing stuff up</p>
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">(ns emails)
+
+(defn send [m]
+  ; doesn't actually send any emails
+  (-&gt; (select-keys m [:to :from :subject :text :html])
+      (println))</code></pre></div></div>
+
+<p>Then when it’s time to queue up a job, you can do this</p>
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">(:require [coast.jobs :as jobs])
+
+(jobs/queue #'emails/send {:to "" :from "" :subject "" :text ""})</code></pre></div></div>
+
+<p>You can also schedule things to happen in the future</p>
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">(:require [coast.jobs :as jobs]
+          [coast.time :as time])
+
+(jobs/queue #'emails/send {:to "" :from "" :subject "" :text ""} (time/at 20 :minutes/from-now))</code></pre></div></div>
+
+<p>That’s <a href="https://github.com/swlkr/coast">coast.beta</a> in a nutshell</p>
+
+          </div>
+        </div>
+      </main>
+
+      <footer class="tc">
+        <a class="link dim black dib h3 w3" href="https://twitter.com/swlkr" title="">
+          <img src="../twitter.svg" />
+        </a>
+        <a class="link dim black dib h3 w3" href="https://github.com/swlkr" title="">
+          <img src="../github.svg" />
+        </a>
+        <a class="link dim black dib h3 w3" href="https://instagram.com/swlkr" title="">
+          <img src="../instagram.svg" />
+        </a>
+      </footer>
+    </div>
+    <script src="../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-11096014-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-11096014-5');
+    </script>
+  </body>
+</html>

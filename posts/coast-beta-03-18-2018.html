@@ -32,15 +32,18 @@
       <main>
         <div class="pa4 mw7 center san-serif">
           <div class="mb5">
-            <div class="tc f1 fw6 lh-solid">coast.beta - The easy clojure web application framework</div>
+            <div class="tc f1 fw6 lh-solid">coast.beta - the easy clojure web application framework</div>
             <div class="f4 black-40 sans-serif fw2 tc lh-copy">March 18 2018</div>
           </div>
 
           <div class="sans-serif black-80 lh-copy fw4 f4">
-            <h1>Coast on Clojure: Beta</h1>
-            <p>When it’s time to make a website, what do you really want? You want to associate a url with a bit of code. You don’t want route files and you don’t want to be googling dependencies left and right, you want to stand up a website in as few lines of code as possible, the closer to zero code you can get, the better. That’s what the goal of coast.beta is, you can generate crud websites from the command line, living the dream.</p>
+            <p>When it’s time to make a website, what do you really want? You want to associate a url with a bit of code. <span class="strike">You don’t want route files and</span> you don’t want to be googling dependencies left and right, you want to stand up a website in as few lines of code as possible, the closer to zero code you can get, the better. That’s what the goal of coast.beta is, you can generate crud websites from the command line, living the dream.</p>
             <h2>Routing</h2>
-            <p>Typically clojure websites have routes that take an HTTP method, a url and a function, and the functions themselves don’t know what’s going on, they don’t care. I do agree with that much of it, good abstraction and all of that. What I don’t agree with is this:</p>
+            <p>This is a route</p>
+
+  <div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">[:get "/" home]
+</code></pre></div></div>
+<p>This is a route in coast</p>
   <div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">(defn hello [request]
   [:div "hello world!"])
 
@@ -49,18 +52,50 @@
 (def app (coast/app routes))</code></pre>
 </div>
 </div>
+<p>Routes in coast are a vector of vectors, the routes that are on top get matched first</p>
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">(defn hello [request]
+  [:div "hello world!"])
 
-<p>You have to write a function, then set up the route separately, it’s ok when everything fits on one screen, but quickly gets out of hand across multiple files or even the same file with more code. It’s unorthodox to not require files explicitly, but when it comes to routing, I think it’s ok to get meta with clojure’s functions:</p>
-<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">; src/controllers/home.clj
-; there's optional ring middleware functions too
-(defn index {:get "/index" :middleware []} [request]
-  [:div "hello world"])
+(defn goodbye [request]
+  [:div "goodbye, cruel world!"])
 
-; src/server.clj
-(def app (coast/app))</code></pre></div></div>
-<p>That’s it, no more requiring, no separate routes file, controller functions are routes, doesn’t get much easier than that. If you really want to see all the routes at once, try <code class='code-inline'>(coast.beta/routes)</code> from the repl.</p>
+(def routes [[:get "/" home]
+             [:get "/" goodbye]])
+
+(def app (coast/app routes))
+
+(app {:request-method :get :uri "/"}) ; => &lt;div&gt;hello world!&lt;/div&gt;
+</code></pre>
+</div>
+</div>
+
+<p>Here's a more complete example for something like auth with <a href="https://funcool.github.io/buddy-auth/latest/">buddy</a></p>
+<div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="clojure">(ns routes
+  (:require [coast.router :refer [get post put delete wrap-routes]]
+            [controllers.home :as c.home]
+            [controllers.users :as c.users]
+            [buddy.auth])
+  (:refer-clojure :exclude [get]))
+
+(defn wrap-auth [handler]
+  (fn [request]
+    (if (buddy.auth/authenticated? request)
+      (handler request)
+      (coast.responses/forbidden
+        [:div "I'm sorry dave, I can't let you do that."]))))
+
+(def auth (-> (get "/users/:id" c.users/show)
+              (wrap-routes middleware/wrap-auth)))
+
+(def public (get "/" c.home/index))
+
+(def routes (concat public auth))
+</code></pre>
+</div>
+</div>
+
 <h2>Models</h2>
-<p>Since clojure doesn’t have objects, there can’t be an ORM. Prepare yourself for the raw, awesome power of SQL. Similar to the way you want to tie a url to function that emits html, you also want to tie a function to a bit of SQL on the other end. There are other ways to do this, but the best way I’ve found is instead of trying to treat SQL like a data structure or use another DSL that’s missing joins or something, just use SQL. Here’s a SQL file with comments</p>
+<p>Since clojure doesn’t have objects, there isn't an ORM. Prepare yourself for the raw, awesome power of SQL. Similar to the way you want to tie a url to function that emits html, you also want to tie a function to a bit of SQL on the other end. There are other ways to do this, but the best way I’ve found is instead of trying to treat SQL like a data structure or use another DSL that’s missing joins or something, just use SQL. Here’s a SQL file with comments</p>
 <div class="full-width bg-ocean f5"><div class="mw7 center ph4"><pre><code class="sql">-- resources/sql/posts.db.sql
 -- name: list
 select *

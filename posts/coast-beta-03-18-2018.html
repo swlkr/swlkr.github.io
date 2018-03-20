@@ -100,10 +100,9 @@
 -- name: list
 select *
 from posts
-where
-  offset = :offset
-  and
-  limit = :limit
+order by created_at
+offset :offset
+limit :limit
 </code></pre></div></div>
 
 <p>Here a clojure function with the same name as the name in the sql comments.</p>

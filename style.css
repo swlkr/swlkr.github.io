@@ -31,7 +31,7 @@ footer {
 }
 
 @media(max-width: 768px) {
-  .full-width {
+  pre {
     overflow: auto;
     width: 100vw;
     position: relative;
@@ -39,9 +39,16 @@ footer {
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
+    background-color: #2b303b
   }
 }
 
-.bg-ocean {
-  background-color: #2b303b
+pre {
+  background-color: #2b303b;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+pre code {
+  font-size: 1rem;
 }

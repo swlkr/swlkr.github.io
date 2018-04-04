@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
+    <title>swlkr</title>
+    <link rel="stylesheet" href="../tachyons.min.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../ocean.css" />
+  </head>
+  <body>
+    <div class="grid">
+      <header class="tc pt4 mw6 center black-80 lh-copy">
+        <a class="link" href="../index.html">
+          <img class="br-100 pa1 ba b--black-10 h3 w3" src="../profile.jpg" />
+        </a>
+        <a class="link black-80 underline" href="../index.html">
+          <div class="sans-serif f5 fw3">@swlkr</div>
+        </a>
+          <div class="sans-serif f5 fw3">Sold my house to go on a non-stop road trip
+            <br/>
+            Making
+            <a class="link black-80 underline" href="https://outsidelist.com">Outside List</a>,
+            <a class="link black-80 underline" href="http://hollabackapp.com">Hollaback</a>,<br/>
+            <a class="link black-80 underline" href="http://havenofomo.com">Have No Fomo</a> and
+            <a class="link black-80 underline" href="https://github.com/swlkr/coast">Coast on Clojure</a> at pit stops
+        </a>
+      </header>
+
+      <main>
+        <div class="pa4 mw7 center san-serif mt4">
+          <div class="mb5">
+  <div class="tc f1 fw6 lh-solid">making websites with clojure</div>
+  <div class="f4 black-40 sans-serif fw2 tc lh-copy">April 03 2018</div>
+</div>
+
+<div class="sans-serif black-80 lh-copy fw4 f4">
+  <p>In the clojure world making websites is simple, like tropic thunder simple jack simple. There's one function that handles every request and every response and it's made up of a bunch of other functions and they all operate on the same data structure, a clojure map representing an http request and that one function returns a response which is another clojure map.</p><p>It looks like this:</p><p>request -> function -> response</p><p>or like this:</p><pre><code class="clojure">&#40;defn handler &#91;request&#93;
+  &#40;if &#40;and &#40;= &#40;:uri request&#41; &quot;/&quot;&#41;
+           &#40;= &#40;:request-method request&#41; :get&#41;&#41;
+    {:status 200
+     :headers {&quot;Content-Type&quot; &quot;text/html&quot;}
+     :body &quot;hello, world!&quot;}
+    {:status 404
+     :headers {&quot;Content-Type&quot; &quot;text/html&quot;}
+     :body &quot;not found&quot;}&#41;&#41;
+
+&#40;handler {:uri &quot;/&quot; :request-method :get}&#41; ; =&gt; {:status 200 ...}
+</code></pre><p>That's it! This simple concept is almost too simple, like it can't be that simple or that easy. There's got to be a catch how can you make a whole website with authentication and emailing and credit card handling and social features and... from just one function?</p><p>Well, I'm glad you asked! The first thing that I should tell you is that there's going to be quite a few more functions, but if you can imagine them all sort of coming together to be one function, it makes it easier to think about. The second thing is I need to quote <em>the quote</em> about how it's better to have 100 function operating on 1 data structure than 10 functions operating on 10 data structures or something.</p><p>Anyway, a to get a more complete app you first need to pass functions to other functions, instead of just the request map, like this:</p><pre><code class="clojure">&#40;defn middleware &#91;handler&#93;
+  &#40;fn &#91;request&#93;
+    &#40;handler request&#41;&#41;&#41;
+</code></pre><p>So now you can chain these functions together and still have "one function".</p><pre><code class="clojure">&#40;defn home &#91;request&#93;
+  {:status 200
+   :body &quot;home&quot;}&#41;
+
+&#40;defn sign-in &#91;request&#93;
+  {:status 200
+   :body &quot;sign-in&quot;}&#41;
+
+&#40;defn first-handler &#91;&#93;
+  &#40;fn &#91;request&#93;
+    &#40;let &#91;{:keys &#91;uri request-method&#93;} request&#93;
+      &#40;case
+        &#40;= uri &quot;/&quot;&#41; &#40;home request&#41;
+        &#40;= uri &quot;/sign-in&quot;&#41; &#40;sign-in request&#41;&#41;&#41;&#41;&#41;
+
+&#40;defn logger &#91;handler&#93;
+  &#40;fn &#91;request&#93;
+    &#40;let &#91;response &#40;handler request&#41;&#93;
+      &#40;println &#40;:request-method request&#41; &#40;:uri request&#41;&#41;
+      response&#41;&#41;&#41;
+
+&#40;def app &#40;-&gt; &#40;first-handler&#41;
+             &#40;logger&#41;&#41;&#41;
+</code></pre><p>Things are still looking ugly, but it gets better with coast on clojure :)</p><p>Still working on a that whole series of posts going deep, so stay tuned or just <a href='https://github.com/swlkr/coast'>check out it and spoil the surprise</a></p>
+</div>
+
+        </div>
+      </main>
+
+      <footer class="tc">
+        <a class="link dim black dib h3 w3" href="https://twitter.com/swlkr" title="">
+          <img src="../twitter.svg" />
+        </a>
+        <a class="link dim black dib h3 w3" href="https://github.com/swlkr" title="">
+          <img src="../github.svg" />
+        </a>
+        <a class="link dim black dib h3 w3" href="https://instagram.com/swlkr" title="">
+          <img src="../instagram.svg" />
+        </a>
+      </footer>
+    </div>
+    <script src="../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-11096014-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-11096014-5');
+    </script>
+  </body>
+</html>

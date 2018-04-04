@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><id>urn:swlkr-com:feed</id><updated>April 03 2018</updated><title type="text">swlkr</title><link rel="self" href="http://swlkr.com/rss.xml"></link><entry><title>making websites with clojure</title><updated>April 03 2018</updated><author><name>Sean Walker</name></author><link href="http://swlkr.composts/04-03-2018-making-websites-with-clojure.html"></link><id>urn:swlkr-com:feed:post:making websites with clojure</id><content type="html">&lt;p&gt;In the clojure world making websites is simple, like tropic thunder simple jack simple. There's one function that handles every request and every response and it's made up of a bunch of other functions and they all operate on the same data structure, a clojure map representing an http request and that one function returns a response which is another clojure map.&lt;/p&gt;&lt;p&gt;It looks like this:&lt;/p&gt;&lt;p&gt;request -&gt; function -&gt; response&lt;/p&gt;&lt;p&gt;or like this:&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;defn handler &amp;#91;request&amp;#93;
+  &amp;#40;if &amp;#40;and &amp;#40;= &amp;#40;:uri request&amp;#41; &amp;quot;/&amp;quot;&amp;#41;
+           &amp;#40;= &amp;#40;:request-method request&amp;#41; :get&amp;#41;&amp;#41;
+    {:status 200
+     :headers {&amp;quot;Content-Type&amp;quot; &amp;quot;text/html&amp;quot;}
+     :body &amp;quot;hello, world!&amp;quot;}
+    {:status 404
+     :headers {&amp;quot;Content-Type&amp;quot; &amp;quot;text/html&amp;quot;}
+     :body &amp;quot;not found&amp;quot;}&amp;#41;&amp;#41;
+
+&amp;#40;handler {:uri &amp;quot;/&amp;quot; :request-method :get}&amp;#41; ; =&amp;gt; {:status 200 ...}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;That's it! This simple concept is almost too simple, like it can't be that simple or that easy. There's got to be a catch how can you make a whole website with authentication and emailing and credit card handling and social features and... from just one function?&lt;/p&gt;&lt;p&gt;Well, I'm glad you asked! The first thing that I should tell you is that there's going to be quite a few more functions, but if you can imagine them all sort of coming together to be one function, it makes it easier to think about. The second thing is I need to quote &lt;em&gt;the quote&lt;/em&gt; about how it's better to have 100 function operating on 1 data structure than 10 functions operating on 10 data structures or something.&lt;/p&gt;&lt;p&gt;Anyway, a to get a more complete app you first need to pass functions to other functions, instead of just the request map, like this:&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;defn middleware &amp;#91;handler&amp;#93;
+  &amp;#40;fn &amp;#91;request&amp;#93;
+    &amp;#40;handler request&amp;#41;&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;So now you can chain these functions together and still have "one function".&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;defn home &amp;#91;request&amp;#93;
+  {:status 200
+   :body &amp;quot;home&amp;quot;}&amp;#41;
+
+&amp;#40;defn sign-in &amp;#91;request&amp;#93;
+  {:status 200
+   :body &amp;quot;sign-in&amp;quot;}&amp;#41;
+
+&amp;#40;defn first-handler &amp;#91;&amp;#93;
+  &amp;#40;fn &amp;#91;request&amp;#93;
+    &amp;#40;let &amp;#91;{:keys &amp;#91;uri request-method&amp;#93;} request&amp;#93;
+      &amp;#40;case
+        &amp;#40;= uri &amp;quot;/&amp;quot;&amp;#41; &amp;#40;home request&amp;#41;
+        &amp;#40;= uri &amp;quot;/sign-in&amp;quot;&amp;#41; &amp;#40;sign-in request&amp;#41;&amp;#41;&amp;#41;&amp;#41;&amp;#41;
+
+&amp;#40;defn logger &amp;#91;handler&amp;#93;
+  &amp;#40;fn &amp;#91;request&amp;#93;
+    &amp;#40;let &amp;#91;response &amp;#40;handler request&amp;#41;&amp;#93;
+      &amp;#40;println &amp;#40;:request-method request&amp;#41; &amp;#40;:uri request&amp;#41;&amp;#41;
+      response&amp;#41;&amp;#41;&amp;#41;
+
+&amp;#40;def app &amp;#40;-&amp;gt; &amp;#40;first-handler&amp;#41;
+             &amp;#40;logger&amp;#41;&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Things are still looking ugly, but it gets better with coast on clojure :)&lt;/p&gt;&lt;p&gt;Still working on a that whole series of posts going deep, so stay tuned or just &lt;a href='https://github.com/swlkr/coast'&gt;check out it and spoil the surprise&lt;/a&gt;&lt;/p&gt;</content></entry><entry><title>coast.beta: an easy way to make websites with clojure</title><updated>March 18 2018</updated><author><name>Sean Walker</name></author><link href="http://swlkr.composts/03-18-2018-coast-beta.html"></link><id>urn:swlkr-com:feed:post:coast.beta: an easy way to make websites with clojure</id><content type="html">&lt;p&gt;When it’s time to make a website, what do you really want? You want to associate a url with a bit of code. &lt;del&gt;You don’t want route files and&lt;/del&gt; you don’t want to be googling dependencies left and right, you want to stand up a website in as few lines of code as possible, the closer to zero code you can get, the better. That’s what the goal of coast.beta is, you can generate crud websites from the command line, living the dream.&lt;/p&gt;&lt;h2&gt;Routing&lt;/h2&gt;&lt;p&gt;This is a route&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#91;:get &amp;quot;/&amp;quot; home&amp;#93;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This is a route in coast&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;defn hello &amp;#91;request&amp;#93;
+  &amp;#91;:div &amp;quot;hello world!&amp;quot;&amp;#93;&amp;#41;
+
+&amp;#40;def routes &amp;#91;&amp;#91;:get &amp;quot;/&amp;quot; home&amp;#93;&amp;#93;&amp;#41;
+
+&amp;#40;def app &amp;#40;coast/app routes&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Routes in coast are a vector of vectors, the routes that are on top get matched first&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;defn hello &amp;#91;request&amp;#93;
+  &amp;#91;:div &amp;quot;hello world!&amp;quot;&amp;#93;&amp;#41;
+
+&amp;#40;defn goodbye &amp;#91;request&amp;#93;
+  &amp;#91;:div &amp;quot;goodbye, cruel world!&amp;quot;&amp;#93;&amp;#41;
+
+&amp;#40;def routes &amp;#91;&amp;#91;:get &amp;quot;/&amp;quot; home&amp;#93;
+             &amp;#91;:get &amp;quot;/&amp;quot; goodbye&amp;#93;&amp;#93;&amp;#41;
+
+&amp;#40;def app &amp;#40;coast/app routes&amp;#41;&amp;#41;
+
+&amp;#40;app {:request-method :get :uri &amp;quot;/&amp;quot;}&amp;#41; ; =&amp;gt; &amp;lt;div&amp;gt;hello world!&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Here's a more complete example for something like auth with &lt;a href='https://funcool.github.io/buddy-auth/latest/'&gt;buddy&lt;/a&gt;&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;ns routes
+  &amp;#40;:require &amp;#91;coast.router :refer &amp;#91;get post put delete wrap-routes&amp;#93;&amp;#93;
+            &amp;#91;controllers.home :as c.home&amp;#93;
+            &amp;#91;controllers.users :as c.users&amp;#93;
+            &amp;#91;buddy.auth&amp;#93;&amp;#41;
+  &amp;#40;:refer-clojure :exclude &amp;#91;get&amp;#93;&amp;#41;&amp;#41;
+
+&amp;#40;defn wrap-auth &amp;#91;handler&amp;#93;
+  &amp;#40;fn &amp;#91;request&amp;#93;
+    &amp;#40;if &amp;#40;buddy.auth/authenticated? request&amp;#41;
+      &amp;#40;handler request&amp;#41;
+      &amp;#40;coast.responses/forbidden
+        &amp;#91;:div &amp;quot;I'm sorry dave, I can't let you do that.&amp;quot;&amp;#93;&amp;#41;&amp;#41;&amp;#41;&amp;#41;
+
+&amp;#40;def auth &amp;#40;-&amp;gt; &amp;#40;get &amp;quot;/users/:id&amp;quot; c.users/show&amp;#41;
+  &amp;#40;wrap-routes middleware/wrap-auth&amp;#41;&amp;#41;&amp;#41;
+
+&amp;#40;def public &amp;#40;get &amp;quot;/&amp;quot; c.home/index&amp;#41;&amp;#41;
+
+&amp;#40;def routes &amp;#40;concat public auth&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Models&lt;/h2&gt;&lt;p&gt;Since clojure doesn’t have objects, there isn't an ORM. Prepare yourself for the raw, awesome power of SQL. Similar to the way you want to tie a url to function that emits html, you also want to tie a function to a bit of SQL on the other end. There are other ways to do this, but the best way I’ve found is instead of trying to treat SQL like a data structure or use another DSL that’s missing joins or something, just use SQL. Here’s a SQL file with comments&lt;/p&gt;&lt;pre&gt;&lt;code class="sql"&gt;-- resources/sql/posts.db.sql
+-- name: list
+select &amp;#42;
+from posts
+order by created&amp;#95;at
+offset :offset
+limit :limit
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Here a clojure function with the same name as the name in the sql comments.&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;ns db.posts
+  &amp;#40;:require &amp;#91;coast.db :refer &amp;#91;defq&amp;#93;&amp;#41;
+  &amp;#40;:refer-clojure :exclude &amp;#91;list&amp;#93;&amp;#41;&amp;#41;
+
+&amp;#40;defq list &amp;quot;/resources/sql/posts.sql&amp;quot;&amp;#41;
+
+&amp;#40;list {:offset 0 :limit 10}&amp;#41; ; =&amp;gt; &amp;#91;{:id 1 :title &amp;quot;&amp;quot; :body &amp;quot;&amp;quot;}&amp;#93;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;When you call that function, you get data. It seems like there’s something missing, but there isn’t.&lt;/p&gt;&lt;h2&gt;Views&lt;/h2&gt;&lt;p&gt;Unlike sql I don’t have a fondness for closing angle brackets in html, so I did away with it in favor of a clojure vector based representation of html:&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;defn layout &amp;#91;request body&amp;#93;
+  &amp;#91;:html
+    &amp;#91;:head
+      &amp;#91;:meta {:name &amp;quot;viewport&amp;quot; :content &amp;quot;width=device-width, initial-scale=1&amp;quot;}&amp;#93;
+      &amp;#91;:meta {:charset &amp;quot;utf-8&amp;quot;}&amp;#93;
+
+      &amp;#91;:link {:href &amp;quot;/css/app.css&amp;quot; :type &amp;quot;text/css&amp;quot; :rel &amp;quot;stylesheet&amp;quot;}&amp;#93;
+      &amp;#91;:script {:src &amp;quot;/js/app.js&amp;quot; :type &amp;quot;text/javascript&amp;quot;}&amp;#93;&amp;#93;
+    &amp;#91;:body
+      body&amp;#93;&amp;#93;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And that’s that. Models, views, controllers and routes.&lt;/p&gt;&lt;h2&gt;Generators&lt;/h2&gt;&lt;p&gt;Why write all of this code when you don’t have to. Generate code statically, not in a macro and now we have the best of all worlds, quick code generation that you can edit and it’s just sitting there statically! Macros would have been similar but less visible.&lt;/p&gt;&lt;pre&gt;&lt;code class="bash"&gt;coast gen migration create-posts title:text body:text
+coast gen model posts
+coast gen controller posts
+coast gen view posts
+coast gen mvc posts
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Testing&lt;/h2&gt;&lt;p&gt;There is testing too, not like capital T testing, since I usually make websites with no users, there’s no point to test anything. What I do do 😐 though is test my app at the repl, don’t even need a running http server to test things, you can make your coast app, bind it and call it as a function that takes a ring request map.&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;; src/controllers/home.clj
+&amp;#40;ns controllers.home&amp;#41;
+
+&amp;#40;defn index &amp;#91;request&amp;#93;
+  &amp;#91;:div &amp;quot;hello world!&amp;quot;&amp;#93;&amp;#41;
+
+; routes.clj
+&amp;#40;ns routes
+  &amp;#40;:require &amp;#91;coast.router :refer &amp;#91;get&amp;#93;&amp;#93;
+            &amp;#91;controllers.home :as c.home&amp;#93;&amp;#41;&amp;#41;
+  &amp;#40;:refer-clojure :exclude &amp;#91;get&amp;#93;&amp;#41;
+
+&amp;#40;def routes &amp;#40;get &amp;quot;/&amp;quot; c.home/index&amp;#41;&amp;#41;
+
+; server.clj
+&amp;#40;ns server
+  &amp;#40;:require &amp;#91;coast.beta :as coast&amp;#93;&amp;#41;&amp;#41;
+            &amp;#91;routes :refer &amp;#91;routes&amp;#93;&amp;#93;
+
+&amp;#40;def app &amp;#40;coast/app routes&amp;#41;&amp;#41;
+
+&amp;#40;app {:request-method :get :uri &amp;quot;/&amp;quot;}&amp;#41; ; =&amp;gt; &amp;lt;div&amp;gt;hello world&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The way coast (and clojure ring websites in general) works is that you then pass this function to an HTTP server that does all the dirty work of actually handling sockets and things, pretty cool right?&lt;/p&gt;&lt;h2&gt;Background Jobs&lt;/h2&gt;&lt;p&gt;I have come up with a very basic background jobs system, but it’s kind of a piece of garbage, it just polls the database every 10 seconds looking for jobs  to run. Here’s what jobs look like&lt;/p&gt;&lt;pre&gt;&lt;code class="bash"&gt;# set up the jobs table
+coast gen jobs
+make db/migrate
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now that you have the jobs schema in the database, you can go ahead and start queuing stuff up&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;ns emails&amp;#41;
+
+&amp;#40;defn send &amp;#91;m&amp;#93;
+  ; doesn't actually send any emails
+  &amp;#40;-&amp;gt; &amp;#40;select-keys m &amp;#91;:to :from :subject :text :html&amp;#93;&amp;#41;
+      &amp;#40;println&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then when it’s time to queue up a job, you can do this&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;:require &amp;#91;coast.jobs :as jobs&amp;#93;&amp;#41;
+
+&amp;#40;jobs/queue #'emails/send {:to &amp;quot;&amp;quot; :from &amp;quot;&amp;quot; :subject &amp;quot;&amp;quot; :text &amp;quot;&amp;quot;}&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You can also schedule things to happen in the future&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;:require &amp;#91;coast.jobs :as jobs&amp;#93;
+          &amp;#91;coast.time :as time&amp;#93;&amp;#41;
+
+&amp;#40;jobs/queue #'emails/send {:to &amp;quot;&amp;quot; :from &amp;quot;&amp;quot; :subject &amp;quot;&amp;quot; :text &amp;quot;&amp;quot;} &amp;#40;time/at 20 :minutes/from-now&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;That’s &lt;a href='https://github.com/swlkr/coast'&gt;coast.beta&lt;/a&gt;&lt;/p&gt;</content></entry><entry><title>hollaback: show your visitors you're a person not a company</title><updated>March 16 2018</updated><author><name>Sean Walker</name></author><link href="http://swlkr.composts/03-16-2018-hollaback.html"></link><id>urn:swlkr-com:feed:post:hollaback: show your visitors you're a person not a company</id><content type="html">&lt;p&gt;Inspired by my introversion, &lt;a href='https://m.signalvnoise.com/theres-such-a-thing-as-too-helpful-91002b411a62'&gt;this post&lt;/a&gt; and &lt;a href='http://nomadlist.com/'&gt;nomad list&lt;/a&gt; I’m making &lt;a href='hollabackapp.com'&gt;hollaback&lt;/a&gt; a respectful way to show who you are to your website visitors. When I say respect, I mean don’t barge in trying to help them with a chatbox in their face. There’s nothing I like less than being sold to on a website. I expect it when I’m buying a car, but I don’t expect it when visiting your site. They don’t call it &lt;strong&gt;browsing&lt;/strong&gt; the web for nothing, let me browse, don’t try to help me. How does hollaback help you as a website owner? Well let me count the ways:&lt;/p&gt;&lt;h3&gt;Tell your visitors who you are up front, not behind an about link&lt;/h3&gt;&lt;p&gt;Contrary to popular belief, I like other people even though I tend to be more introverted most of the time, and when I visit a website, it helps me to know there’s a human or at least a team of people behind it. I usually reach for the about link if I’m encountering something new and interesting. It’s always nice to see who’s behind the site.&lt;/p&gt;&lt;h3&gt;Simple analytics&lt;/h3&gt;&lt;p&gt;I’m currently using google analytics but I don’t really understand it. I’m sure it works great for pros who know what they’re doing, but that’s not me, I don’t know what I’m doing, I just want to see which pages people are visiting and that’s probably it. All of the info on google analytics is overwhelming. I like the idea of a lot of info, but the way it’s laid out, at least to me, is confusing. So the idea here is to get some basic analytics, where are visitors coming from, what pages did they visit, etc. laid out in an easy way and that’ll be that.&lt;/p&gt;&lt;h3&gt;Build your personal brand&lt;/h3&gt;&lt;p&gt;The most important thing, I think to website owner’s success, is to build a personal brand. People follow people, not brands (at least I don’t). Products where I know someone who’s making it typically catch my attention much more than products made by seemingly anonymous people who I don’t really know. So, what’s better than seeing a face and a name behind a site right there on the site? I think it’ll be better for indie makers and better for visitors to get to know them&lt;/p&gt;&lt;h3&gt;One up faceless corporations with your face&lt;/h3&gt;&lt;p&gt;Is your website trying to compete with a large-ish corp? Well, good thing you’re an indie maker and the customers who do appreciate that sort of thing can make their buying decision easier knowing that it’s you and your face behind the product they’re buying, not just another corp with sales/customer service people who aren’t really into it.&lt;/p&gt;&lt;hr/&gt;&lt;p&gt;Picking up what I’m putting down? Head over to &lt;a href='http://hollabackapp.com'&gt;hollaback&lt;/a&gt; to see what it’s all about it and don’t hesitate to sign up, it’s free! Also, send me an email or hit me up on &lt;a href='https://twitter.com/swlkr'&gt;twitter&lt;/a&gt; if you want to give me some feedback, it’s always welcome.&lt;/p&gt;</content></entry><entry><title>coast.alpha: an easy way to make websites with clojure</title><updated>March 10 2018</updated><author><name>Sean Walker</name></author><link href="http://swlkr.composts/03-10-2018-coast-alpha.html"></link><id>urn:swlkr-com:feed:post:coast.alpha: an easy way to make websites with clojure</id><content type="html">&lt;p&gt;Hot on the heels of coast 1.0 comes coast.alpha, why dot alpha and not 2.0?&lt;/p&gt;&lt;p&gt;Because I hate you.&lt;/p&gt;&lt;p&gt;No I'm kidding, I don't hate you! I really did it because there are so many new, incompatible changes, I'd rather just keep 1.0 going, still work on bug fixes and not pretend like you can just upgrade and have everything work out. If you try to upgrade from coast to coast.alpha, you aren't going to have a good time because they aren't the same! The name has changed! Haha!&lt;/p&gt;&lt;p&gt;With that out of the way, let's look at what's new:&lt;/p&gt;&lt;p&gt;&lt;strong&gt;No more leiningen&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;It's a scary, brave new world out there in Clojure tooling land, but luckily, Clojure 1.9.0, tools.deps and makefiles have your back&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Easier namespace references&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;I realized that since I'm making websites with coast, not libraries, there's no point to scatter the project name across every freakin namespace, just reference things from src/ and that's that&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Simpler and more explicit resource routing&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This was mostly a library change, but it's worth mentioning, no more keywords, just symbols.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Simpler models&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;No more dynamic sql generation at all, every bit of sql is static and beautiful, with generators to help out for the inserts, updates and deletes.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Less dependencies&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;I've basically inlined everything that was a separate library before. This makes it so much easier to make underlying changes&lt;/p&gt;&lt;p&gt;&lt;strong&gt;A worker process&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;The one thing coast was missing was a worker process and background jobs, it has it now, although it's kind of weird, just like coast itself, so hopefully someone can either give me a much better solution or just embrace the weird&lt;/p&gt;&lt;p&gt;There are probably other changes, mostly under the hood and the way the generators work since there's no more lein, but it's pretty straightforward... hopefully. Anyway, give it a star on github or at the very least check it out and see if it works for you!&lt;/p&gt;</content></entry></feed>

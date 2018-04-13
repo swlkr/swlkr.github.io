@@ -13,9 +13,9 @@ body {
   grid-template-columns:1fr;
   grid-template-areas:
     "header"
-    "main"
-    "footer";
-  grid-template-rows: 200px 1fr 60px;
+    "social"
+    "main";
+  grid-template-rows: 200px 60px 1fr;
 }
 
 header {
@@ -26,8 +26,8 @@ main {
   grid-area: main;
 }
 
-footer {
-  grid-area: footer;
+social {
+  grid-area: social;
 }
 
 @media(max-width: 768px) {
@@ -50,5 +50,12 @@ pre {
 }
 
 pre code {
+  font-size: 1rem;
+}
+
+code {
+  background-color: #eee;
+  padding: 0 0.5rem;
+  color: red;
   font-size: 1rem;
 }

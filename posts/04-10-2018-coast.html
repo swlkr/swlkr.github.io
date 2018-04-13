@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
+    <title>swlkr</title>
+    <link rel="stylesheet" href="../tachyons.min.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../ocean.css" />
+  </head>
+  <body>
+    <div class="grid">
+      <header class="tc pt4 mw6 center black-80 lh-copy">
+        <a class="link" href="../index.html">
+          <img class="br-100 pa1 ba b--black-10 h3 w3" src="../profile.jpg" />
+        </a>
+        <a class="link black-80 underline" href="../index.html">
+          <div class="sans-serif f5 fw3">@swlkr</div>
+        </a>
+          <div class="sans-serif f5 fw3">Sold my house to go on a non-stop road trip
+            <br/>
+            Making
+            <a class="link black-80 underline" href="https://outsidelist.com">Outside List</a>,
+            <a class="link black-80 underline" href="http://hollabackapp.com">Hollaback</a>, and <a class="link black-80 underline" href="https://github.com/swlkr/coast">Coast on Clojure</a> at pit stops
+        </a>
+      </header>
+
+      <div class="social tc mv4">
+        <a class="link dim black dib h3 w3" href="https://twitter.com/swlkr" title="">
+          <img src="../twitter.svg" />
+        </a>
+        <a class="link dim black dib h3 w3" href="https://github.com/swlkr" title="">
+          <img src="../github.svg" />
+        </a>
+        <a class="link dim black dib h3 w3" href="https://instagram.com/swlkr" title="">
+          <img src="../instagram.svg" />
+        </a>
+      </div>
+
+      <main>
+        <div class="pa4 mw7 center san-serif mt4">
+          <div class="mb5">
+  <div class="tc f1 fw6 lh-solid">coast on clojure</div>
+  <div class="f4 black-40 sans-serif fw2 tc lh-copy">April 10 2018</div>
+</div>
+
+<div class="sans-serif black-80 lh-copy fw4 f4">
+  <h1>Who is behind coast on clojure?</h1><p>Hey, I'm Sean 👋, I like writing clojure and making websites <em>quickly</em> and easily. I've been making websites for about 20 years now, and I've gone through quite a few different frameworks, libraries and the like to know what suits me and maybe what suits you too!</p><p>When I'm not programming, I like to try and promote my websites around the internet, I also like to get outdoors often with my wife and my dog. I also play a mean game of settlers of catan.</p><h1>What is coast on clojure?</h1><p>Coast on clojure is a rails-inspired "full stack web framework" for making websites, or if you don't want to be fancy, it's a bunch of clojure code that helps you make websites.</p><p>I say websites, not web apps, because I think there's a lot of confusion over what makes something a web app vs a site. Heavy use of javascript frameworks come to mind when talking about web apps, which is something I don't really find to be terribly useful when you make websites as a one man band.</p><p>So coast focuses on ease of use above all else. When you're making websites with coast and it isn't easy or obvious on how to proceed, go ahead and send an issue my way, and I'll probably push it to master right away!</p><h1>Why coast on clojure?</h1><p>You should choose coast on clojure if you like clojure and you like making websites.</p><p>Coast gives you a bunch of things that you normally wind up putting together yourself after a lot of searching, trying and failing. Integrating different libraries is really not something I wanted to spend my time on and I don't think you want to either. Let's say you want background jobs, you can look at the existing clojure background job libraries or use a language agnostic one, but you're already spending time not making your websites. That's not good! Use coast and jobs are built in, open your terminal in a folder with a coast app and type</p><pre><code class="bash">coast gen jobs
+make db/migrate
+mkdir jobs
+touch jobs/emails.clj
+</code></pre><p>Edit <code>jobs/emails.clj</code></p><pre><code class="clojure">&#40;ns jobs.emails
+  &#40;:require &#91;coast.jobs&#93;&#41;&#41;
+
+&#40;defn send &#91;email&#93;
+  &#40;mailgun/send email&#41;&#41; ; or whatever you use for email
+
+&#40;defn queue &#91;email&#93;
+  &#40;coast.jobs/queue #'send email&#41;&#41;
+</code></pre><p>BOOM. You have a job that emails that you can use like this:</p><pre><code class="clojure">&#40;require '&#91;jobs.emails&#93;&#41;
+
+&#40;jobs.emails/queue {:to &quot;you@you.com&quot; :from &quot;me@me.com&quot; :subject &quot;subject&quot; :body &quot;body&quot;}&#41;
+</code></pre><p>Coast also has it's own built in worker that is currently pretty naive but can be started up with <code>clj -m coast.worker</code></p><p>This guy emails!</p><h1>Getting started with coast on clojure</h1><p>Starting with coast on clojure is pretty easy, but I'm always open to suggestions.</p><p>Here's how you can start a simple web server with coast right now:</p><pre><code class="bash">mkdir -p proj proj/src
+touch proj/deps.edn
+touch proj/src/server.clj
+</code></pre><pre><code class="clojure">; deps.edn
+{:paths &#91;&quot;src&quot;&#93;
+ :deps {coast.gamma {:git/url &quot;https://github.com/swlkr/coast&quot;
+                     :sha &quot;5242b6dcf6ca77b57de5b77f4dd47516ce459eff&quot;}}}
+</code></pre><pre><code class="clojure">; src/server.clj
+&#40;ns server
+  &#40;:require &#91;coast.gamma :as coast&#93;&#41;&#41;
+
+&#40;defn hello &#91;request&#93;
+  {:status 200
+   :headers {&quot;Content-Type&quot; &quot;text/html&quot;}
+   :body &#40;str &quot;hello &quot; &#40;-&gt; request :params :name&#41;&#41;}&#41;
+
+&#40;def routes &#91;&#91;:get &quot;/hello/:name&quot; hello&#93;&#93;&#41;
+
+&#40;def app &#40;coast/app routes&#41;&#41;
+
+&#40;coast/start-server app&#41;
+</code></pre><p>Then in your terminal, run:</p><pre><code class="bash">clj src/server.clj &amp;
+# you should see =&gt; server is listening on port 1337
+curl localhost:1337/hello/world
+# you should see =&gt; hello world
+</code></pre><p>There are so many nice little things in coast, I'm still taking the time to document them all, but rest assured, document them I will. I also improve the thing every month I make a new website, hopefully one of these days I'll nail the public facing api down and make one version that is backwards compatible until the end of time!</p><p>Stay tuned for more posts about coast!</p>
+</div>
+
+        </div>
+      </main>
+    </div>
+    <script src="../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-11096014-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-11096014-5');
+    </script>
+  </body>
+</html>

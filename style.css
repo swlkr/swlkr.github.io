@@ -5,6 +5,15 @@ html, body {
 body {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
+  background-color: #2C323A;
+}
+
+.off-white {
+  color: #E0E7ED;
+}
+
+a {
+  color: #E0E7ED;
 }
 
 .grid {

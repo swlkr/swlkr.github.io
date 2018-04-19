@@ -24,7 +24,7 @@ a {
     "header"
     "social"
     "main";
-  grid-template-rows: 200px 60px 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
 }
 
 header {

@@ -1,6 +1,1 @@
-src
-deps.edn
 .cpcache
-bin
-.nrepl-port
-Makefile

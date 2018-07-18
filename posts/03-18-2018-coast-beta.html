@@ -63,7 +63,7 @@
 </code></pre><p>This is a route in coast</p><pre><code class="clojure">&#40;defn hello &#91;request&#93;
   &#91;:div &quot;hello world!&quot;&#93;&#41;
 
-&#40;def routes &#91;&#91;:get &quot;/&quot; home&#93;&#93;&#41;
+&#40;def routes &#91;&#91;:get &quot;/&quot; hello&#93;&#93;&#41;
 
 &#40;def app &#40;coast/app routes&#41;&#41;
 </code></pre><p>Routes in coast are a vector of vectors, the routes that are on top get matched first</p><pre><code class="clojure">&#40;defn hello &#91;request&#93;
@@ -72,7 +72,7 @@
 &#40;defn goodbye &#91;request&#93;
   &#91;:div &quot;goodbye, cruel world!&quot;&#93;&#41;
 
-&#40;def routes &#91;&#91;:get &quot;/&quot; home&#93;
+&#40;def routes &#91;&#91;:get &quot;/&quot; hello&#93;
              &#91;:get &quot;/&quot; goodbye&#93;&#93;&#41;
 
 &#40;def app &#40;coast/app routes&#41;&#41;

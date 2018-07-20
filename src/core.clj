@@ -27,7 +27,7 @@
 (def img (partial front-matter :img))
 
 (defn drop-front-matter [s]
-  (some-> (string/replace s #"(?s)---(.*)---" "")
+  (some-> (string/replace-first s #"(?s)---\n(.*)\n---" "")
           (string/trim)))
 
 (defn post [filename]

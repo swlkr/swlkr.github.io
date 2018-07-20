@@ -1,4 +1,262 @@
-<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><id>urn:swlkr-com:feed</id><updated>May 19 2018</updated><title type="text">swlkr</title><link rel="self" href="http://swlkr.com/rss.xml"></link><entry><title>coast.delta routing</title><updated>May 19 2018</updated><author><name>Sean Walker</name></author><link href="http://swlkr.com/posts/05-19-2018-coast-delta-routing.html"></link><id>urn:swlkr-com:feed:post:coast.delta routing</id><content type="html">&lt;p&gt;It's remained pretty much the same, except for support for named routes! Finally! Two things had to happen, one, I had to start referring to routes by symbol instead of directly by function due to a circular reference error and two, I had to change most of the user facing api code, &lt;a href='https://www.youtube.com/watch?v=Gzj723LkRJY'&gt;woops&lt;/a&gt;. Here's what it looks like.&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;def routes &amp;#91;&amp;#91;:get &amp;quot;/&amp;quot; `controllers.home/index :home&amp;#93;&amp;#93;
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><id>urn:swlkr-com:feed</id><updated>July 20 2018</updated><title type="text">swlkr</title><link rel="self" href="http://swlkr.com/rss.xml"></link><entry><title>The BIG, BEAUTIFUL Guide to Coast on Clojure</title><updated>July 20 2018</updated><author><name>Sean Walker</name></author><link href="http://swlkr.com/posts/07-20-2018-the-big-beautiful-guide-to-coast.html"></link><id>urn:swlkr-com:feed:post:The BIG, BEAUTIFUL Guide to Coast on Clojure</id><content type="html">&lt;p&gt;Getting started with coast on clojure is easy! That's kind of the whole point of the thing. Let's make a blog called... bloggg. Points for originality.&lt;/p&gt;&lt;h2&gt;Start here&lt;/h2&gt;&lt;pre&gt;&lt;code class="bash"&gt;coast new bloggg
+cd bloggg
+git init
+git commit -am &amp;quot;Initial commit&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Alright, now there's a folder called bloggg, here's what's inside:&lt;/p&gt;&lt;pre&gt;&lt;code class="bash"&gt;.
+├── Makefile
+├── README.md
+├── bin
+│   └── nrepl.clj
+├── deps.edn
+├── resources
+│   └── public
+│       ├── css
+│       │   └── app.css
+│       └── js
+│           └── app.js
+├── src
+│   ├── components.clj
+│   ├── controllers
+│   │   └── home.clj
+│   ├── routes.clj
+│   ├── server.clj
+│   └── views
+│       ├── errors.clj
+│       └── home.clj
+└── test
+└── server&amp;#95;test.clj
+
+9 directories, 13 files
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Not too much stuff, but still enough to be confusing. Here's how it's laid out, the src/routes.clj is where everything goes down, it's the map to the rest of the app, every function that runs code and every url is here. There's also components which you can use to make your own custom html elements with clojure, so you don't have to worry about styles and things across elements or complex css issues where like some things have padding and some don't. The first thing I do in all of my coast projects is add a css framework, in this case it's tachyons:&lt;/p&gt;&lt;pre&gt;&lt;code class="bash"&gt;wget -P resources/public/css https://raw.githubusercontent.com/tachyons-css/tachyons/master/css/tachyons.min.css
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now let's add that to the layout function which wraps all of your views in some common html, add this underneath the &lt;code&gt;&amp;#91;:head&amp;#93;&lt;/code&gt; part&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;defn layout &amp;#91;request body&amp;#93;
+  &amp;#91;:html
+    &amp;#91;:head
+     &amp;#91;:meta {:name &amp;quot;viewport&amp;quot; :content &amp;quot;width=device-width, initial-scale=1&amp;quot;}&amp;#93;
+     &amp;#91;:link {:href &amp;quot;/css/app.css&amp;quot; :type &amp;quot;text/css&amp;quot; :rel &amp;quot;stylesheet&amp;quot;}&amp;#93;
+     ; right here
+     &amp;#91;:link {:href &amp;quot;/css/tachyons.min.css&amp;quot; :type &amp;quot;text/css&amp;quot; :rel &amp;quot;stylesheet&amp;quot;}&amp;#93;&amp;#93;
+    &amp;#91;:body
+     body
+     &amp;#91;:script {:src &amp;quot;/js/app.js&amp;quot; :type &amp;quot;text/javascript&amp;quot;}&amp;#93;&amp;#93;&amp;#93;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let's run the app to see our changes:&lt;/p&gt;&lt;pre&gt;&lt;code class="bash"&gt;make nrepl
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then connect to that repl server on port 7888. With atom and proto-repl this looks like Option + Cmd + Y then Enter. Now that you're in a repl navigate over to server.clj and run the -main function to start the development server and subsequently reload any code: (-main).&lt;/p&gt;&lt;p&gt;This is the beauty of clojure, code reloading is built into the language, so any major changes to your code even outside of the framework will get picked up with a call to (-main)! Amaze. Alright. It's time to get down to business and write some code.&lt;/p&gt;&lt;h2&gt;Logging&lt;/h2&gt;&lt;p&gt;Now head on over to localhost:1337 in your browser. Sweet, we have some html rendering! That's half the battle! You'll also notice in the same terminal where the repl server is running, there's output every time you visit a page that looks like this:&lt;/p&gt;&lt;pre&gt;&lt;code class="bash"&gt;GET / controllers.home/index 200 text/html; charset=utf-8 12ms
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;That's the coast logger working there and it only shows you a few things currently: the http method, the url, the route function that got called, the http response and which content type the response was along with how long the whole thing took.&lt;/p&gt;&lt;h2&gt;Database migrations&lt;/h2&gt;&lt;p&gt;Let's add authors (since you can't just have posts lying around without someone to write them) to the data with some sweet, sweet schema action.&lt;/p&gt;&lt;pre&gt;&lt;code class="bash"&gt;coast gen schema add-authors
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The name here isn't super important, it's just nice to refer to things by name You should have a new file in &lt;code&gt;resources/migrations/&lt;/code&gt; named &lt;code&gt;{timestamp}-add-authors&lt;/code&gt;. Let's add some text to it:&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;; {timestamp}-add-authors
+
+&amp;#91;{:db/ident :author/nickname
+  :db/type &amp;quot;text&amp;quot;}
+
+ {:db/ident :author/email
+  :db/type &amp;quot;text&amp;quot;}
+
+ {:db/col :author/password
+  :db/type &amp;quot;text&amp;quot;
+  :db/nil? false}&amp;#93;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Before we try to run a migration, let's make a new database for this project. The database name is a combination of the name of the project and the current environment which by default is "dev" there are three possible environments, dev, test and prod, although for the sake of this tutorial, I'll be focusing on dev.&lt;/p&gt;&lt;pre&gt;&lt;code class="bash"&gt;make db/create
+
+Database bloggg&amp;#95;dev created successfully
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now let's add the authors schema to the db:&lt;/p&gt;&lt;pre&gt;&lt;code class="bash"&gt;make db/migrate
+
+-- Migrating:  20180717140955&amp;#95;add&amp;#95;authors ---------------------
+
+&amp;#91;#:db{:ident :author/nickname, :type text} #:db{:ident :author/email, :type text} #:db{:col :author/password, :type text, :nil? false}&amp;#93;
+
+-- 20180717140955&amp;#95;add&amp;#95;authors ---------------------
+
+20180717140955&amp;#95;add&amp;#95;authors migrated successfully
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Routing&lt;/h2&gt;&lt;p&gt;Sweet, it worked with some nice output too! Alright, now let's our authors sign in, out and up. We'll start with sign up. Add a new route and a new file named author:&lt;/p&gt;&lt;pre&gt;&lt;code class="bash"&gt;touch src/author.clj
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Here are the routes we need, one to show the sign up form and the other to POST it.&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;ns routes
+  &amp;#40;:require &amp;#91;coast.router&amp;#93;&amp;#41;&amp;#41;
+
+&amp;#40;def routes &amp;#91;&amp;#91;:get &amp;quot;/&amp;quot; `home/index :home&amp;#93;
+             ; -- these two here --
+             &amp;#91;:get &amp;quot;/sign-up&amp;quot; `author/sign-up :author/sign-up&amp;#93;
+             &amp;#91;:post &amp;quot;/authors&amp;quot; `author/create :author/create&amp;#93;&amp;#93;&amp;#41;
+             ; -- these two here --
+
+&amp;#40;def url-for &amp;#40;coast.router/url-for-routes routes&amp;#41;&amp;#41;
+&amp;#40;def action-for &amp;#40;coast.router/action-for-routes routes&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Before we continue we're going to need another dependency. Coast doesn't come with any password hashing stuff, so we're going to grab &lt;a href='https://funcool.github.io/buddy-hashers/latest/'&gt;buddy.hashers&lt;/a&gt; to get it going. Stop your repl and add this to &lt;code&gt;deps.edn&lt;/code&gt; under the &lt;code&gt;:deps&lt;/code&gt; key&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;buddy/buddy-hashers {:mvn/version &amp;quot;1.3.0&amp;quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Pages&lt;/h2&gt;&lt;p&gt;Normally, I would be writing about models, views and controllers, but with how small clojure code is and with some recent advancements in database access in coast, I can safely put all code related to pages in one file named after the pages related to it, here's what I mean:&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;; src/author.clj
+
+&amp;#40;ns author
+  &amp;#40;:require &amp;#91;routes :refer &amp;#91;url-for&amp;#93;&amp;#93;
+            &amp;#91;coast.validation :as v&amp;#93;
+            &amp;#91;coast.error :refer &amp;#91;rescue&amp;#93;&amp;#93;
+            &amp;#91;coast.responses :as res&amp;#93;
+            &amp;#91;coast.db :as db&amp;#93;
+            &amp;#91;buddy.hashers :as hashers&amp;#93;&amp;#41;&amp;#41;
+
+
+&amp;#40;defn sign-up &amp;#91;req&amp;#93;
+  &amp;#91;:div
+    &amp;#40;form-for ::create
+      &amp;#91;:label {:for &amp;quot;author/nickname&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;text&amp;quot; :name &amp;quot;author/nickname&amp;quot;}&amp;#93;
+
+      &amp;#91;:label {:for &amp;quot;author/email&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;email&amp;quot; :name &amp;quot;author/email&amp;quot;}&amp;#93;
+
+      &amp;#91;:label {:for &amp;quot;author/password&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;text&amp;quot; :name &amp;quot;author/password&amp;quot;}&amp;#93;
+
+      &amp;#91;:label {:for &amp;quot;author/password-confirmation&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;text&amp;quot; :name &amp;quot;author/password-confirmation&amp;quot;}&amp;#93;
+
+      &amp;#91;:input {:type &amp;quot;submit&amp;quot; :value &amp;quot;Sign Up&amp;quot;}&amp;#93;&amp;#41;&amp;#93;&amp;#41;
+
+
+&amp;#40;defn encrypt-password &amp;#91;m&amp;#93;
+  &amp;#40;assoc m :author/password &amp;#40;hashers/derive &amp;#40;:password m&amp;#41;&amp;#41;&amp;#41;&amp;#41;
+
+
+&amp;#40;defn create &amp;#91;req&amp;#93;
+  &amp;#40;let &amp;#91;&amp;#91;author errors&amp;#93; &amp;#40;-&amp;gt; &amp;#40;:params req&amp;#41;
+                            &amp;#40;v/validate &amp;#91;&amp;#91;:required &amp;#91;::nickname ::email ::password&amp;#93;&amp;#93;
+                                         &amp;#91;:equal &amp;#91;::password ::password-confirmation&amp;#93;
+                                          &amp;quot;dont match&amp;quot;&amp;#93;
+                                         &amp;#91;:min-length 12 ::password&amp;#93;&amp;#93;&amp;#41;
+                            &amp;#40;encrypt-password&amp;#41;
+                            &amp;#40;dissoc ::password-confirmation&amp;#41;
+                            &amp;#40;db/transact&amp;#41;
+                            &amp;#40;rescue&amp;#41;&amp;#41;&amp;#93;
+    &amp;#40;if &amp;#40;nil? errors&amp;#41;
+      &amp;#40;-&amp;gt; &amp;#40;res/redirect &amp;#40;url-for :home/index&amp;#41;&amp;#41;
+          &amp;#40;res/flash &amp;quot;Welcome to bloggg!&amp;quot;&amp;#41;&amp;#41;
+      &amp;#40;views.author/new &amp;#40;merge req errors&amp;#41;&amp;#41;&amp;#41;&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Alright, so this is kind of a lot of stuff. It's overwhelming, no doubt. You have to start somewhere, might as well start here. Here's the breakdown:&lt;/p&gt;&lt;p&gt;The first &lt;code&gt;ns&lt;/code&gt; part is kind of a mess vs something like rails where you don't have to require anything and you have the whole framework available at your fingertips. I'm still working on this, not quite sure how to make something similar yet...&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;ns controllers.author
+  &amp;#40;:require &amp;#91;routes :refer &amp;#91;url-for&amp;#93;&amp;#93;
+            &amp;#91;coast.validation :as v&amp;#93;
+            &amp;#91;coast.error :refer &amp;#91;rescue&amp;#93;&amp;#93;
+            &amp;#91;coast.responses :as res&amp;#93;
+            &amp;#91;coast.db :as db&amp;#93;
+            &amp;#91;buddy.hashers :as hashers&amp;#93;&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We want &lt;code&gt;url-for&lt;/code&gt; because referring to routes by name is so much cooler than strings. For this particular piece, we're encrypting a password, so we'll need &lt;code&gt;buddy.hashers&lt;/code&gt;, we'll also be recovering from business logic errors so we need &lt;code&gt;coast.error&lt;/code&gt; for &lt;code&gt;raise&lt;/code&gt; and &lt;code&gt;rescue&lt;/code&gt; which I'm going to talk more about soon. Also redirecting on form submit so add in &lt;code&gt;coast.responses&lt;/code&gt; and we'll be saving the params to the db after running it through a few functions, so here comes &lt;code&gt;coast.db&lt;/code&gt;.&lt;/p&gt;&lt;h2&gt;HTML (a.ka. Views)&lt;/h2&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;defn sign-up &amp;#91;req&amp;#93;
+  &amp;#91;:div
+    &amp;#40;form-for ::create
+      &amp;#91;:label {:for &amp;quot;author/nickname&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;text&amp;quot; :name &amp;quot;author/nickname&amp;quot;}&amp;#93;
+
+      &amp;#91;:label {:for &amp;quot;author/email&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;email&amp;quot; :name &amp;quot;author/email&amp;quot;}&amp;#93;
+
+      &amp;#91;:label {:for &amp;quot;author/password&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;text&amp;quot; :name &amp;quot;author/password&amp;quot;}&amp;#93;
+
+      &amp;#91;:label {:for &amp;quot;author/password-confirmation&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;text&amp;quot; :name &amp;quot;author/password-confirmation&amp;quot;}&amp;#93;
+
+      &amp;#91;:input {:type &amp;quot;submit&amp;quot; :value &amp;quot;Sign Up&amp;quot;}&amp;#93;&amp;#41;&amp;#93;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It's time to talk about &lt;code&gt;form-for&lt;/code&gt;. Why not just use &lt;code&gt;&amp;#91;:form {:method &amp;quot;POST&amp;quot; :action &amp;quot;/sign-up&amp;quot;}&amp;#93;&lt;/code&gt;? Because! CSRF protection is built into coast, and in order for it work, you need to use the &lt;code&gt;form-for&lt;/code&gt; function from &lt;code&gt;components&lt;/code&gt;. Things like &lt;code&gt;url-for&lt;/code&gt; are nice to use with named routes because you already specified the html verb and url back in &lt;code&gt;routes.clj&lt;/code&gt; you don't need to do it again, unless you want to. This:&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;form {:method :post :url &amp;quot;/sign-up&amp;quot;}&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;and this&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;form-for ::create&amp;#41; ; or
+&amp;#40;form-for :author/create&amp;#41; ; same thing because we're in &amp;#40;ns author&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;are the same thing, in fact &lt;code&gt;form-for&lt;/code&gt; is a &lt;strong&gt;pure&lt;/strong&gt; function &lt;i&gt;(FP alert)&lt;/i&gt; that is partially applied with routes and returns a map representing the http method and url for the given route name. Slick. 💫&lt;/p&gt;&lt;p&gt;One thing that is kind of awkward looking at this function is the mixing of hiccup with regular clojure functions. I am working on that, but stick with coast and this will get better with time.&lt;/p&gt;&lt;h2&gt;The Request&lt;/h2&gt;&lt;p&gt;Moving on from that next bit, let's tackle the actual function that gets called from the client, &lt;code&gt;create&lt;/code&gt;.&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;defn create &amp;#91;req&amp;#93;
+  &amp;#40;let &amp;#91;&amp;#91;author errors&amp;#93; &amp;#40;-&amp;gt; &amp;#40;:params req&amp;#41;
+                            &amp;#40;v/validate &amp;#91;&amp;#91;:required &amp;#91;::nickname ::email ::password&amp;#93;&amp;#93;
+                                         &amp;#91;:equal &amp;#91;::password ::password-confirmation&amp;#93;
+                                          &amp;quot;dont match&amp;quot;&amp;#93;
+                                         &amp;#91;:min-length 12 ::password&amp;#93;&amp;#93;&amp;#41;
+                            &amp;#40;encrypt-password&amp;#41;
+                            &amp;#40;dissoc ::password-confirmation&amp;#41;
+                            &amp;#40;db/transact&amp;#41;
+                            &amp;#40;rescue&amp;#41;&amp;#41;&amp;#93;
+    &amp;#40;if &amp;#40;nil? errors&amp;#41;
+      &amp;#40;-&amp;gt; &amp;#40;res/redirect &amp;#40;url-for :home/index&amp;#41;&amp;#41;
+          &amp;#40;res/flash &amp;quot;Welcome to bloggg!&amp;quot;&amp;#41;&amp;#41;
+      &amp;#40;sign-up &amp;#40;merge req errors&amp;#41;&amp;#41;&amp;#41;&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The first thing is that this function takes one argument, &lt;code&gt;req&lt;/code&gt; and here is what it looks like:&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;; the req argument
+{:request-method :post
+ :uri &amp;quot;/authors&amp;quot;
+ :params {:author/nickname &amp;quot;&amp;quot;
+          :author/email &amp;quot;&amp;quot;
+          :author/password &amp;quot;&amp;quot;
+          :author/password-confirmation &amp;quot;&amp;quot;
+          :csrf-token &amp;quot;&amp;quot;}}
+ ; ... there's a lot more stuff, but this is what we care about
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If you're interested in knowing about the whole thing you can either &lt;code&gt;println&lt;/code&gt; it or &lt;a href='https://github.com/ring-clojure/ring/wiki/Concepts#requests'&gt;head over here and do some reading&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;So hopefully now it's clear what the rest of the code is doing:&lt;/p&gt;&lt;ol&gt;&lt;li&gt;Validate the values of those keys with &lt;code&gt;validate&lt;/code&gt;&lt;/li&gt;&lt;li&gt;Encrypt the password with &lt;code&gt;encrypt-password&lt;/code&gt;&lt;/li&gt;&lt;li&gt;Select only the keys we need for inserting into the db&lt;/li&gt;&lt;li&gt;Save our keys and values to the database with &lt;code&gt;db/transact&lt;/code&gt;&lt;/li&gt;&lt;li&gt;Handle any validation or common database errors with &lt;code&gt;rescue&lt;/code&gt;&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;The next thing that is really cool is the thread-first macro &lt;code&gt;-&amp;gt;&lt;/code&gt; this thing "threads" the first argument through each of the functions in the same set of parens &lt;code&gt;&amp;#40;&amp;#41;&lt;/code&gt;. &lt;code&gt;&amp;#40;:params req&amp;#41;&lt;/code&gt; does not get "threaded", that's just a normal key access function, getting the params out of the map from earlier.&lt;/p&gt;&lt;h2&gt;Validations&lt;/h2&gt;&lt;p&gt;The first function is the &lt;code&gt;v/validate&lt;/code&gt; function which is actually just a wrapper around &lt;a href='https://github.com/jkk/verily'&gt;this library&lt;/a&gt;&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;-&amp;gt; ;&amp;#40;:params req&amp;#41;
+    &amp;#40;v/validate &amp;#91;&amp;#91;:required &amp;#91;::nickname ::email ::password&amp;#93;&amp;#93;
+                 &amp;#91;:equal &amp;#91;::password ::password-confirmation&amp;#93;
+                  &amp;quot;dont match&amp;quot;&amp;#93;
+                 &amp;#91;:min-length 12 ::password&amp;#93;&amp;#93;&amp;#41;
+    ;&amp;#40;encrypt-password&amp;#41;
+    ;&amp;#40;select-keys &amp;#91;::nickname ::email ::password&amp;#93;&amp;#41;
+    ;&amp;#40;db/transact&amp;#41;
+    ;&amp;#40;rescue&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This is similar to something like rails where you define the validation with a class representing some database table. The next function is &lt;code&gt;encrypt-password&lt;/code&gt;.&lt;/p&gt;&lt;h2&gt;Encryption&lt;/h2&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;defn encrypt-password &amp;#91;m&amp;#93;
+  &amp;#40;assoc m ::password &amp;#40;hashers/derive &amp;#40;::password m&amp;#41;&amp;#41;&amp;#41;&amp;#41;
+
+&amp;#40;-&amp;gt; ;&amp;#40;:params req&amp;#41;
+    ;&amp;#40;v/validate &amp;#91;&amp;#91;:required &amp;#91;::nickname ::email ::password&amp;#93;&amp;#93;
+    ;             &amp;#91;:equal &amp;#91;::password ::password-confirmation&amp;#93;
+    ;              &amp;quot;dont match&amp;quot;&amp;#93;
+    ;             &amp;#91;:min-length 12 ::password&amp;#93;&amp;#93;&amp;#41;
+    ;&amp;#40;encrypt-password&amp;#41;
+    ;&amp;#40;select-keys &amp;#91;::nickname ::email ::password&amp;#93;&amp;#41;
+    ;&amp;#40;db/transact&amp;#41;
+    ;&amp;#40;rescue&amp;#41;&amp;#41;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Parameter Whitelist&lt;/h2&gt;&lt;p&gt;After this thing is encrypted, we don't need the password-confirmation anymore, we only want &lt;code&gt;::nickname&lt;/code&gt;, &lt;code&gt;::email&lt;/code&gt; and &lt;code&gt;::password&lt;/code&gt;, so we select them with &lt;code&gt;select-keys&lt;/code&gt;. After that we &lt;em&gt;finally&lt;/em&gt; get to insert this data into the db with &lt;code&gt;transact&lt;/code&gt; and we handle any errors from &lt;code&gt;raise&lt;/code&gt; with &lt;code&gt;rescue&lt;/code&gt;&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;-&amp;gt; ;&amp;#40;:params req&amp;#41;
+    ;&amp;#40;v/validate &amp;#91;&amp;#91;:required &amp;#91;::nickname ::email ::password&amp;#93;&amp;#93;
+    ;             &amp;#91;:equal &amp;#91;::password ::password-confirmation&amp;#93;
+    ;              &amp;quot;dont match&amp;quot;&amp;#93;
+    ;             &amp;#91;:min-length 12 ::password&amp;#93;&amp;#93;&amp;#41;
+    ;&amp;#40;encrypt-password&amp;#41;
+    &amp;#40;select-keys &amp;#91;::nickname ::email ::password&amp;#93;&amp;#41;
+    ;&amp;#40;db/transact&amp;#41;
+    ;&amp;#40;rescue&amp;#41;&amp;#41;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Insert into the database&lt;/h2&gt;&lt;p&gt;At this point, we should have everything we need to insert into the database, and that's here&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;-&amp;gt; ;&amp;#40;:params req&amp;#41;
+    ;&amp;#40;v/validate &amp;#91;&amp;#91;:required &amp;#91;::nickname ::email ::password&amp;#93;&amp;#93;
+    ;             &amp;#91;:equal &amp;#91;::password ::password-confirmation&amp;#93;
+    ;              &amp;quot;dont match&amp;quot;&amp;#93;
+    ;             &amp;#91;:min-length 12 ::password&amp;#93;&amp;#93;&amp;#41;
+    ;&amp;#40;encrypt-password&amp;#41;
+    ;&amp;#40;select-keys &amp;#91;::nickname ::email ::password&amp;#93;&amp;#41;
+    &amp;#40;db/transact&amp;#41;
+    ;&amp;#40;rescue&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;db/transact&lt;/code&gt; is really cool, it does an upsert so there's no need to worry about whether you're updating or inserting or what have you, just send it maps and you're good to go.&lt;/p&gt;&lt;h2&gt;Errors, Raise and Rescue&lt;/h2&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;let &amp;#91;&amp;#91;author errors&amp;#93; &amp;#40;-&amp;gt; &amp;#40;:params req&amp;#41;
+                          &amp;#40;v/validate &amp;#91;&amp;#91;:required &amp;#91;::nickname ::email ::password&amp;#93;&amp;#93;
+                                       &amp;#91;:equal &amp;#91;::password ::password-confirmation&amp;#93;
+                                        &amp;quot;dont match&amp;quot;&amp;#93;
+                                       &amp;#91;:min-length 12 ::password&amp;#93;&amp;#93;&amp;#41;
+                          &amp;#40;encrypt-password&amp;#41;
+                          &amp;#40;select-keys &amp;#91;::nickname ::email ::password&amp;#93;&amp;#41;
+                          &amp;#40;db/transact&amp;#41;
+                          &amp;#40;rescue&amp;#41;&amp;#41;
+                      &amp;#93;&amp;#41;
+
+; here's what errors looks like in the case of an empty ::nickname input
+
+{:coast.errors/raise true
+ :errors {:author/nickname &amp;quot;Nickname cannot be blank&amp;quot;}
+ :coast.validation/error :validation}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;rescue&lt;/code&gt; is a macro that calls &lt;code&gt;try&lt;/code&gt; and &lt;code&gt;catch&lt;/code&gt; on an argument that you pass it, it could be a function, or a series of functions, doesn't matter. It will &lt;code&gt;catch&lt;/code&gt; errors with &lt;code&gt;ex-info&lt;/code&gt; with a &lt;code&gt;{:coast.errors/raise true}&lt;/code&gt; key in them and return them as the second argument in that vector &lt;code&gt;&amp;#91;author errors&amp;#93;&lt;/code&gt;. It's kind of like a really naive &lt;code&gt;maybe&lt;/code&gt;. Coast has some built in error handling things around postgres not null and unique errors along with turning validation errors into a map like this &lt;code&gt;{:author/name &amp;quot;Name cannot be blank&amp;quot;}&lt;/code&gt;. You can customize the message similar to what you saw in the &lt;code&gt;validate&lt;/code&gt; function.&lt;/p&gt;&lt;p&gt;After all of that there is still some code! Doing the right thing on error or redirecting:&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;if &amp;#40;nil? errors&amp;#41;
+  &amp;#40;-&amp;gt; &amp;#40;res/redirect &amp;#40;url-for :home/index&amp;#41;&amp;#41;
+      &amp;#40;res/flash &amp;quot;Welcome to bloggg!&amp;quot;&amp;#41;&amp;#41;
+  &amp;#40;sign-up &amp;#40;merge req errors&amp;#41;&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Here if there are no errors, then it's time to redirect to the index page with a flash message and show the new post, which we haven't written anything for that yet, but we'll get there.&lt;/p&gt;&lt;p&gt;If there are errors, then we'll just show the new view again with an &lt;code&gt;:errors&lt;/code&gt; key and handle those errors in the form, like so:&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;defn sign-up &amp;#91;req&amp;#93;
+  &amp;#91;:div
+    &amp;#40;form-for ::create
+      &amp;#91;:div {:class &amp;quot;red&amp;quot;}&amp;#93;
+        &amp;#40;-&amp;gt; req :errors :author/nickname&amp;#41;
+      &amp;#91;:label {:for &amp;quot;author/nickname&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;text&amp;quot; :name &amp;quot;author/nickname&amp;quot;}&amp;#93;
+
+      &amp;#91;:div {:class &amp;quot;red&amp;quot;}&amp;#93;
+        &amp;#40;-&amp;gt; req :errors :author/email&amp;#41;
+      &amp;#91;:label {:for &amp;quot;author/email&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;email&amp;quot; :name &amp;quot;author/email&amp;quot;}&amp;#93;
+
+      &amp;#91;:div {:class &amp;quot;red&amp;quot;}&amp;#93;
+        &amp;#40;-&amp;gt; req :errors :author/password&amp;#41;
+      &amp;#91;:label {:for &amp;quot;author/password&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;text&amp;quot; :name &amp;quot;author/password&amp;quot;}&amp;#93;
+
+      &amp;#91;:label {:for &amp;quot;author/password-confirmation&amp;quot;}&amp;#93;
+      &amp;#91;:input {:type &amp;quot;text&amp;quot; :name &amp;quot;author/password-confirmation&amp;quot;}&amp;#93;
+
+      &amp;#91;:input {:type &amp;quot;submit&amp;quot; :value &amp;quot;Sign Up&amp;quot;}&amp;#93;&amp;#41;&amp;#93;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This is such a common pattern, coast will soon abstract some of this away for you, but for right now, it's here in this tutorial.&lt;/p&gt;&lt;p&gt;Stay tuned for the next part where We make this thing a lot prettier and "componentize" some of the html elements...&lt;/p&gt;</content></entry><entry><title>coast.delta routing</title><updated>May 19 2018</updated><author><name>Sean Walker</name></author><link href="http://swlkr.com/posts/05-19-2018-coast-delta-routing.html"></link><id>urn:swlkr-com:feed:post:coast.delta routing</id><content type="html">&lt;p&gt;It's remained pretty much the same, except for support for named routes! Finally! Two things had to happen, one, I had to start referring to routes by symbol instead of directly by function due to a circular reference error and two, I had to change most of the user facing api code, &lt;a href='https://www.youtube.com/watch?v=Gzj723LkRJY'&gt;woops&lt;/a&gt;. Here's what it looks like.&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;def routes &amp;#91;&amp;#91;:get &amp;quot;/&amp;quot; `controllers.home/index :home&amp;#93;&amp;#93;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;That last element in the vector is the name. If you don't give it a name, it defaults to the keyword version of the symbol you give it, so in this case it would be :controllers.home/index.&lt;/p&gt;&lt;p&gt;Here's how you look up routes by name&lt;/p&gt;&lt;pre&gt;&lt;code class="clojure"&gt;&amp;#40;ns routes
   &amp;#40;:require &amp;#91;coast.router :as router&amp;#93;&amp;#41;&amp;#41;
 

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
+    <meta name="description" content="My name is Sean and I make websites" />
+    <title>swlkr</title>
+    <link rel="stylesheet" href="../tachyons.min.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../ocean.css" />
+  </head>
+  <body>
+    <div class="grid">
+      <header class="tc pa4 mw7 center off-white lh-copy">
+        <a class="link" href="../index.html">
+          <img class="br-100 pa1 ba b--black-10 h3 w3" src="../profile.jpg" />
+        </a>
+          <div class="sans-serif f5 fw3">
+            Welcome!
+            <br />
+            Hi! I'm Sean, a regular guy from California, who sold his house to go
+            on an epic road trip across the USA 🇺🇸 with my wife and my dog.
+            <br />
+            <br />
+            I make
+            <a class="link off-white underline" href="https://outsidelist.com">Outside List</a>,
+            <a class="link off-white underline" href="http://hollabackapp.com">Hollaback</a>, <br/>and <a class="link off-white underline" href="https://github.com/swlkr/coast">Coast on Clojure</a> at pit stops
+        </a>
+      </header>
+
+      <div class="social tc">
+        <a class="link dim off-white dib h3 w3" href="http://swlkr.com/rss.xml" title="">
+          <img src="../rss.svg" />
+        </a>
+        <a class="link dim off-white dib h3 w3" href="https://twitter.com/swlkr" title="">
+          <img src="../twitter.svg" />
+        </a>
+        <a class="link dim off-white dib h3 w3" href="https://github.com/swlkr" title="">
+          <img src="../github.svg" />
+        </a>
+        <a class="link dim off-white dib h3 w3" href="https://instagram.com/swlkr" title="">
+          <img src="../instagram.svg" />
+        </a>
+        <a class="link dim off-white dib h3 w3" href="https://medium.com/@swlkr" title="">
+          <img src="../medium.svg" />
+        </a>
+      </div>
+
+      <main>
+        <div class="pa4 pt0 mw7 center san-serif">
+          <div class="mb5">
+  <img src="" />
+</div>
+
+<div class="mb5">
+  <div class="tc f1 fw6 lh-solid off-white">The BIG, BEAUTIFUL Guide to Coast on Clojure</div>
+  <div class="f4 light-gray sans-serif fw2 tc lh-copy">July 20 2018</div>
+</div>
+
+<div class="sans-serif off-white lh-copy fw4 f4">
+  <p>Getting started with coast on clojure is easy! That's kind of the whole point of the thing. Let's make a blog called... bloggg. Points for originality.</p><h2>Start here</h2><pre><code class="bash">coast new bloggg
+cd bloggg
+git init
+git commit -am &quot;Initial commit&quot;
+</code></pre><p>Alright, now there's a folder called bloggg, here's what's inside:</p><pre><code class="bash">.
+├── Makefile
+├── README.md
+├── bin
+│   └── nrepl.clj
+├── deps.edn
+├── resources
+│   └── public
+│       ├── css
+│       │   └── app.css
+│       └── js
+│           └── app.js
+├── src
+│   ├── components.clj
+│   ├── controllers
+│   │   └── home.clj
+│   ├── routes.clj
+│   ├── server.clj
+│   └── views
+│       ├── errors.clj
+│       └── home.clj
+└── test
+└── server&#95;test.clj
+
+9 directories, 13 files
+</code></pre><p>Not too much stuff, but still enough to be confusing. Here's how it's laid out, the src/routes.clj is where everything goes down, it's the map to the rest of the app, every function that runs code and every url is here. There's also components which you can use to make your own custom html elements with clojure, so you don't have to worry about styles and things across elements or complex css issues where like some things have padding and some don't. The first thing I do in all of my coast projects is add a css framework, in this case it's tachyons:</p><pre><code class="bash">wget -P resources/public/css https://raw.githubusercontent.com/tachyons-css/tachyons/master/css/tachyons.min.css
+</code></pre><p>Now let's add that to the layout function which wraps all of your views in some common html, add this underneath the <code>&#91;:head&#93;</code> part</p><pre><code class="clojure">&#40;defn layout &#91;request body&#93;
+  &#91;:html
+    &#91;:head
+     &#91;:meta {:name &quot;viewport&quot; :content &quot;width=device-width, initial-scale=1&quot;}&#93;
+     &#91;:link {:href &quot;/css/app.css&quot; :type &quot;text/css&quot; :rel &quot;stylesheet&quot;}&#93;
+     ; right here
+     &#91;:link {:href &quot;/css/tachyons.min.css&quot; :type &quot;text/css&quot; :rel &quot;stylesheet&quot;}&#93;&#93;
+    &#91;:body
+     body
+     &#91;:script {:src &quot;/js/app.js&quot; :type &quot;text/javascript&quot;}&#93;&#93;&#93;&#41;
+</code></pre><p>Let's run the app to see our changes:</p><pre><code class="bash">make nrepl
+</code></pre><p>Then connect to that repl server on port 7888. With atom and proto-repl this looks like Option + Cmd + Y then Enter. Now that you're in a repl navigate over to server.clj and run the -main function to start the development server and subsequently reload any code: (-main).</p><p>This is the beauty of clojure, code reloading is built into the language, so any major changes to your code even outside of the framework will get picked up with a call to (-main)! Amaze. Alright. It's time to get down to business and write some code.</p><h2>Logging</h2><p>Now head on over to localhost:1337 in your browser. Sweet, we have some html rendering! That's half the battle! You'll also notice in the same terminal where the repl server is running, there's output every time you visit a page that looks like this:</p><pre><code class="bash">GET / controllers.home/index 200 text/html; charset=utf-8 12ms
+</code></pre><p>That's the coast logger working there and it only shows you a few things currently: the http method, the url, the route function that got called, the http response and which content type the response was along with how long the whole thing took.</p><h2>Database migrations</h2><p>Let's add authors (since you can't just have posts lying around without someone to write them) to the data with some sweet, sweet schema action.</p><pre><code class="bash">coast gen schema add-authors
+</code></pre><p>The name here isn't super important, it's just nice to refer to things by name You should have a new file in <code>resources/migrations/</code> named <code>{timestamp}-add-authors</code>. Let's add some text to it:</p><pre><code class="clojure">; {timestamp}-add-authors
+
+&#91;{:db/ident :author/nickname
+  :db/type &quot;text&quot;}
+
+ {:db/ident :author/email
+  :db/type &quot;text&quot;}
+
+ {:db/col :author/password
+  :db/type &quot;text&quot;
+  :db/nil? false}&#93;
+</code></pre><p>Before we try to run a migration, let's make a new database for this project. The database name is a combination of the name of the project and the current environment which by default is "dev" there are three possible environments, dev, test and prod, although for the sake of this tutorial, I'll be focusing on dev.</p><pre><code class="bash">make db/create
+
+Database bloggg&#95;dev created successfully
+</code></pre><p>Now let's add the authors schema to the db:</p><pre><code class="bash">make db/migrate
+
+-- Migrating:  20180717140955&#95;add&#95;authors ---------------------
+
+&#91;#:db{:ident :author/nickname, :type text} #:db{:ident :author/email, :type text} #:db{:col :author/password, :type text, :nil? false}&#93;
+
+-- 20180717140955&#95;add&#95;authors ---------------------
+
+20180717140955&#95;add&#95;authors migrated successfully
+</code></pre><h2>Routing</h2><p>Sweet, it worked with some nice output too! Alright, now let's our authors sign in, out and up. We'll start with sign up. Add a new route and a new file named author:</p><pre><code class="bash">touch src/author.clj
+</code></pre><p>Here are the routes we need, one to show the sign up form and the other to POST it.</p><pre><code class="clojure">&#40;ns routes
+  &#40;:require &#91;coast.router&#93;&#41;&#41;
+
+&#40;def routes &#91;&#91;:get &quot;/&quot; `home/index :home&#93;
+             ; -- these two here --
+             &#91;:get &quot;/sign-up&quot; `author/sign-up :author/sign-up&#93;
+             &#91;:post &quot;/authors&quot; `author/create :author/create&#93;&#93;&#41;
+             ; -- these two here --
+
+&#40;def url-for &#40;coast.router/url-for-routes routes&#41;&#41;
+&#40;def action-for &#40;coast.router/action-for-routes routes&#41;&#41;
+</code></pre><p>Before we continue we're going to need another dependency. Coast doesn't come with any password hashing stuff, so we're going to grab <a href='https://funcool.github.io/buddy-hashers/latest/'>buddy.hashers</a> to get it going. Stop your repl and add this to <code>deps.edn</code> under the <code>:deps</code> key</p><pre><code class="clojure">buddy/buddy-hashers {:mvn/version &quot;1.3.0&quot;}
+</code></pre><h2>Pages</h2><p>Normally, I would be writing about models, views and controllers, but with how small clojure code is and with some recent advancements in database access in coast, I can safely put all code related to pages in one file named after the pages related to it, here's what I mean:</p><pre><code class="clojure">; src/author.clj
+
+&#40;ns author
+  &#40;:require &#91;routes :refer &#91;url-for&#93;&#93;
+            &#91;coast.validation :as v&#93;
+            &#91;coast.error :refer &#91;rescue&#93;&#93;
+            &#91;coast.responses :as res&#93;
+            &#91;coast.db :as db&#93;
+            &#91;buddy.hashers :as hashers&#93;&#41;&#41;
+
+
+&#40;defn sign-up &#91;req&#93;
+  &#91;:div
+    &#40;form-for ::create
+      &#91;:label {:for &quot;author/nickname&quot;}&#93;
+      &#91;:input {:type &quot;text&quot; :name &quot;author/nickname&quot;}&#93;
+
+      &#91;:label {:for &quot;author/email&quot;}&#93;
+      &#91;:input {:type &quot;email&quot; :name &quot;author/email&quot;}&#93;
+
+      &#91;:label {:for &quot;author/password&quot;}&#93;
+      &#91;:input {:type &quot;text&quot; :name &quot;author/password&quot;}&#93;
+
+      &#91;:label {:for &quot;author/password-confirmation&quot;}&#93;
+      &#91;:input {:type &quot;text&quot; :name &quot;author/password-confirmation&quot;}&#93;
+
+      &#91;:input {:type &quot;submit&quot; :value &quot;Sign Up&quot;}&#93;&#41;&#93;&#41;
+
+
+&#40;defn encrypt-password &#91;m&#93;
+  &#40;assoc m :author/password &#40;hashers/derive &#40;:password m&#41;&#41;&#41;&#41;
+
+
+&#40;defn create &#91;req&#93;
+  &#40;let &#91;&#91;author errors&#93; &#40;-&gt; &#40;:params req&#41;
+                            &#40;v/validate &#91;&#91;:required &#91;::nickname ::email ::password&#93;&#93;
+                                         &#91;:equal &#91;::password ::password-confirmation&#93;
+                                          &quot;dont match&quot;&#93;
+                                         &#91;:min-length 12 ::password&#93;&#93;&#41;
+                            &#40;encrypt-password&#41;
+                            &#40;dissoc ::password-confirmation&#41;
+                            &#40;db/transact&#41;
+                            &#40;rescue&#41;&#41;&#93;
+    &#40;if &#40;nil? errors&#41;
+      &#40;-&gt; &#40;res/redirect &#40;url-for :home/index&#41;&#41;
+          &#40;res/flash &quot;Welcome to bloggg!&quot;&#41;&#41;
+      &#40;views.author/new &#40;merge req errors&#41;&#41;&#41;&#41;&#41;
+</code></pre><p>Alright, so this is kind of a lot of stuff. It's overwhelming, no doubt. You have to start somewhere, might as well start here. Here's the breakdown:</p><p>The first <code>ns</code> part is kind of a mess vs something like rails where you don't have to require anything and you have the whole framework available at your fingertips. I'm still working on this, not quite sure how to make something similar yet...</p><pre><code class="clojure">&#40;ns controllers.author
+  &#40;:require &#91;routes :refer &#91;url-for&#93;&#93;
+            &#91;coast.validation :as v&#93;
+            &#91;coast.error :refer &#91;rescue&#93;&#93;
+            &#91;coast.responses :as res&#93;
+            &#91;coast.db :as db&#93;
+            &#91;buddy.hashers :as hashers&#93;&#41;&#41;
+</code></pre><p>We want <code>url-for</code> because referring to routes by name is so much cooler than strings. For this particular piece, we're encrypting a password, so we'll need <code>buddy.hashers</code>, we'll also be recovering from business logic errors so we need <code>coast.error</code> for <code>raise</code> and <code>rescue</code> which I'm going to talk more about soon. Also redirecting on form submit so add in <code>coast.responses</code> and we'll be saving the params to the db after running it through a few functions, so here comes <code>coast.db</code>.</p><h2>HTML (a.ka. Views)</h2><pre><code class="clojure">&#40;defn sign-up &#91;req&#93;
+  &#91;:div
+    &#40;form-for ::create
+      &#91;:label {:for &quot;author/nickname&quot;}&#93;
+      &#91;:input {:type &quot;text&quot; :name &quot;author/nickname&quot;}&#93;
+
+      &#91;:label {:for &quot;author/email&quot;}&#93;
+      &#91;:input {:type &quot;email&quot; :name &quot;author/email&quot;}&#93;
+
+      &#91;:label {:for &quot;author/password&quot;}&#93;
+      &#91;:input {:type &quot;text&quot; :name &quot;author/password&quot;}&#93;
+
+      &#91;:label {:for &quot;author/password-confirmation&quot;}&#93;
+      &#91;:input {:type &quot;text&quot; :name &quot;author/password-confirmation&quot;}&#93;
+
+      &#91;:input {:type &quot;submit&quot; :value &quot;Sign Up&quot;}&#93;&#41;&#93;&#41;
+</code></pre><p>It's time to talk about <code>form-for</code>. Why not just use <code>&#91;:form {:method &quot;POST&quot; :action &quot;/sign-up&quot;}&#93;</code>? Because! CSRF protection is built into coast, and in order for it work, you need to use the <code>form-for</code> function from <code>components</code>. Things like <code>url-for</code> are nice to use with named routes because you already specified the html verb and url back in <code>routes.clj</code> you don't need to do it again, unless you want to. This:</p><pre><code class="clojure">&#40;form {:method :post :url &quot;/sign-up&quot;}&#41;
+</code></pre><p>and this</p><pre><code class="clojure">&#40;form-for ::create&#41; ; or
+&#40;form-for :author/create&#41; ; same thing because we're in &#40;ns author&#41;
+</code></pre><p>are the same thing, in fact <code>form-for</code> is a <strong>pure</strong> function <i>(FP alert)</i> that is partially applied with routes and returns a map representing the http method and url for the given route name. Slick. 💫</p><p>One thing that is kind of awkward looking at this function is the mixing of hiccup with regular clojure functions. I am working on that, but stick with coast and this will get better with time.</p><h2>The Request</h2><p>Moving on from that next bit, let's tackle the actual function that gets called from the client, <code>create</code>.</p><pre><code class="clojure">&#40;defn create &#91;req&#93;
+  &#40;let &#91;&#91;author errors&#93; &#40;-&gt; &#40;:params req&#41;
+                            &#40;v/validate &#91;&#91;:required &#91;::nickname ::email ::password&#93;&#93;
+                                         &#91;:equal &#91;::password ::password-confirmation&#93;
+                                          &quot;dont match&quot;&#93;
+                                         &#91;:min-length 12 ::password&#93;&#93;&#41;
+                            &#40;encrypt-password&#41;
+                            &#40;dissoc ::password-confirmation&#41;
+                            &#40;db/transact&#41;
+                            &#40;rescue&#41;&#41;&#93;
+    &#40;if &#40;nil? errors&#41;
+      &#40;-&gt; &#40;res/redirect &#40;url-for :home/index&#41;&#41;
+          &#40;res/flash &quot;Welcome to bloggg!&quot;&#41;&#41;
+      &#40;sign-up &#40;merge req errors&#41;&#41;&#41;&#41;&#41;
+</code></pre><p>The first thing is that this function takes one argument, <code>req</code> and here is what it looks like:</p><pre><code class="clojure">; the req argument
+{:request-method :post
+ :uri &quot;/authors&quot;
+ :params {:author/nickname &quot;&quot;
+          :author/email &quot;&quot;
+          :author/password &quot;&quot;
+          :author/password-confirmation &quot;&quot;
+          :csrf-token &quot;&quot;}}
+ ; ... there's a lot more stuff, but this is what we care about
+</code></pre><p>If you're interested in knowing about the whole thing you can either <code>println</code> it or <a href='https://github.com/ring-clojure/ring/wiki/Concepts#requests'>head over here and do some reading</a>.</p><p>So hopefully now it's clear what the rest of the code is doing:</p><ol><li>Validate the values of those keys with <code>validate</code></li><li>Encrypt the password with <code>encrypt-password</code></li><li>Select only the keys we need for inserting into the db</li><li>Save our keys and values to the database with <code>db/transact</code></li><li>Handle any validation or common database errors with <code>rescue</code></li></ol><p>The next thing that is really cool is the thread-first macro <code>-&gt;</code> this thing "threads" the first argument through each of the functions in the same set of parens <code>&#40;&#41;</code>. <code>&#40;:params req&#41;</code> does not get "threaded", that's just a normal key access function, getting the params out of the map from earlier.</p><h2>Validations</h2><p>The first function is the <code>v/validate</code> function which is actually just a wrapper around <a href='https://github.com/jkk/verily'>this library</a></p><pre><code class="clojure">&#40;-&gt; ;&#40;:params req&#41;
+    &#40;v/validate &#91;&#91;:required &#91;::nickname ::email ::password&#93;&#93;
+                 &#91;:equal &#91;::password ::password-confirmation&#93;
+                  &quot;dont match&quot;&#93;
+                 &#91;:min-length 12 ::password&#93;&#93;&#41;
+    ;&#40;encrypt-password&#41;
+    ;&#40;select-keys &#91;::nickname ::email ::password&#93;&#41;
+    ;&#40;db/transact&#41;
+    ;&#40;rescue&#41;&#41;
+</code></pre><p>This is similar to something like rails where you define the validation with a class representing some database table. The next function is <code>encrypt-password</code>.</p><h2>Encryption</h2><pre><code class="clojure">&#40;defn encrypt-password &#91;m&#93;
+  &#40;assoc m ::password &#40;hashers/derive &#40;::password m&#41;&#41;&#41;&#41;
+
+&#40;-&gt; ;&#40;:params req&#41;
+    ;&#40;v/validate &#91;&#91;:required &#91;::nickname ::email ::password&#93;&#93;
+    ;             &#91;:equal &#91;::password ::password-confirmation&#93;
+    ;              &quot;dont match&quot;&#93;
+    ;             &#91;:min-length 12 ::password&#93;&#93;&#41;
+    ;&#40;encrypt-password&#41;
+    ;&#40;select-keys &#91;::nickname ::email ::password&#93;&#41;
+    ;&#40;db/transact&#41;
+    ;&#40;rescue&#41;&#41;
+
+</code></pre><h2>Parameter Whitelist</h2><p>After this thing is encrypted, we don't need the password-confirmation anymore, we only want <code>::nickname</code>, <code>::email</code> and <code>::password</code>, so we select them with <code>select-keys</code>. After that we <em>finally</em> get to insert this data into the db with <code>transact</code> and we handle any errors from <code>raise</code> with <code>rescue</code></p><pre><code class="clojure">&#40;-&gt; ;&#40;:params req&#41;
+    ;&#40;v/validate &#91;&#91;:required &#91;::nickname ::email ::password&#93;&#93;
+    ;             &#91;:equal &#91;::password ::password-confirmation&#93;
+    ;              &quot;dont match&quot;&#93;
+    ;             &#91;:min-length 12 ::password&#93;&#93;&#41;
+    ;&#40;encrypt-password&#41;
+    &#40;select-keys &#91;::nickname ::email ::password&#93;&#41;
+    ;&#40;db/transact&#41;
+    ;&#40;rescue&#41;&#41;
+
+</code></pre><h2>Insert into the database</h2><p>At this point, we should have everything we need to insert into the database, and that's here</p><pre><code class="clojure">&#40;-&gt; ;&#40;:params req&#41;
+    ;&#40;v/validate &#91;&#91;:required &#91;::nickname ::email ::password&#93;&#93;
+    ;             &#91;:equal &#91;::password ::password-confirmation&#93;
+    ;              &quot;dont match&quot;&#93;
+    ;             &#91;:min-length 12 ::password&#93;&#93;&#41;
+    ;&#40;encrypt-password&#41;
+    ;&#40;select-keys &#91;::nickname ::email ::password&#93;&#41;
+    &#40;db/transact&#41;
+    ;&#40;rescue&#41;&#41;
+</code></pre><p><code>db/transact</code> is really cool, it does an upsert so there's no need to worry about whether you're updating or inserting or what have you, just send it maps and you're good to go.</p><h2>Errors, Raise and Rescue</h2><pre><code class="clojure">&#40;let &#91;&#91;author errors&#93; &#40;-&gt; &#40;:params req&#41;
+                          &#40;v/validate &#91;&#91;:required &#91;::nickname ::email ::password&#93;&#93;
+                                       &#91;:equal &#91;::password ::password-confirmation&#93;
+                                        &quot;dont match&quot;&#93;
+                                       &#91;:min-length 12 ::password&#93;&#93;&#41;
+                          &#40;encrypt-password&#41;
+                          &#40;select-keys &#91;::nickname ::email ::password&#93;&#41;
+                          &#40;db/transact&#41;
+                          &#40;rescue&#41;&#41;
+                      &#93;&#41;
+
+; here's what errors looks like in the case of an empty ::nickname input
+
+{:coast.errors/raise true
+ :errors {:author/nickname &quot;Nickname cannot be blank&quot;}
+ :coast.validation/error :validation}
+</code></pre><p><code>rescue</code> is a macro that calls <code>try</code> and <code>catch</code> on an argument that you pass it, it could be a function, or a series of functions, doesn't matter. It will <code>catch</code> errors with <code>ex-info</code> with a <code>{:coast.errors/raise true}</code> key in them and return them as the second argument in that vector <code>&#91;author errors&#93;</code>. It's kind of like a really naive <code>maybe</code>. Coast has some built in error handling things around postgres not null and unique errors along with turning validation errors into a map like this <code>{:author/name &quot;Name cannot be blank&quot;}</code>. You can customize the message similar to what you saw in the <code>validate</code> function.</p><p>After all of that there is still some code! Doing the right thing on error or redirecting:</p><pre><code class="clojure">&#40;if &#40;nil? errors&#41;
+  &#40;-&gt; &#40;res/redirect &#40;url-for :home/index&#41;&#41;
+      &#40;res/flash &quot;Welcome to bloggg!&quot;&#41;&#41;
+  &#40;sign-up &#40;merge req errors&#41;&#41;&#41;
+</code></pre><p>Here if there are no errors, then it's time to redirect to the index page with a flash message and show the new post, which we haven't written anything for that yet, but we'll get there.</p><p>If there are errors, then we'll just show the new view again with an <code>:errors</code> key and handle those errors in the form, like so:</p><pre><code class="clojure">&#40;defn sign-up &#91;req&#93;
+  &#91;:div
+    &#40;form-for ::create
+      &#91;:div {:class &quot;red&quot;}&#93;
+        &#40;-&gt; req :errors :author/nickname&#41;
+      &#91;:label {:for &quot;author/nickname&quot;}&#93;
+      &#91;:input {:type &quot;text&quot; :name &quot;author/nickname&quot;}&#93;
+
+      &#91;:div {:class &quot;red&quot;}&#93;
+        &#40;-&gt; req :errors :author/email&#41;
+      &#91;:label {:for &quot;author/email&quot;}&#93;
+      &#91;:input {:type &quot;email&quot; :name &quot;author/email&quot;}&#93;
+
+      &#91;:div {:class &quot;red&quot;}&#93;
+        &#40;-&gt; req :errors :author/password&#41;
+      &#91;:label {:for &quot;author/password&quot;}&#93;
+      &#91;:input {:type &quot;text&quot; :name &quot;author/password&quot;}&#93;
+
+      &#91;:label {:for &quot;author/password-confirmation&quot;}&#93;
+      &#91;:input {:type &quot;text&quot; :name &quot;author/password-confirmation&quot;}&#93;
+
+      &#91;:input {:type &quot;submit&quot; :value &quot;Sign Up&quot;}&#93;&#41;&#93;&#41;
+</code></pre><p>This is such a common pattern, coast will soon abstract some of this away for you, but for right now, it's here in this tutorial.</p><p>Stay tuned for the next part where We make this thing a lot prettier and "componentize" some of the html elements...</p>
+</div>
+
+        </div>
+      </main>
+    </div>
+    <script src="../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

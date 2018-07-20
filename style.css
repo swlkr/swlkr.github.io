@@ -63,8 +63,7 @@ pre code {
 }
 
 code {
-  background-color: #eee;
-  padding: 0 0.5rem;
-  color: red;
+  background-color: #2b303b;
+  color: #c0c5ce;
   font-size: 1rem;
 }

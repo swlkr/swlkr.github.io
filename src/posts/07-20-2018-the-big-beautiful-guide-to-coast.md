@@ -104,8 +104,9 @@ You should have a new file in `resources/migrations/` named `{timestamp}-add-aut
 [{:db/ident :author/nickname
   :db/type "text"}
 
- {:db/ident :author/email
-  :db/type "text"}
+ {:db/col :author/email
+  :db/type "text"
+  :db/nil? false}
 
  {:db/col :author/password
   :db/type "text"

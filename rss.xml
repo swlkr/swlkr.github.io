@@ -46,8 +46,9 @@ git commit -am &amp;quot;Initial commit&amp;quot;
 &amp;#91;{:db/ident :author/nickname
   :db/type &amp;quot;text&amp;quot;}
 
- {:db/ident :author/email
-  :db/type &amp;quot;text&amp;quot;}
+ {:db/col :author/email
+  :db/type &amp;quot;text&amp;quot;
+  :db/nil? false}
 
  {:db/col :author/password
   :db/type &amp;quot;text&amp;quot;

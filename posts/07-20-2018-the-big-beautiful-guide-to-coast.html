@@ -107,8 +107,9 @@ git commit -am &quot;Initial commit&quot;
 &#91;{:db/ident :author/nickname
   :db/type &quot;text&quot;}
 
- {:db/ident :author/email
-  :db/type &quot;text&quot;}
+ {:db/col :author/email
+  :db/type &quot;text&quot;
+  :db/nil? false}
 
  {:db/col :author/password
   :db/type &quot;text&quot;

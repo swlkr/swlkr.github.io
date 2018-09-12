@@ -10,192 +10,37 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="ocean.css" />
   </head>
-  <body>
-    <div class="grid">
-      <header class="tc pa4 mw7 center off-white lh-copy">
-        <a class="link" href="index.html">
-          <img class="br-100 pa1 ba b--black-10 h3 w3" src="profile.jpg" />
-        </a>
-          <div class="sans-serif f5 fw3">
-            Welcome!
-            <br />
-            Hi! I'm Sean, a regular guy from California, who sold his house to go
-            on an epic road trip across the USA 🇺🇸 with my wife and my dog.
-            <br />
-            <br />
-            I make
-            <a class="link off-white underline" href="https://outsidelist.com">Outside List</a>,
-            <a class="link off-white underline" href="http://hollabackapp.com">Hollaback</a>, <br/>and <a class="link off-white underline" href="https://github.com/swlkr/coast">Coast on Clojure</a> at pit stops
-        </a>
+  <body class="bg-off-black off-white h-100 tc">
+    <div class="mw7 center pa3 pa4-m pa5-l">
+      <header class="mb3">
+        <div class="w-100">
+          <a class="link" href="index.html">
+            <img class="br-100 pa1 ba b--black-10 h3 w3" src="profile.jpg" />
+          </a>
+          <p class="f5">
+            <a class="link white hover-blue" href="/">Sean Walker</a>
+          </p>
+          <h1 class="f2 f1-l lh-title mt0">
+            Takes <a class="link blue hover-white" href="https://outsidelist.com/@swlkr">hikes</a>
+            <span class="db">and makes <a class="link orange hover-white" href="https://producthunt.com/@swlkr/made">sites</a>
+            </span>
+          </h1>
+        </div>
       </header>
-
-      <div class="social tc">
-        <a class="link dim off-white dib h3 w3" href="http://swlkr.com/rss.xml" title="">
-          <img src="rss.svg" />
-        </a>
+      <div>
         <a class="link dim off-white dib h3 w3" href="https://twitter.com/swlkr" title="">
           <img src="twitter.svg" />
         </a>
         <a class="link dim off-white dib h3 w3" href="https://github.com/swlkr" title="">
           <img src="github.svg" />
         </a>
-        <a class="link dim off-white dib h3 w3" href="https://instagram.com/swlkr" title="">
-          <img src="instagram.svg" />
-        </a>
         <a class="link dim off-white dib h3 w3" href="https://medium.com/@swlkr" title="">
           <img src="medium.svg" />
         </a>
       </div>
-
-      <main>
-        <div class="pa4 pt0 mw7 center san-serif">
-          <div class="mb5 mw6 center">
-  <div class="f6 light-gray sans-serif fw3">July 20 2018</div>
-  <a class="f3 fw6 lh-title dim link off-white" href="posts/07-20-2018-the-big-beautiful-guide-to-coast.html">
-    The BIG, BEAUTIFUL Guide to Coast on Clojure
-  </a>
-  <div class="f5 fw3 off-white lh-copy">
-    <p>
-      <p>Getting started with coast on clojure is easy! That's kind of the whole point of the thing. Let's make a blog called... bloggg. Points for originality</p>
-      <a class="link dim link underline light-blue" href="posts/07-20-2018-the-big-beautiful-guide-to-coast.html">Read more</a>
-    </p>
-  </div>
-</div>
-
-<div class="mb5 mw6 center">
-  <div class="f6 light-gray sans-serif fw3">May 19 2018</div>
-  <a class="f3 fw6 lh-title dim link off-white" href="posts/05-19-2018-coast-delta-routing.html">
-    coast.delta routing
-  </a>
-  <div class="f5 fw3 off-white lh-copy">
-    <p>
-      <p>Who needs or wants backwards compatibility anyway? I sure don't. Here's what's new with routing   in coast.delta...</p>
-      <a class="link dim link underline light-blue" href="posts/05-19-2018-coast-delta-routing.html">Read more</a>
-    </p>
-  </div>
-</div>
-
-<div class="mb5 mw6 center">
-  <div class="f6 light-gray sans-serif fw3">April 22 2018</div>
-  <a class="f3 fw6 lh-title dim link off-white" href="posts/04-22-2018-how-i-made-my-first-dollar.html">
-    I made my first $1 from my side projects in just 9 short years 💪
-  </a>
-  <div class="f5 fw3 off-white lh-copy">
-    <p>
-      <p>I’ve been making websites in earnest for 9 years now and I’m excited to report, I’ve just made my first dollar on the internet. How did I do it, why did it take me so long? Sit back, relax and...</p>
-      <a class="link dim link underline light-blue" href="posts/04-22-2018-how-i-made-my-first-dollar.html">Read more</a>
-    </p>
-  </div>
-</div>
-
-<div class="mb5 mw6 center">
-  <div class="f6 light-gray sans-serif fw3">April 19 2018</div>
-  <a class="f3 fw6 lh-title dim link off-white" href="posts/04-19-2018-all-your-ppl.html">
-    All your ppl
-  </a>
-  <div class="f5 fw3 off-white lh-copy">
-    <p>
-      <p>The idea for <a href='http://allyourppl.com'>all your ppl</a> came from my frustration watching my wife, and my friends continue to use this garbage, mega-corp software to communicate with their friends. Ads everywhere, problems like...</p>
-      <a class="link dim link underline light-blue" href="posts/04-19-2018-all-your-ppl.html">Read more</a>
-    </p>
-  </div>
-</div>
-
-<div class="mb5 mw6 center">
-  <div class="f6 light-gray sans-serif fw3">April 16 2018</div>
-  <a class="f3 fw6 lh-title dim link off-white" href="posts/04-16-2018-reinventing-the-wheel-static-site-generator.html">
-    Reinventing the wheel with a clojure static site generator
-  </a>
-  <div class="f5 fw3 off-white lh-copy">
-    <p>
-      <p>There's probably nothing I love more in this world than coming up with my own solution to an already solved problem. People call it...</p>
-      <a class="link dim link underline light-blue" href="posts/04-16-2018-reinventing-the-wheel-static-site-generator.html">Read more</a>
-    </p>
-  </div>
-</div>
-
-<div class="mb5 mw6 center">
-  <div class="f6 light-gray sans-serif fw3">April 10 2018</div>
-  <a class="f3 fw6 lh-title dim link off-white" href="posts/04-10-2018-coast.html">
-    coast on clojure
-  </a>
-  <div class="f5 fw3 off-white lh-copy">
-    <p>
-      <p>Hey, I'm Sean 👋, I like writing clojure and making websites <em>quickly</em> and easily. I've been making websites for about 20 years now, and I've gone through quite a few different frameworks, libraries and the like to know what suits me and maybe...</p>
-      <a class="link dim link underline light-blue" href="posts/04-10-2018-coast.html">Read more</a>
-    </p>
-  </div>
-</div>
-
-<div class="mb5 mw6 center">
-  <div class="f6 light-gray sans-serif fw3">April 05 2018</div>
-  <a class="f3 fw6 lh-title dim link off-white" href="posts/04-05-2018-rss-feeds.html">
-    rss feeds
-  </a>
-  <div class="f5 fw3 off-white lh-copy">
-    <p>
-      <p>I'm getting pretty old now in internet time, I've been browsing the web almost every day (which is sad in retrospect) for the better part of 20 years. I've seen it go from a niche hobby with people making personal websites and blogs, to what it is today...</p>
-      <a class="link dim link underline light-blue" href="posts/04-05-2018-rss-feeds.html">Read more</a>
-    </p>
-  </div>
-</div>
-
-<div class="mb5 mw6 center">
-  <div class="f6 light-gray sans-serif fw3">April 03 2018</div>
-  <a class="f3 fw6 lh-title dim link off-white" href="posts/04-03-2018-making-websites-with-clojure.html">
-    making websites with clojure
-  </a>
-  <div class="f5 fw3 off-white lh-copy">
-    <p>
-      <p>In the clojure world making websites is simple, like tropic thunder simple jack simple. There's one function that handles every request and every response and it's made up of a bunch of other functions and they all operate on the same data structure, a clojure map representing an http request and that one function returns a response which is another clojure map.</p>
-      <a class="link dim link underline light-blue" href="posts/04-03-2018-making-websites-with-clojure.html">Read more</a>
-    </p>
-  </div>
-</div>
-
-<div class="mb5 mw6 center">
-  <div class="f6 light-gray sans-serif fw3">March 18 2018</div>
-  <a class="f3 fw6 lh-title dim link off-white" href="posts/03-18-2018-coast-beta.html">
-    coast.beta: an easy way to make websites with clojure
-  </a>
-  <div class="f5 fw3 off-white lh-copy">
-    <p>
-      <p>When it’s time to make a website, what do you really want? You want to associate a url with a bit of code. <del>You don’t want route files and</del> you don’t want to be googling dependencies left and right, you want...</p>
-      <a class="link dim link underline light-blue" href="posts/03-18-2018-coast-beta.html">Read more</a>
-    </p>
-  </div>
-</div>
-
-<div class="mb5 mw6 center">
-  <div class="f6 light-gray sans-serif fw3">March 16 2018</div>
-  <a class="f3 fw6 lh-title dim link off-white" href="posts/03-16-2018-hollaback.html">
-    hollaback: show your visitors you're a person not a company
-  </a>
-  <div class="f5 fw3 off-white lh-copy">
-    <p>
-      <p>Inspired by my introversion, <a href='https://m.signalvnoise.com/theres-such-a-thing-as-too-helpful-91002b411a62'>this post</a> and <a href='http://nomadlist.com/'>nomad list</a> I’m making <a href='hollabackapp.com'>hollaback</a> a respectful way to show who you are to your website visitors. When I say respect, I mean...</p>
-      <a class="link dim link underline light-blue" href="posts/03-16-2018-hollaback.html">Read more</a>
-    </p>
-  </div>
-</div>
-
-<div class="mb5 mw6 center">
-  <div class="f6 light-gray sans-serif fw3">March 10 2018</div>
-  <a class="f3 fw6 lh-title dim link off-white" href="posts/03-10-2018-coast-alpha.html">
-    coast.alpha: an easy way to make websites with clojure
-  </a>
-  <div class="f5 fw3 off-white lh-copy">
-    <p>
-      <p>Hot on the heels of coast 1.0 comes coast.alpha, why dot alpha and not 2.0? Because I hate you. No I'm kidding, I don't hate you! I really did it because...</p>
-      <a class="link dim link underline light-blue" href="posts/03-10-2018-coast-alpha.html">Read more</a>
-    </p>
-  </div>
-</div>
-
-        </div>
-      </main>
+      <div class="w-100">
+        <img src="camping@2x.png" />
+      </div>
     </div>
-    <script src="highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
   </body>
 </html>

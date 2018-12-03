@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <title>swlkr</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0" />
     <meta name="description" content="My name is Sean and I make websites" />
-    <title>swlkr</title>
-    <link rel="stylesheet" href="tachyons.min.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="ocean.css" />
+    <link rel="stylesheet" href="tachyons.min.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="ocean.css" type="text/css" />
   </head>
   <body class="bg-off-black off-white h-100">
     <div class="mw8 center pa3 pa4-m pa5-l">
-      <header class="mb3 tc">
+      <div class="mb3 tc">
         <div class="w-100">
           <a class="link" href="index.html">
-            <img class="br-100 pa1 ba b--black-10 h3 w3" src="profile.jpg" />
+            <img alt="profile image" class="br-100 pa1 ba b--black-10 h3 w3" src="profile.jpg" />
           </a>
           <p class="f5">
             <a class="link white hover-blue" href="/">Sean Walker</a>
@@ -26,20 +25,32 @@
             </span>
           </h1>
         </div>
-      </header>
+      </div>
       <div class="tc">
         <a class="link dim off-white dib h3 w3" href="https://twitter.com/swlkr" title="">
-          <img src="twitter.svg" />
+          <img alt="twitter icon" src="twitter.svg" />
         </a>
         <a class="link dim off-white dib h3 w3" href="https://github.com/swlkr" title="">
-          <img src="github.svg" />
+          <img alt="github icon" src="github.svg" />
         </a>
-        <a class="link dim off-white dib h3 w3" href="https://medium.com/@swlkr" title="">
-          <img src="medium.svg" />
+        <a class="link dim off-white dib h3 w3" href="https://streaking.app/@swlkr" title="">
+          <img alt="blog icon" src="medium.svg" />
         </a>
       </div>
-      <section class="cf w-100">
-        <article class="fl w-50 w-25-ns pa2-ns">
+      <div class="flex flex-wrap">
+        <div class="w-50 w-25-ns pa2-ns">
+          <div class="pa2 pa0-ns">
+            <a href="https://streaking.app" class="no-underline ph2 ph0-ns pb3 grow db">
+              <div class="aspect-ratio aspect-ratio--1x1">
+                <img style="background-image:url(https://outsidelist.com/Group@2x.png);" class="db bg-center cover aspect-ratio--object" />
+              </div>
+              <h3 class="f5 f4-ns mb0 white">streaking</h3>
+              <h3 class="f6 f5 fw4 mt2 white-80">Write 200 words a day to become a better writer</h3>
+            </a>
+          </div>
+        </div>
+
+        <div class="w-50 w-25-ns pa2-ns">
           <div class="pa2 pa0-ns">
             <a href="https://hollabackapp.com" class="no-underline ph2 ph0-ns pb3 grow db">
               <div class="aspect-ratio aspect-ratio--1x1">
@@ -50,8 +61,8 @@
               <h3 class="f6 f5 fw4 mt2 white-80">Build a relationship with your visitors</h3>
             </a>
           </div>
-        </article>
-        <article class="fl w-50 w-25-ns pa2-ns">
+        </div>
+        <div class="w-50 w-25-ns pa2-ns">
           <div class="pa2 pa0-ns">
             <a href="https://shippp.app" class="no-underline ph2 ph0-ns pb3 grow db">
               <div class="aspect-ratio aspect-ratio--1x1">
@@ -62,20 +73,19 @@
               <h3 class="f6 f5 fw4 mt2 white-80">Build your app in public with shippp.app</h3>
             </a>
           </div>
-        </article>
-        <article class="fl w-50 w-25-ns pa2-ns">
+        </div>
+        <div class="w-50 w-25-ns pa2-ns">
           <div class="pa2 pa0-ns">
             <a href="https://outsidelist.com" class="no-underline ph2 ph0-ns pb3 grow db">
               <div class="aspect-ratio aspect-ratio--1x1">
-                <img style="background-image:url(https://outsidelist.com/italy-lago-di-braies.jpg);"
-                class="db bg-center cover aspect-ratio--object" />
+                <img style="background-image:url(https://outsidelist.com/aac3e4b0-a148-4d17-a241-0cd2df414310.jpg)" class="db bg-center cover aspect-ratio--object" />
               </div>
               <h3 class="f5 f4-ns mb0 white">outsidelist</h3>
               <h3 class="f6 f5 fw4 mt2 white-80">Track your outdoor trips</h3>
             </a>
           </div>
-        </article>
-        <article class="fl w-50 w-25-ns pa2-ns">
+        </div>
+        <div class="w-50 w-25-ns pa2-ns">
           <div class="pa2 pa0-ns">
             <a href="https://magehash.com" class="no-underline ph2 ph0-ns pb3 grow db">
               <div class="aspect-ratio aspect-ratio--1x1">
@@ -86,8 +96,8 @@
               <h3 class="f6 f5 fw4 mt2 white-80">Email notifications when your js changes</h3>
             </a>
           </div>
-        </article>
-      </section>
+        </div>
+      </div>
 
       <div class="w-80 center">
         <img src="camping@2x.png" />

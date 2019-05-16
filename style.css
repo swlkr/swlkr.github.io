@@ -15,3 +15,7 @@ body {
 a {
   color: #E0E7ED;
 }
+
+.lh-copy-lg {
+  line-height: 1.8;
+}

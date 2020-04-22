@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Making Low Memory Websites</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://swlkr.com/low-memory-websites.html" />
+    <link rel="stylesheet" href="/bundle-85176303.css" />
+  </head>
+  <body>
+    <hstack spacing="l">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-04-22</div>
+      </div>
+    </hstack>
+    <p>I&#39;ve been working on my second home grown janet web framework so I can run multiple websites on a single raspberry pi in my closet.</p>
+
+<p>My first web framework in this vein (which I&#39;m still working on) is <a href="https://github.com/joy-framework/joy">joy</a>.</p>
+
+<p>So, you know go smash that star button on github or something.</p>
+
+<p>This next web framework does a lot less. It doesn&#39;t have database stuff built in, you can&#39;t control the middleware very well, and it requires a lot less typing than joy. You can also write everything in one file if you want. It’s a very dynamic framework that leans heavily on macros and global variables and does some things that are probably frowned upon, but oh well. Let’s take a look:</p>
+
+<pre><code>(use trout)
+
+(route/get &quot;/&quot;
+  &quot;hello world&quot;)
+
+(server/start 8000)
+</code></pre>
+
+<p>That’s the whole thing. You don’t have to write any other code to have a working web server. That brings it down to 4 lines of code for a very basic plaintext serving website. Pretty cool. Of course that’s not super useful, it would be better if the thing could actually do something useful like submit a form with a csrf token:</p>
+
+<pre><code>(use trout)
+
+(enable :sessions)
+(enable :csrf-tokens)
+
+(def todos/new
+ (route/get &quot;/todos/new&quot;
+   (let [errors (request :errors)]
+     (form {:method &quot;POST&quot; :action &quot;/todos&quot;}
+       [:input {:type &quot;text&quot; :name &quot;name&quot;}]
+       [:div (errors :name)]))))
+
+(route/post &quot;/todos&quot;
+  (if (body :name)
+     (redirect &quot;/&quot;)
+     (todos/new (put-in request [:errors :name] &quot;Name can’t be blank&quot;))))
+</code></pre>
+
+<p>There&#39;s a bit more going on here the one thing that stands out is that the html has a <code>(form)</code> function that creates a hidden input with a csrf token that gets encrypted and stored in a cookie, this also assumes an environment variable named <code>ENCRYPTION_KEY</code> that relies on <a href="https://github.com/joy-framework/cipher">cipher</a> for encryption/decryption. That takes care of that. Oh the cookie is also set with SameSite=Lax; HttpOnly; so that&#39;s good.</p>
+
+<p>One more thing that allows you to do some interesting things like auth are before filters:</p>
+
+<pre><code>(route/before &quot;/&quot;
+  (when-let [id (get-in session [:account :id])
+             account (db/find :account id)]
+    (put request :account account)))
+</code></pre>
+
+<p>This bit of code runs before all routes that begin with <code>/</code> (so all routes) and sets the current account in the request var if there is one in the session cookie.</p>
+
+<p>You can check the account in a route like this:</p>
+
+<pre><code>(route/get &quot;/requires-account&quot;
+  (when (request :account)
+    [:div &quot;You&#39;re logged in!&quot;]))
+</code></pre>
+
+<p>This will either return <code>nil</code> from <code>when</code> which will go on to return a 404 response or return a div with &quot;You&#39;re logged in!&quot;. One line to check if someone is authenticated or not, pretty nifty.</p>
+
+<p>There are a few other things I&#39;m looking at stealing from <a href="https://github.com/sinatra/sinatra">sinatra</a> and a few more things that will be new, but the idea is to keep the scope super small and see how fast (if it is any faster in the end) I can make new websites and how little memory they use in &quot;production&quot;.</p>
+
+<p>There are a few more things related to middleware like layouts and built in <a href="https://github.com/turbolinks/turbolinks">turbolinks</a> support that I&#39;ll get to in a more in depth post. Oh and also <code>trout</code> is a working name and it&#39;s not open source yet, I&#39;m still trying to figure out ways to make website development even faster.</p>
+
+    <p>&nbsp;</p>
+  </body>
+</html>

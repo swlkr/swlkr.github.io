@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Ask Janet</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://swlkr.com/ask-janet.html" />
+    <link rel="stylesheet" href="/bundle-85176303.css" />
+  </head>
+  <body>
+    <hstack spacing="l">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-05-07</div>
+      </div>
+    </hstack>
+    <h1>Ask Janet</h1>
+
+<p>The question in a world of abundance is &quot;why?&quot;. What is the point of making yet another website?</p>
+
+<p>Well, I don&#39;t have 1500 reputation on stackoverflow, so I can&#39;t make a janet tag, and I would also like to stop searching through gitter for questions/answers. I feel like those are perfectly reasonable reasons to make a website.</p>
+
+<p>With that, I set out to use my ✨shiny ✨new web framework <a href="https://joyframework.com">joy</a> to recreate some of the bits of SO, but specifically for janet.</p>
+
+<p>The first thing I think that&#39;s really cool about joy and about the stack in general is the low memory usage: 11280 kb on a raspberry pi. No clouds here, just tiny computers serving the internet.</p>
+
+<p>I mean sure a blank joy app only uses 5 MB, but 12 MB is nothing to sneeze at, and this is with some pretty FAT sqlite queries, loading quite a bit of data into memory. Not to mention, CSRF protection, full blown encrypted cookies w/ sessions, I mean if you can imagine a web framework feature, this thing has it. So, now that I can run websites off of my raspberry pi, which is $35 and not a $5/mo VPS, what&#39;s next?</p>
+
+<p>The stack still needs a little tweaking, for starters, it&#39;s ugly. There&#39;s no doubt about it, <a href="https://www.cssbed.com/water.css-dark/">water.css</a> is great for fast prototyping with a dark mode, but it comes at the expense of a few rough edges. I&#39;m looking toward <a href="https://andybrewer.github.io/mvp/">mvp.css</a> for my next project.</p>
+
+<p>The rest of the stuff can definitely stay though, I love <a href="https://github.com/alpinejs/alpine">alpine.js</a>, it&#39;s the perfect &quot;framework&quot; for already server rendered html. I&#39;m also going to bring in turbolinks, assuming I can get rid of any flashes of unstyled content.</p>
+
+<p>The stack is here to stay, I&#39;m super happy with how fast things come together:</p>
+
+<ul>
+<li><a href="https://janet-lang.org">janet</a></li>
+<li><a href="https://joyframework.com">joy</a></li>
+<li><a href="https://github.com/alpinejs/alpine">alpine.js</a></li>
+<li><a href="https://www.cssbed.com/water.css-dark/">water.css</a> -&gt; <a href="https://andybrewer.github.io/mvp/">mvp.css</a></li>
+<li><a href="https://almonk.github.io/pylon/">pylon.css</a></li>
+<li><a href="https://ubuntu.com/blog/ubuntu-20-04-lts-arrives">ubuntu</a> -&gt; <a href="https://alpinelinux.org">alpine</a></li>
+<li><a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/">raspberry pi 3 model b+</a></li>
+</ul>
+
+<p><a href="https://github.com/swlkr/askjanet">Here&#39;s the source</a></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Rifleman%27s_Creed">This is my stack. there are many like it, but this one is mine.</a></p>
+
+    <p>&nbsp;</p>
+  </body>
+</html>

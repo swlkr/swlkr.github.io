@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Joy Routes as Functions</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://swlkr.com/joy-routes-as-functions.html" />
+    <link rel="stylesheet" href="/bundle-85176303.css" />
+  </head>
+  <body>
+    <hstack spacing="l">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-05-14</div>
+      </div>
+    </hstack>
+    <p>Joy Routes as Functions</p>
+
+<p>I&#39;m working on a community site for janet documentation and examples, kind of like clojuredocs, but with more janet.</p>
+
+<p>I&#39;m also trying to livestream or at least record me working on it and one thing I really wanted to focus on was rapid development.
+What is the least amount of keystrokes I can make to get something up and running with joy. I&#39;ve made a few changes to joy recently that really helps any dev move very quickly with routing.</p>
+
+<p>In janet, almost every character can be used in a function name, including a &quot;/&quot; which took me a while to really consider what that meant since I was used to &quot;/&quot; having significance in clojure. It was a crazy idea but it seems to be working. One side effect is that there isn&#39;t the same ordering as before, so if you put a route with a param in it like <code>/:id</code> it will match any route with one segment, like <code>/1</code> or <code>/accounts</code> which isn&#39;t that great.</p>
+
+<p>It&#39;s a decent trade off though if you prefix things by table name anyway. Here&#39;s an actual joy program:</p>
+
+<pre><code>(use joy)
+
+(defn layout [{:body body}]
+  (text/html
+    (doctype :html)
+    [:html
+     [:head
+      [:title &quot;JanetDocs&quot;]
+      (link {:href [&quot;/_pylon.css&quot; &quot;/_water.css&quot; &quot;app.css&quot;]})
+      (script {:src [&quot;/_app.js&quot; &quot;/alpine.js&quot;] :defer &quot;&quot;})]
+     [:body
+      body]]))
+
+
+(defn / [request]
+  [:h1
+   [:span &quot;JanetDocs is a community website for the &quot;]
+   [:a {:href (url-for :/)}
+    &quot;janet programming language&quot;]])
+
+
+(defn /404 [request]
+  (layout
+    {:body [:h1 &quot;/404&quot;]}))
+
+
+(def app (app {:layout layout
+               :404 /404}))
+
+
+(defn main [&amp; args]
+  (server app 9001))
+</code></pre>
+
+<p>Crazy right? 23 lines of code (minus newlines) and you get 404s, a home page and layouts. Function routing will probably be my go to from now on. I also like having everything in a single file which really helps me move quickly. I don&#39;t have any particular problem with files that ~2,000 lines long</p>
+
+<p>I think the near future of programming will be to abstract the files/folders metaphors away and just have code blocks (functions) floating in a text editor ordered by reference/call stack, similar to what the original version of light table was or I guess what darklang is going for.</p>
+
+<p>Anyway, let me know what you think on <a href="https://twitter.com/swlkr">twitter</a> or drop <code>@swlkr</code> in the <a href="https://gitter.im/janet-language/community">janet gitter chat</a>.</p>
+
+<p>Oh yeah and watch out for my videos on youtube, hopefully my boring office setup doesn&#39;t take away from the sweet, sweet hacking that will take place.</p>
+
+    <p>&nbsp;</p>
+  </body>
+</html>

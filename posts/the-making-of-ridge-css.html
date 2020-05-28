@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>The making of ridge.css</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://swlkr.com/the-making-of-ridge-css.html" />
+    <link rel="stylesheet" href="/bundle-1685846884.css" />
+  </head>
+  <body>
+    <hstack spacing="l">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-05-28</div>
+      </div>
+    </hstack>
+    <h1>The making of ridge.css</h1>
+
+<p>As with most things I do at the computer, this was born out of frustration with existing tooling.</p>
+
+<p>If I had to order my fustrations, they would roughly fall in this order:</p>
+
+<ul>
+<li>rails</li>
+<li>bootstrap</li>
+<li>tachyons / tailwind / atomic css</li>
+<li>react.js</li>
+<li>multi-file web app development</li>
+</ul>
+
+<p>I&#39;ve been tackling these one by one, by either switching to something else that already exists or making my own:</p>
+
+<ul>
+<li>rails -&gt; joy (still has a long way to go)</li>
+<li>bootstrap -&gt; tachyons.css</li>
+<li>react.js -&gt; alpine.js</li>
+<li>tachyons / tailwind / atomic css -&gt; ridge.css (what this post is about)</li>
+<li>multi-file web app development -&gt; (coming soon)</li>
+</ul>
+
+<p>The switch from bootstrap to tacyhons or I guess tailwind for the rest of the industry was pretty obvious to me. I&#39;m surprised it took so long for the industry to come around to atomic css. The benefits when paired with components are incredible, you can move way faster, make your designs really stand out as opposed to with bootstrap, hope there&#39;s a theme or something that you don&#39;t want to change at all.</p>
+
+<p>Don&#39;t get me wrong, I like themes, but I don&#39;t like it when to override one little style you have to deep dive into the internals of bootstrap&#39;s insanely complex scss files which used to be .less and even more obscure. Lately I&#39;ve completed 1.0&#39;s of two somewhat simple projects, <a href="https://janetdocs.com">JanetDocs</a> and <a href="https://askjanet.xyz">AskJanet</a>. The one thing I&#39;ve learned from this is that if I don&#39;t have my css/design work outsourced in the form of classless css (or mostly classless css), my odds of completing a project are super low. I started several projects with tachyons in the past and I was struggling under the weight of endlessly tweaking classes and trying to get padding/margin just right. Not to mention the lack of bootstrap grids had me floundering when it came time for responsive stuff. I just want to recap:</p>
+
+<ul>
+<li>bootstrap isn&#39;t all bad, themes are nice, grids are great</li>
+<li>atomic css isn&#39;t all bad, customization is incredible for designs that stand out</li>
+</ul>
+
+<p>Enter <a href="https://github.com/dbohdan/classless-css">classless css</a>, which is really going back to the heart of website making from the 90s, with a twist. Instead of defining classes, you just use the html5 elements as they are and they are styled to look not ugly. So you basically get a stripped down version of bootstrap with the themes but no grid. No grid? No problem. That is where <a href="https://almonk.github.io/pylon/">pylon.css</a> comes in. It&#39;s essentially swift ui for the web, which is great. What&#39;s funny is swift and native development in general never suffered from this culture of &quot;mixing content with presentation&quot;. To hell with that, I want to make good looking websites fast, I don&#39;t care about dogma.</p>
+
+<p>Alright, so this kind of sets the stage for what ridge.css is, it&#39;s a maximal frontend framework for making web apps fast, as in quickly not necessarily fast performing, I leave that up to the server ;). Here&#39;s the constituent parts of this &quot;framework&quot;:</p>
+
+<ul>
+<li>alpine.js <code>x-</code> attributes for interactivity, just add alpine.js</li>
+<li>a set of classless themes (which currently there are only two, one light and one dark)</li>
+<li>a dash of atomic css classes</li>
+<li>a modified responsive version of pylon.css for page layout</li>
+</ul>
+
+<p>With those four things, you can accomplish a lot without switching files and without declaring classes forever and ever in your html.</p>
+
+<p>I&#39;m currently still working on ridge.css getting it ready for general use, but it&#39;s coming along great. I&#39;m going to make something relatively non-trivial and report back and probably release ridge then. And then write an ebook and sell it as the JARS stack, joy, alpine.js, ridge.css and sqlite.</p>
+
+    <p>&nbsp;</p>
+  </body>
+</html>

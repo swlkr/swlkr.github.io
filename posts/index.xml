@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on swlkr</title>
+    <link>http://swlkr.github.io/posts/</link>
+    <description>Recent content in Posts on swlkr</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 19 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HEY and back to the future</title>
+      <link>http://swlkr.github.io/posts/hey-and-back-to-the-future/</link>
+      <pubDate>Fri, 19 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/hey-and-back-to-the-future/</guid>
+      <description>HEY and back to the future I don&amp;rsquo;t know if you&amp;rsquo;ve seen the new HEY email service yet, but you should take a minute to watch this video or at the very least, take a look at this screenshot
+So a few things jump out at me immediately. The first is, WOW this is a clean design. It&amp;rsquo;s pretty effortlessly 2020&amp;rsquo;s aestethic. Barely any borders, almost same font weight throughout, circle photos everywhere, and a TON of whitespace.</description>
+    </item>
+    
+    <item>
+      <title>I Closed My LinkedIn</title>
+      <link>http://swlkr.github.io/posts/i-closed-my-linkedin/</link>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/i-closed-my-linkedin/</guid>
+      <description>I Closed My LinkedIn I saw a post from PC Maffey and it was weird because I closed my linked in the same day. I imagine this happens all the time, just no one writes about it.
+Since I&amp;rsquo;m writing weekly now, I should probably take more notes throughout the week of things that happen and then on wednesday look at what happened and just pick something interesting (or make it interesting to write about).</description>
+    </item>
+    
+    <item>
+      <title>Better Social Media</title>
+      <link>http://swlkr.github.io/posts/better-social-media/</link>
+      <pubDate>Fri, 05 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/better-social-media/</guid>
+      <description>Better social media Current social media services suck. Too much noise, too much social pressure to conform, too much. If I’ve learned anything from indie hacking, it’s that scale is not always a good goal to have. By scale I mean infinite scale, global scale, galactic scale. It never turns out well, if you make something for everyone, you make something for no one. That’s precisely what social media is, a no-man’s land of pot shots, overt racism, against people from all walks of life, and extremists views from all sides.</description>
+    </item>
+    
+    <item>
+      <title>The making of ridge.css</title>
+      <link>http://swlkr.github.io/posts/the-making-of-ridge-css/</link>
+      <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/the-making-of-ridge-css/</guid>
+      <description>The making of ridge.css As with most things I do at the computer, this was born out of frustration with existing tooling.
+If I had to order my fustrations, they would roughly fall in this order:
+ rails bootstrap tachyons / tailwind / atomic css react.js multi-file web app development  I&amp;rsquo;ve been tackling these one by one, by either switching to something else that already exists or making my own:</description>
+    </item>
+    
+    <item>
+      <title>JanetDocs</title>
+      <link>http://swlkr.github.io/posts/janet-docs/</link>
+      <pubDate>Wed, 20 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/janet-docs/</guid>
+      <description>JanetDocs Writing janet docs went pretty well! At this point in my little web framework’s journey, I only had to add a little code to get it working, (ghetto wildcard routing) so that’s good, hopefully on the next project I won’t have to add any.
+I’m really starting to pick up steam on how fast I can make a new website&amp;hellip; I mean &amp;ldquo;web app&amp;rdquo;. It took me 8 real-time days start to finish, probably about ~16 hours total.</description>
+    </item>
+    
+    <item>
+      <title>Joy Routes as Functions</title>
+      <link>http://swlkr.github.io/posts/joy-routes-as-functions/</link>
+      <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/joy-routes-as-functions/</guid>
+      <description>Joy Routes as Functions
+I&amp;rsquo;m working on a community site for janet documentation and examples, kind of like clojuredocs, but with more janet.
+I&amp;rsquo;m also trying to livestream or at least record me working on it and one thing I really wanted to focus on was rapid development. What is the least amount of keystrokes I can make to get something up and running with joy. I&amp;rsquo;ve made a few changes to joy recently that really helps any dev move very quickly with routing.</description>
+    </item>
+    
+    <item>
+      <title>Ask Janet</title>
+      <link>http://swlkr.github.io/posts/ask-janet/</link>
+      <pubDate>Thu, 07 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/ask-janet/</guid>
+      <description>Ask Janet The question in a world of abundance is &amp;ldquo;why?&amp;quot;. What is the point of making yet another website?
+Well, I don&amp;rsquo;t have 1500 reputation on stackoverflow, so I can&amp;rsquo;t make a janet tag, and I would also like to stop searching through gitter for questions/answers. I feel like those are perfectly reasonable reasons to make a website.
+With that, I set out to use my ✨shiny ✨new web framework joy to recreate some of the bits of SO, but specifically for janet.</description>
+    </item>
+    
+    <item>
+      <title>AlpineJS Confirm Modals</title>
+      <link>http://swlkr.github.io/posts/alpine-confirm-modal/</link>
+      <pubDate>Wed, 29 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/alpine-confirm-modal/</guid>
+      <description>Easy alpinejs confirm modals I was looking for a decent way to define &amp;ldquo;confirm modals&amp;rdquo; with alpine, you know those modals that pop up when you&amp;rsquo;re about to do something destructive to the database, like delete your facebook or instagram account? Those ones.
+I stumbled on something pretty bare bones, but it works well:
+Here&amp;rsquo;s the css:
+:root { --background-body: #202b38; } .md-modal { position: fixed; top: 50%; left: 50%; width: 50%; max-width: 630px; min-width: 320px; margin: 0 auto; transform: translate(-50%, -50%); z-index: 2; background-color: var(--background-body); } .</description>
+    </item>
+    
+    <item>
+      <title>Making Low Memory Websites</title>
+      <link>http://swlkr.github.io/posts/low-memory-websites/</link>
+      <pubDate>Wed, 22 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/low-memory-websites/</guid>
+      <description>I&amp;rsquo;ve been working on my second home grown janet web framework so I can run multiple websites on a single raspberry pi in my closet.
+My first web framework in this vein (which I&amp;rsquo;m still working on) is joy.
+So, you know go smash that star button on github or something.
+This next web framework does a lot less. It doesn&amp;rsquo;t have database stuff built in, you can&amp;rsquo;t control the middleware very well, and it requires a lot less typing than joy.</description>
+    </item>
+    
+    <item>
+      <title>Is email decentralized?</title>
+      <link>http://swlkr.github.io/posts/email/</link>
+      <pubDate>Wed, 15 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/email/</guid>
+      <description>Is email decentralized? TL;DR No it’s not.
+I doubt the trend will reverse with networked technology of any kind, no matter how much a bunch of nerds on HN want it to. The truth is email has been centralized the day aol came on the scene.
+This is the real problem with decentralized anything, coins, land, water. If you can control the majority of it, you can change the rules of the game.</description>
+    </item>
+    
+    <item>
+      <title>AlpineJS</title>
+      <link>http://swlkr.github.io/posts/alpinejs/</link>
+      <pubDate>Wed, 08 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/alpinejs/</guid>
+      <description>AlpineJS Not only do I love the name, I love the concept. If you’re going to add interactivity to your website, you may as well do it in the html instead of rendering everything in javascript.
+The concept behind alpine is similar to vue and angular but it takes a step back and reduces everything (at this time of writing anyway) to functions and data, alarm bells are going off because that’s the same thing as janet/clojure.</description>
+    </item>
+    
+    <item>
+      <title>Classless CSS</title>
+      <link>http://swlkr.github.io/posts/classless-css/</link>
+      <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/classless-css/</guid>
+      <description>Classless CSS You’ve heard of tailwind and maybe tachyons, functional css, or atomic css. Well the next step is classless css.
+But Sean, what does that mean?!
+I’ll tell you what it means.
+It means, you just write html and that’s it, no classes, no inline styles, just html. It’s the way things were always meant to be™️. We’ve come full circle. Or maybe it’s just me and my MVPs coming full circle.</description>
+    </item>
+    
+    <item>
+      <title>My Cheap Server Journey</title>
+      <link>http://swlkr.github.io/posts/cheap-server-journey/</link>
+      <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/cheap-server-journey/</guid>
+      <description>My Cheap Server Journey TL;DR I was using Heroku then cheap VPS&amp;rsquo;s but I wanted to see if I could get my monthly costs down to $0 and I did.
+Let&amp;rsquo;s start with what the goal is here. The goal is to run several high touch (in terms of customer acquisition/support), low traffic SaaS apps (read: expensive), possibly 10-20 apps all said and done, all self service with sales and support by yours truly.</description>
+    </item>
+    
+    <item>
+      <title>The future of user interfaces</title>
+      <link>http://swlkr.github.io/posts/the-future-of-user-interfaces/</link>
+      <pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/the-future-of-user-interfaces/</guid>
+      <description>The future of user interfaces How do we really want to interact with computers? I don’t actually want to tap on a screen, I actually want to&amp;hellip;
+ write a blog post record music write some code watch a video listen to a podcast  So how do I do these things today? I figure out an app to do the thing and then I remember the icon and the name and tap it.</description>
+    </item>
+    
+    <item>
+      <title>Clojure isnt for me</title>
+      <link>http://swlkr.github.io/posts/clojure-isnt-for-me/</link>
+      <pubDate>Wed, 11 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/clojure-isnt-for-me/</guid>
+      <description>Clojure isn&amp;rsquo;t for me I’m writing here today to tell you about my five year long obsession with clojure and why I recently quit obsessing over it.
+The truth is, I knew it was never for me.
+ I wasn’t a java programmer before I found clojure, I was a ruby (on rails) programmer. I don&amp;rsquo;t write enterprise web apps as my side projects I don&amp;rsquo;t need web scale resource hungry web server architectures   To the people who have never programmed in either ecosystem, they look pretty similar, but the reality of working with each of them daily is a lot more nuanced than that.</description>
+    </item>
+    
+    <item>
+      <title>JAMStack</title>
+      <link>http://swlkr.github.io/posts/jamstack/</link>
+      <pubDate>Wed, 04 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/jamstack/</guid>
+      <description>JAMStack It’s been around for a while and I just figured it out, I’m an old, grumpy programmer now.
+So, static sites right? I mean that’s fine, jekyll has been around forever. It’s a little more than that, but not much more, I can sum it up in one sentence:
+Do almost everything at build time.
+So let’s say you have something like today in clojure. It’s a list of links pulled in from various APIs.</description>
+    </item>
+    
+    <item>
+      <title>The web is a ghetto</title>
+      <link>http://swlkr.github.io/posts/the-web-is-a-ghetto/</link>
+      <pubDate>Wed, 26 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/the-web-is-a-ghetto/</guid>
+      <description>The web is a ghetto You ever ask yourself, fellow HNer, why people use apps on their phones instead of websites? No? I’ll tell you anyway, because the web is a ghetto.
+In a word, ads. There’s too many of them. The web actually works very poorly without them. Try online shopping with ads blocked, it’s impossible. So I’m sure between affiliate links and articles full of ads, somewhere in there people realized instagram is bad, sure but at least the ads are predictable and not jumping up and down on the screen asking them to install apps or consent to cookies.</description>
+    </item>
+    
+    <item>
+      <title>The Static Web</title>
+      <link>http://swlkr.github.io/posts/the-static-web/</link>
+      <pubDate>Tue, 25 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/the-static-web/</guid>
+      <description>The static web You know it’s funny, I’ve been programming web &amp;ldquo;applications&amp;rdquo; for a decade now and just this year I’ve given up on them. Some of the ideas behind web apps were revolutionary at the time, stateless user interfaces, where the state isn’t stored in the application in memory, but on the server and in the database. There’s a lot to love about web applications, and a lot to hate.</description>
+    </item>
+    
+  </channel>
+</rss>

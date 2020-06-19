@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Classless CSS</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-04-01</div>
+      </div>
+    </hstack>
+
+    <h1 id="classless-css">Classless CSS</h1>
+<p>You’ve heard of <a href="https://tailwindcss.com">tailwind</a> and maybe <a href="https://tachyons.io">tachyons</a>, functional css, or atomic css. Well the next step is classless css.</p>
+<p>But Sean, what does that mean?!</p>
+<p>I’ll tell you what it means.</p>
+<p>It means, you just write html and that’s it, no classes, no inline styles, just html. It’s the way things were always meant to be™️.
+We’ve come full circle. Or maybe it’s just me and my MVPs coming full circle.</p>
+<p>Here’s a great example:</p>
+<pre><code>&lt;h1 class=&quot;f1&quot;&gt;tinymailer&lt;/h1&gt;
+</code></pre>
+<p>This just becomes:</p>
+<pre><code>&lt;h1&gt;tinymailer&lt;/h1&gt;
+</code></pre>
+<p>and it&rsquo;s styled correctly in any screen size, or styled well enough.</p>
+<p>But what about grids you say, how can you make a grid without the ol&rsquo; <code>row</code>/<code>col</code> combo?</p>
+<pre><code>&lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-xs-6&quot;&gt;
+    I'm on the left
+  &lt;/div&gt;
+  &lt;div class=&quot;col-xs-6&quot;&gt;
+    I'm on the right
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>That&rsquo;s a mouthful, I have a little something for that as well, <a href="https://almonk.github.io/pylon/">pylon.css</a>:</p>
+<pre><code>&lt;hstack stretch&gt;
+  &lt;div&gt;I'm on the left&lt;/div&gt;
+  &lt;div&gt;I'm on the right&lt;/div&gt;
+&lt;/hstack&gt;
+</code></pre>
+<p>And with the tiny bit of css you get from pylon, you get flexbox grids instead of the rigid bootstrap 3 ones, with all the weird margin/padding nonsense that comes with them.</p>
+<p>CSS Grid may make even this obsolete, though I still prefer to keep everything in the html.</p>
+<p>Layout and styling have officially been solved for MVPs at this point and MVPs are really all that matter, right?</p>
+<p>Here&rsquo;s a great link with some &ldquo;themes&rdquo; and things you can slap into your project today!</p>
+<p><a href="https://www.cssbed.com">https://www.cssbed.com</a>.</p>
+<p>Don&rsquo;t write another css class, go classless!</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

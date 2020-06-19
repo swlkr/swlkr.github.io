@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>AlpineJS Confirm Modals</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-04-29</div>
+      </div>
+    </hstack>
+
+    <h1 id="easy-alpinejs-confirm-modals">Easy alpinejs confirm modals</h1>
+<p>I was looking for a decent way to define &ldquo;confirm modals&rdquo; with alpine, you know those modals that pop up when you&rsquo;re about to do something destructive
+to the database, like delete your facebook or instagram account? Those ones.</p>
+<p>I stumbled on something pretty bare bones, but it works well:</p>
+<p>Here&rsquo;s the css:</p>
+<pre><code>:root {
+  --background-body: #202b38;
+}
+
+.md-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  margin: 0 auto;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background-color: var(--background-body);
+}
+
+.md-show {
+  visibility: visible;
+}
+
+.md-content {
+  padding: 20px;
+  transform: scale(0.5);
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.md-show .md-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.md-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  background-color: rgba(0,0,0,0.5);
+  transition: all 0.3s;
+}
+
+.md-show.md-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+</code></pre>
+<p>This could probably be pared down a little bit, but for now (and forever) it works.</p>
+<p>Here&rsquo;s some html, well, hiccup, but close enough to accompany that css:</p>
+<pre><code>(defn confirm-modal [request]
+  [:div {:class &quot;md-modal&quot; ::class &quot;{'md-show': modalOpen}&quot; :x-show &quot;modalOpen&quot; :@click.away &quot;modalOpen = false&quot;}
+  [:div {:class &quot;md-content&quot;}
+  [:vstack {:align-x &quot;center&quot;}
+   [:h3 &quot;Are you sure?&quot;]
+   [:hstack {:spacing &quot;l&quot; :align-x &quot;center&quot;}
+    (form request {:method &quot;POST&quot; :x-bind:action &quot;action&quot;}
+      [:input {:type &quot;hidden&quot; :name &quot;method&quot; :value &quot;DELETE&quot;}]
+      [:button {:type &quot;submit&quot;}
+       &quot;Yes, do it&quot;])
+    [:a {:href &quot;#&quot; :@click.prevent &quot;modalOpen = false&quot;}
+     &quot;No&quot;]]]]])
+
+
+(text/html
+ (html/doctype :html5)
+ [:html {:lang &quot;en&quot; :x-data &quot;app()&quot;}
+  [:head
+   [:title &quot;ask janet&quot;]
+   [:meta {:charset &quot;utf-8&quot;}]
+   [:meta {:name &quot;viewport&quot; :content &quot;width=device-width, initial-scale=1&quot;}]
+   [:link {:href &quot;/app.css&quot; :rel &quot;stylesheet&quot;}]
+   [:script {:src &quot;/alpine.js&quot;}]]
+  [:body {:@keydown.escape.prevent &quot;modalOpen = false&quot;}
+   [:div &quot;hello world!&quot;]
+   [:a {:href &quot;#&quot; :@click.prevent &quot;action = '/delete-account'; modalOpen = true&quot;}]
+    &quot;Delete something&quot;
+   (confirm-modal request)
+   [:div {:class &quot;md-overlay&quot; ::class &quot;{'md-show': modalOpen}&quot;}]
+   [:script {:src &quot;/app.js&quot;}]]])))
+</code></pre>
+<p>The final pièce de résistance</p>
+<pre><code>function app() {
+  return {
+    modalOpen: false,
+    action: ''
+  };
+}
+</code></pre>
+<p>You know you&rsquo;re making the right decision in your web app when there&rsquo;s only 6 lines of javascript.</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>AlpineJS</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-04-08</div>
+      </div>
+    </hstack>
+
+    <h1 id="alpinejs">AlpineJS</h1>
+<p>Not only do I love the name, I love the concept. If you’re going to add interactivity to your website, you may as well do it in the html instead of rendering everything in javascript.</p>
+<p>The concept behind alpine is similar to vue and angular but it takes a step back and reduces everything (at this time of writing anyway) to functions and data, alarm bells are going off because that’s the same thing as janet/clojure. No classes, just functions. Another neat property of alpine is that it’s small, &lt; 8k min + gzipped. That’s a lot smaller than react and way smaller than even jquery.</p>
+<p>There’s great examples on the readme but what I really want to stress is HTML; whether that comes from a CDN a la jamstack/static site or server rendered dynamically, HTML is the first class citizen here, alpine is second. Alpine fits into your html with data attributes, it doesn’t render html from javascript. It still has components but it really just needs data to start and it uses the html’s hierarchy to do its magic.</p>
+<p>If you’re finding yourself refusing to include jquery in your next project and looking at one of the “you don’t need jquery” sites, alpine might be for you.</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

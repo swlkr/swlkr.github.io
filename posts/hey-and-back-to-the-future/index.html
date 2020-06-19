@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>HEY and back to the future</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-06-19</div>
+      </div>
+    </hstack>
+
+    <h1 id="hey-and-back-to-the-future">HEY and back to the future</h1>
+<p>I don&rsquo;t know if you&rsquo;ve seen the new HEY email service yet, but you should take a minute to <a href="https://www.youtube.com/watch?v=UCeYTysLyGI">watch this video</a> or at the very least, take a look at this screenshot</p>
+<p><img src="/hey.jpg" alt="hey imbox screen"></p>
+<p>So a few things jump out at me immediately. The first is, WOW this is a clean design. It&rsquo;s pretty effortlessly 2020&rsquo;s aestethic. Barely any borders, almost same font weight throughout, circle photos everywhere, and a TON of whitespace. It looks great! The second thing that really stood out to me was the &ldquo;stacks&rdquo; at the bottom.</p>
+<h2 id="dynamic-navigation">Dynamic navigation</h2>
+<p>It&rsquo;s been quite a few years of apple telling us that navigation tabs go at the bottom of things, but they depart from this in a way that makes almost more sense. I mean what do you normally see after you hit a tab icon with some text? More info, and then you might navigate by tapping a photo or a list item or something be presented with a little back button at the top left of the screen? That&rsquo;s actually terrible. You have shimmy your hand up the phone to reach it or worse, come over with your other hand and tap it. It would be better, if you never even lost your &ldquo;place&rdquo; and you could get a glance at the data behind that tab bar button before you even tapped it.</p>
+<p>That&rsquo;s probably one of the most exciting things to me about this design that I&rsquo;m not sure anyone is really that excited about. It&rsquo;s essentially data driven or dynamic ui navigation instead of static. The stacks are built by you and contain the things you care about, AND they don&rsquo;t require you to navigate away to another boring list view.</p>
+<h2 id="form-less-ui">Form-less UI</h2>
+<p>One last thing that really stands out to me before I go into a mini-rant about how server-rendered (as in html from the server) apps are the future, is that there doesn&rsquo;t appear to be a traditional form anywhere in this app, and that&rsquo;s a good thing. No one likes forms, they were mostly created for governments to request information from people and somehow managed to make their way to the web. It&rsquo;s much better to not have anything that resembles a form in your app, if you can do it.</p>
+<h2 id="html-from-the-server-back-to-the-future">HTML from the server back to the future</h2>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">HEY’s UI is 100% HTML over the wire. We render plain-old HTML pages on the server and send them to your browser encoded as text/html. No JSON APIs, no GraphQL, no React—just form submissions and links.</p>&mdash; Sam Stephenson (@sstephenson) <a href="https://twitter.com/sstephenson/status/1272608117604397063?ref_src=twsrc%5Etfw">June 15, 2020</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>This way of working is tried and true. We collectively took a detour with really, really complex things like front end frameworks, graph query languages and the like, but it&rsquo;s good to see that a really georgous, fast (&lt; 100ms interaction time between &ldquo;page&rdquo; loads) can and was built using the classic three tier architecture. What&rsquo;s funny is I was also swept up in the hype around 2016/2017 with react and friends and I regret introducing it to my company at the time, it&rsquo;s a lot of garbage for not a lot of gain. You can essentially emulate the perceived performance from a single page app with the following list of libraries:</p>
+<ul>
+<li><a href="https://instant.page">instant.page</a></li>
+<li><a href="https://github.com/turbolinks/turbolinks">turbolinks</a></li>
+<li><a href="https://github.com/bigskysoftware/htmx">htmx</a></li>
+<li><a href="https://github.com/alpinejs/alpine">alpinejs</a></li>
+</ul>
+<p>Not to mention, these libraries require very little js, and in some cases no server side participation at all. The best part is that browsers have to do very little work updating the different pieces of html across containers, it&rsquo;s as easy as setting <code>innerHTML</code>. I started out this year pissed off at what web development has become, but I&rsquo;m starting to see the light at the end of a very long, very winding tunnel. Turns out that in order for web development to be fun and productive again, we just had to go back to the future.</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

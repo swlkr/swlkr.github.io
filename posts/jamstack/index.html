@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>JAMStack</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-03-04</div>
+      </div>
+    </hstack>
+
+    <h1 id="jamstack">JAMStack</h1>
+<p>It’s been around for a while and I just figured it out, I’m an old, grumpy programmer now.</p>
+<p>So, static sites right? I mean that’s fine, jekyll has been around forever. It’s a little more than that, but not much more, I can sum it up in one sentence:</p>
+<p><em>Do almost everything at build time.</em></p>
+<p>So let’s say you have something like <a href="https://todayinclojure.com">today in clojure</a>. It’s a list of links pulled in from various APIs. Normally, I would start a <a href="https://www.vultr.com/?ref=7614094">VPS for $3.50/mo</a> (or because of clojure’s memory requirements $10/mo) and set up a cron job on that server to save API responses to a database and dynamically build the html on each request.</p>
+<p>Alternatively, I could do all of that on a raspberry pi in my closet and commit the pre-built html to git and push that to a private github repo where netlify picks it up and shows the same pre-built HTML to everyone for $0/mo.</p>
+<p>That’s exactly what I do now. There are some downsides to this approach, showing real-time analytics is harder, I’d have to serve an image or something from a server, which would cost money again, but were the real-time analytics that important to begin with? Not really. There was also an RSS feed which I wasn’t even sure was working, so I axed that too.</p>
+<p>My opinion of JAMstack is high, but for dynamic stuff, or websites with lots of forms and an auth component, the <a href="https://en.wikipedia.org/wiki/Multitier_architecture">good old three tier arch</a> is still the easiest thing around.</p>
+<p>Of course there’s a whole other thing where I can talk about the diminishing need for those kinds of interactive websites anyway, thanks to phones, voice assistants and soon AR glasses, and instead an increasing need for headless APIs billed per request. Maybe next week.</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

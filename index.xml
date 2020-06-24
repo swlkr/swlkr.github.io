@@ -6,10 +6,20 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>WWDC 2020</title>
+      <link>http://swlkr.github.io/posts/wwdc-2020/</link>
+      <pubDate>Wed, 24 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/wwdc-2020/</guid>
+      <description>WWDC 2020 Besides being the saddest wwdc keynote in history it was the first pre-recorded one, which doesn’t take away from the spectacle so much as it takes away from the need to watch a &amp;ldquo;live stream.&amp;rdquo;
+macOS BS There’s quite a few hot takes on iOS and it’s not super interesting to me, so I’m going to start with MacOS Big Sur. It looks great! The dark gray window chrome was getting a little long in the tooth, the new title bars are a lot better.</description>
+    </item>
     
     <item>
       <title>HEY and back to the future</title>

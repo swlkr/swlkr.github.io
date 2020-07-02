@@ -6,10 +6,19 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 02 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Janet Basics</title>
+      <link>http://swlkr.github.io/posts/janet-basics/</link>
+      <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/janet-basics/</guid>
+      <description>Janet Basics ; # A pound sign (or hashtag) starts a one-line comment. ; # I&amp;#39;m using clojure&amp;#39;s ; comments because chroma doesn&amp;#39;t support janet (comment Wrapping something in the comment form makes a multiline comment) Variables and flow control (def num 42) ; # All numbers are double precision floating point numbers &amp;#34;A few more numbers&amp;#34; (def num1 10_000) ; # you can use underscores as decimal places, like ruby (def s &amp;#34;the good place&amp;#34;) ; # Immutable strings (def s `Backticks start/end multine strings`) ; # backticks for multiline strings (def t nil) ; # nil is a thing ; # loops can be done with either map, loop or while (while (&amp;lt; i 50) (++ i)) ; # If clauses: (if (&amp;gt; num 40) (print &amp;#34;over 40&amp;#34;) (do (if (not= s &amp;#34;the good place&amp;#34;) (print &amp;#34;not over 40&amp;#34;) ; # you don&amp;#39;t need a second form necessarily (var this-is-local 5)))) ; # variables are lexically scoped by default ; # How to make a variable global (to a file) ; # outside of any do&amp;#39;s or any loops or anything (var x &amp;#34;im global&amp;#34;) ; # String concatentation uses the (string) or (print) forms (string &amp;#34;winter is coming &amp;#34; &amp;#34;quickly&amp;#34;) ; # =&amp;gt; &amp;#34;winter is coming quickly&amp;#34; (print &amp;#34;winter is coming&amp;#34; &amp;#34;quickly&amp;#34;) ; # =&amp;gt; &amp;#34;winter is comingquickly&amp;#34; ; # Undefined variables throw errors.</description>
+    </item>
     
     <item>
       <title>WWDC 2020</title>

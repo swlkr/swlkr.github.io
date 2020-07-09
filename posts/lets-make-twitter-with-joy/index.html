@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Lets Make Twitter With Joy</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-07-09</div>
+      </div>
+    </hstack>
+
+    <h1 id="lets-make-twitter-with-joy">Let&rsquo;s make twitter with joy</h1>
+<p>Welcome to a series I call <strong>with joy</strong> where I clone popular websites/webapps with my web framework, <a href="https://github.com/joy-framework/joy">joy</a>.</p>
+<p>The world needs more twitter fights, misinformation and emotionally charged tweet storms, so let’s make another twitter using my web framework joy.</p>
+<p>You’re gonna love my tweets.</p>
+<h2 id="first-things-first">First things first</h2>
+<p><a href="https://janet-lang.org/docs/index.html">Install janet</a> if you&rsquo;re on a mac just do this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">brew install janet
+</code></pre></div><p>Now install joy</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">jpm install joy
+</code></pre></div><p>If joy isn&rsquo;t on your path, make sure it gets there:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">echo</span> <span class="s1">&#39;PATH=/usr/local/Cellar/janet/1.10.1/bin:$PATH&#39;</span> &gt;&gt; ~/.zprofile
+<span class="nb">source</span> ~/.zprofile
+</code></pre></div><p>That&rsquo;s it, we&rsquo;re up and running!
+Generate a new joy project:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">joy new patter
+</code></pre></div><p>Alright so this generates a folder structure and files and everything are everywhere, but you really only need a few files to make joy work as a web framework:</p>
+<ol>
+<li><code>main.janet</code></li>
+<li><code>public/</code></li>
+<li><code>.env</code> &lt;&ndash; don&rsquo;t check this in to source control</li>
+<li><code>project.janet</code></li>
+</ol>
+<p>I like to have everything in one flat directory, and all source code in one file, multiple source files takes me out of the zone. So I’m going to delete a bunch of files and I’m left with the simplest database backed web application ever:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># .env (again, ignore this in source control) echo .env &gt;&gt; .gitignore</span>
+
+<span class="nv">ENCRYPTION_KEY</span><span class="o">=</span>2d7a3200d40b6905e813474e1514c58dc9eb1cb0a8ea78ab5baba2b70fcfcc2c
+<span class="nv">JOY_ENV</span><span class="o">=</span>development
+<span class="nv">PORT</span><span class="o">=</span><span class="m">9001</span>
+</code></pre></div><p>The <code>ENCRYPTION_KEY</code> is used for session encryption in cookies which I&rsquo;m fairly sure works for the most part. Pretty sure, yeah.</p>
+<p>The <code>public/</code> folder is for files that will be served to the browser as is.</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # project.janet</span>
+
+<span class="p">(</span><span class="nf">declare-project</span>
+  <span class="ss">:name</span> <span class="s">&#34;patter&#34;</span>
+  <span class="ss">:description</span> <span class="s">&#34;A twitter clone made with joy&#34;</span>
+  <span class="ss">:dependencies</span> <span class="p">[</span><span class="s">&#34;https://github.com/joy-framework/joy&#34;</span><span class="p">]</span>
+  <span class="ss">:author</span> <span class="s">&#34;&#34;</span>
+  <span class="ss">:license</span> <span class="s">&#34;&#34;</span>
+  <span class="ss">:url</span> <span class="s">&#34;&#34;</span>
+  <span class="ss">:repo</span> <span class="s">&#34;https://github.com/swlkr/patter&#34;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">declare-executable</span>
+  <span class="ss">:name</span> <span class="s">&#34;patter&#34;</span>
+  <span class="ss">:entry</span> <span class="s">&#34;main.janet&#34;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">phony</span> <span class="s">&#34;server&#34;</span> <span class="p">[]</span>
+  <span class="p">(</span><span class="nf">os/shell</span> <span class="s">&#34;janet main.janet&#34;</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">phony</span> <span class="s">&#34;watch&#34;</span> <span class="p">[]</span>
+  <span class="p">(</span><span class="nf">os/shell</span> <span class="s">&#34;ls | entr -r -d janet main.janet&#34;</span><span class="p">))</span>
+</code></pre></div><p>And finally the actual source code for the web server all in one file, just like the good old PHP days, except with more trailing parens:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # main.janet</span>
+
+<span class="p">(</span><span class="nb">import </span><span class="nv">dotenv</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">dotenv/load</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">use</span> <span class="nv">joy</span><span class="p">)</span>
+
+
+<span class="p">(</span><span class="k">def </span><span class="nv">port</span> <span class="p">(</span><span class="nf">os/getenv</span> <span class="s">&#34;PORT&#34;</span><span class="p">))</span>
+
+
+<span class="p">(</span><span class="nf">route</span> <span class="ss">:get</span> <span class="s">&#34;/&#34;</span> <span class="ss">:home</span><span class="p">)</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">home</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">text/plain</span> <span class="s">&#34;patter is up and running&#34;</span><span class="p">))</span>
+
+
+<span class="p">(</span><span class="k">def </span><span class="nv">app</span> <span class="p">(</span><span class="nf">app</span><span class="p">))</span>
+
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">main</span> <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">server</span> <span class="nv">app</span> <span class="nv">port</span><span class="p">))</span>
+</code></pre></div><p>Let’s make sure it still works:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">joy server
+<span class="c1"># =&gt; [2020-07-09 22:18:11] method=GET uri=/ content-type=text/plain status=200 duration=0.8ms</span>
+</code></pre></div><p>And then in another tab</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">curl -v localhost:9001
+
+* Connected to localhost <span class="o">(</span>127.0.0.1<span class="o">)</span> port <span class="m">9001</span> <span class="c1">#0</span>
+&gt; GET / HTTP/1.1
+&gt; Host: localhost:9001
+&gt; User-Agent: curl/7.64.1
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 <span class="m">200</span> OK
+&lt; Set-Cookie: <span class="nv">id</span><span class="o">=</span>d0fde19a1945603a38a2c2b446e7352f59a84812ac7711a617d80022b9a04b37c89a5d6e1fef97df14c9eaa09f3e2c8017b8dc7e50bb019c97b8e1c36e611ebba4b008dd1e258dba21c4c5dcf466285d91ffbad5<span class="p">;</span> <span class="nv">SameSite</span><span class="o">=</span>Lax<span class="p">;</span> HttpOnly<span class="p">;</span> <span class="nv">Path</span><span class="o">=</span>/
+&lt; X-Frame-Options: SAMEORIGIN
+&lt; X-Permitted-Cross-Domain-Policies: none
+&lt; X-Download-Options: noopen
+&lt; Referrer-Policy: strict-origin-when-cross-origin
+&lt; Content-Type: text/plain
+&lt; X-Content-Type-Options: nosniff
+&lt; X-XSS-Protection: 1<span class="p">;</span> <span class="nv">mode</span><span class="o">=</span>block
+&lt; Content-Length: <span class="m">24</span>
+&lt;
+* Connection <span class="c1">#0 to host localhost left intact</span>
+patter is up and running* Closing connection <span class="m">0</span>
+</code></pre></div><p>So that should do two things:</p>
+<ol>
+<li>return the response with &ldquo;patter is up and running&rdquo;</li>
+<li>also show a log line for the request/response in the tab where <code>joy server</code> is running.</li>
+</ol>
+<p>Now that everything is working, let&rsquo;s talk databases in part 2.</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

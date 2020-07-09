@@ -6,10 +6,24 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 09 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Lets Make Twitter With Joy</title>
+      <link>http://swlkr.github.io/posts/lets-make-twitter-with-joy/</link>
+      <pubDate>Thu, 09 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/lets-make-twitter-with-joy/</guid>
+      <description>Let&amp;rsquo;s make twitter with joy Welcome to a series I call with joy where I clone popular websites/webapps with my web framework, joy.
+The world needs more twitter fights, misinformation and emotionally charged tweet storms, so let’s make another twitter using my web framework joy.
+You’re gonna love my tweets.
+First things first Install janet if you&amp;rsquo;re on a mac just do this:
+brew install janet Now install joy
+jpm install joy If joy isn&amp;rsquo;t on your path, make sure it gets there:</description>
+    </item>
     
     <item>
       <title>Janet Basics</title>
@@ -97,7 +111,7 @@ I&amp;rsquo;m also trying to livestream or at least record me working on it and 
       <pubDate>Thu, 07 May 2020 00:00:00 +0000</pubDate>
       
       <guid>http://swlkr.github.io/posts/ask-janet/</guid>
-      <description>Ask Janet The question in a world of abundance is &amp;ldquo;why?&amp;quot;. What is the point of making yet another website?
+      <description>Ask Janet The question in a world of abundance is &amp;ldquo;why?&amp;rdquo;. What is the point of making yet another website?
 Well, I don&amp;rsquo;t have 1500 reputation on stackoverflow, so I can&amp;rsquo;t make a janet tag, and I would also like to stop searching through gitter for questions/answers. I feel like those are perfectly reasonable reasons to make a website.
 With that, I set out to use my ✨shiny ✨new web framework joy to recreate some of the bits of SO, but specifically for janet.</description>
     </item>

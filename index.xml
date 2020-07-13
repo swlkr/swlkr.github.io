@@ -6,10 +6,32 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Lets Make Twitter With Joy: Part 3</title>
+      <link>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-3/</link>
+      <pubDate>Sun, 12 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-3/</guid>
+      <description>Let&amp;rsquo;s make twitter with joy: part 3 Welcome to a series I call with joy where I clone popular websites/webapps with my web framework, joy.
+If you&amp;rsquo;re just tuning in Part 2 was a little bit of a let down. It left you with a schema for patter, (the twitter clone) but no migrations. Let&amp;rsquo;s fix that
+Migration city Usually this makes more sense when I&amp;rsquo;m kind of going table by table but since I already have the whole schema ready to roll, I&amp;rsquo;ll just show you how to generate all of the migrations and be done with it:</description>
+    </item>
+    
+    <item>
+      <title>Lets Make Twitter With Joy: Part 2</title>
+      <link>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-2/</link>
+      <pubDate>Sat, 11 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-2/</guid>
+      <description>Let&amp;rsquo;s make twitter with joy: part 2 Welcome to a series I call with joy where I clone popular websites/webapps with my web framework, joy.
+Alright, so Part 1 was kind of bust. It left you with one plaintext route and no database, even though I said the app was going to be backed by a database. Let&amp;rsquo;s remedy that situation. This time we&amp;rsquo;re going to do two things:
+ Start sending html like it&amp;rsquo;s 1999 Apply our twitter clone database schema migrations  Send HTML and make it pretty Before you were calling text/plain which although it&amp;rsquo;s good for debugging and gopher, not really ideal for browsers, can&amp;rsquo;t style it and no images, and we want those because we&amp;rsquo;re making the next great social network that&amp;rsquo;s going to connect everybody and there won&amp;rsquo;t be any conspiracy theories or hate-speech or thought-policing!</description>
+    </item>
     
     <item>
       <title>Lets Make Twitter With Joy</title>

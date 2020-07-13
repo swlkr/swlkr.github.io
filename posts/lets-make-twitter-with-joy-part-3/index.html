@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Lets Make Twitter With Joy: Part 3</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-07-12</div>
+      </div>
+    </hstack>
+
+    <h1 id="lets-make-twitter-with-joy-part-3">Let&rsquo;s make twitter with joy: part 3</h1>
+<p>Welcome to a series I call <strong>with joy</strong> where I clone popular websites/webapps with my web framework, <a href="https://github.com/joy-framework/joy">joy</a>.</p>
+<p>If you&rsquo;re just tuning in <a href="/posts/lets-make-twitter-with-joy-part-2/">Part 2</a> was a little bit of a let down. It left you with a schema for patter, (the twitter clone) but no migrations. Let&rsquo;s fix that</p>
+<h2 id="migration-city">Migration city</h2>
+<p>Usually this makes more sense when I&rsquo;m kind of going table by table but since I already have the whole schema ready to roll, I&rsquo;ll just show you how to generate all of the migrations and be done with it:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">joy create table account <span class="s1">&#39;name text unique not null&#39;</span> <span class="s1">&#39;display_name text&#39;</span> <span class="s1">&#39;photo_url text&#39;</span>
+
+joy create table post <span class="s1">&#39;account_id integer not null references account(id)&#39;</span> <span class="se">\
+</span><span class="se"></span>                      <span class="s1">&#39;body text not null&#39;</span>
+
+joy create table tag <span class="s1">&#39;name text unique not null&#39;</span>
+
+joy create table post_tag <span class="s1">&#39;post_id integer not null references post(id)&#39;</span> <span class="se">\
+</span><span class="se"></span>                          <span class="s1">&#39;tag_id integer not null references tag(id)&#39;</span>
+
+joy create table follow <span class="s1">&#39;follower_id integer not null references account(id)&#39;</span> <span class="se">\
+</span><span class="se"></span>                        <span class="s1">&#39;followed_id integer not null references account(id)&#39;</span> <span class="se">\
+</span><span class="se"></span>                        <span class="s1">&#39;unique(follower_id, followed_id)&#39;</span>
+
+joy create table like <span class="s1">&#39;account_id integer not null references account(id)&#39;</span> <span class="se">\
+</span><span class="se"></span>                      <span class="s1">&#39;post_id integer not null references post(id)&#39;</span> <span class="se">\
+</span><span class="se"></span>                      <span class="s1">&#39;unique(account_id, post_id)&#39;</span>
+</code></pre></div><p>For follow and like, joy isn&rsquo;t smart enough yet to put the compound unique constraints at the end, so go in to each file and change it around.</p>
+<p>After you run all of those, run:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">joy migrate
+</code></pre></div><p>And you should have a sqlite database file in the db folder AND a new <code>schema.sql</code> file as well that has those tables AND you should also be ready to rock and roll because we&rsquo;re about to put this twitter clone&rsquo;s ui together!</p>
+<p>Starting with the timeline or the feed, or whatever.</p>
+<h2 id="ui-city">UI City</h2>
+<p>Before we make this timeline, we need to do two things:</p>
+<ol>
+<li>Design it figma</li>
+<li>Create some fake users and fake posts in the repl</li>
+</ol>
+<p>I&rsquo;ve taken the liberty of designing it in figma for you, so you can just sit back and relax:</p>
+<p><img src="/lets-make-twitter-part-3.png" alt="a poorly made clone of twitter&rsquo;s timeline with two posts saying &ldquo;this is the first pat in patter&rdquo; and &ldquo;this is the second pat in patter&rdquo;"></p>
+<p>Look familiar? You bet it does. This is a twitter clone after all.</p>
+<p>Quickest design ever, now let&rsquo;s make some fake users in the repl:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">jpm install https://github.com/joy-framework/http
+</code></pre></div><p>this installs a <a href="https://curl.haxx.se/libcurl/">libcurl</a> wrapper that lets you make http requests from your janet program. You know what, let&rsquo;s also install <a href="https://github.com/hanslub42/rlwrap">rlwrap</a>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">brew install rlwrap
+</code></pre></div><p>This is going to make the repl experience much nicer with arrow keys support and -s.</p>
+<p><em>Now</em> open up the repl</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">rlwrap janet -s
+<span class="c1"># =&gt;</span>
+<span class="c1"># Janet 1.10.1-meson  Copyright (C) 2017-2020 Calvin Rose</span>
+<span class="c1"># janet:1:&gt;</span>
+</code></pre></div><p>The -s just gives the ability to paste multiple lines.
+Now type this into the janet repl:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">http</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">import </span><span class="nv">json</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">use</span> <span class="nv">joy</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">http-response</span> <span class="p">(</span><span class="nf">http/get</span> <span class="s">&#34;https://randomuser.me/api/?results=10&#34;</span> <span class="ss">:headers</span> <span class="p">{</span><span class="s">&#34;Content-Type&#34;</span> <span class="s">&#34;application/json&#34;</span> <span class="s">&#34;Accept&#34;</span> <span class="s">&#34;application/json&#34;</span><span class="p">}))</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">body</span> <span class="p">(</span><span class="nf">http-response</span> <span class="ss">:body</span><span class="p">))</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">response</span> <span class="p">(</span><span class="nf">json/decode</span> <span class="nv">body</span> <span class="nv">true</span> <span class="nv">true</span><span class="p">))</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">results</span> <span class="p">(</span><span class="nf">response</span> <span class="ss">:results</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">db/connect</span> <span class="p">(</span><span class="nf">env</span> <span class="ss">:database-url</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">loop </span><span class="p">[</span><span class="nv">result</span> <span class="ss">:in</span> <span class="nv">results</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">db/insert</span> <span class="ss">:account</span> <span class="p">{</span><span class="ss">:name</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">result</span> <span class="p">[</span><span class="ss">:login</span> <span class="ss">:username</span><span class="p">])</span>
+                       <span class="ss">:photo-url</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">result</span> <span class="p">[</span><span class="ss">:picture</span> <span class="ss">:medium</span><span class="p">])}))</span>
+</code></pre></div><p>Go ahead and check that the code above did what it was supposed to do:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">printf</span> <span class="s">&#34;%M&#34;</span> <span class="p">(</span><span class="nf">db/fetch-all</span> <span class="p">[</span><span class="ss">:account</span><span class="p">]))</span>
+</code></pre></div><p>There should be a few accounts in there with some photos and names. Now let&rsquo;s generate some fake posts:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">accounts</span> <span class="p">(</span><span class="nf">db/fetch-all</span> <span class="p">[</span><span class="ss">:account</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">fake-posts</span>
+  <span class="p">(</span><span class="nf">as-&gt;</span> <span class="p">(</span><span class="nf">http/get</span> <span class="s">&#34;http://localhost:1313/fake-posts.txt&#34;</span><span class="p">)</span> <span class="nv">?</span>
+        <span class="p">(</span><span class="nb">get </span><span class="nv">?</span> <span class="ss">:body</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">string/split</span> <span class="s">&#34;\n&#34;</span> <span class="nv">?</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">filter </span><span class="err">|</span><span class="p">(</span><span class="nb">not </span><span class="p">(</span><span class="nf">empty?</span> <span class="nv">$</span><span class="p">))</span> <span class="nv">?</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">rng</span> <span class="p">(</span><span class="nf">math/rng</span><span class="p">))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">random-fake-post</span> <span class="p">[]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">post-idx</span> <span class="p">(</span><span class="nf">math/rng-int</span> <span class="nv">rng</span> <span class="p">(</span><span class="nf">length</span> <span class="nv">fake-posts</span><span class="p">))]</span>
+    <span class="p">(</span><span class="nb">get </span><span class="nv">fake-posts</span> <span class="nv">post-idx</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">random-account</span> <span class="p">[]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">account-idx</span> <span class="p">(</span><span class="nf">math/rng-int</span> <span class="nv">rng</span> <span class="p">(</span><span class="nf">length</span> <span class="nv">accounts</span><span class="p">))]</span>
+    <span class="p">(</span><span class="nb">get </span><span class="nv">accounts</span> <span class="nv">account-idx</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">loop </span><span class="p">[</span><span class="nv">account</span> <span class="ss">:in</span> <span class="nv">accounts</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">num-posts</span> <span class="p">(</span><span class="nf">math/rng-int</span> <span class="nv">rng</span> <span class="mi">5</span><span class="p">)]</span>
+    <span class="p">(</span><span class="k">loop </span><span class="p">[</span><span class="nv">idx</span> <span class="ss">:range</span> <span class="p">[</span><span class="mi">0</span> <span class="nv">num-posts</span><span class="p">]]</span>
+      <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">account</span> <span class="p">(</span><span class="nf">random-account</span><span class="p">)]</span>
+        <span class="p">(</span><span class="nf">db/insert</span> <span class="ss">:post</span> <span class="p">{</span><span class="ss">:account-id</span> <span class="p">(</span><span class="nf">account</span> <span class="ss">:id</span><span class="p">)</span>
+                          <span class="ss">:body</span> <span class="p">(</span><span class="nf">random-fake-post</span><span class="p">)})))))</span>
+</code></pre></div><p>Give that a check to see if it&rsquo;s working:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">db/fetch-all</span> <span class="p">[</span><span class="ss">:account</span> <span class="mi">1</span> <span class="ss">:post</span><span class="p">])</span>
+</code></pre></div><p>You should see an array of post dictionaries there or if it isn&rsquo;t there, check another account by changing that integer.</p>
+<p>We made quite a bit of progress on the data side, now let&rsquo;s slap some of this stuff into the ui and hope it turns out like that design I showed you earlier.</p>
+<p>Putting things into hiccup is straightforward, there is no other syntax to learn since it&rsquo;s just janet:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nb">name </span><span class="s">&#34;sean&#34;</span><span class="p">]</span>
+  <span class="p">[</span><span class="ss">:div</span> <span class="nv">name</span><span class="p">])</span>
+</code></pre></div><p>Returns</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  sean
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div><p>Here&rsquo;s one way to put a few items in a list:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">names</span> <span class="p">[</span><span class="s">&#34;forest&#34;</span> <span class="s">&#34;jade&#34;</span> <span class="s">&#34;autumn&#34;</span><span class="p">]]</span>
+  <span class="p">[</span><span class="ss">:ul</span>
+    <span class="p">(</span><span class="nf">foreach</span> <span class="p">[</span><span class="nb">name </span><span class="nv">names</span><span class="p">]</span>
+      <span class="p">[</span><span class="ss">:li</span> <span class="nv">name</span><span class="p">])])</span>
+</code></pre></div><p>Outputs:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+    forest
+  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+    jade
+  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+    autumn
+  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>  
+</code></pre></div><p>You could also use <code>map</code> instead of joy&rsquo;s <code>foreach</code>, it&rsquo;s up to you.</p>
+<p>Alright so let me walk you through how I approach these mundane figma to html conversions:</p>
+<ol>
+<li>use SwiftUI primitives a-la <code>vstack</code> and <code>hstack</code></li>
+<li>outline the original image with a plan (usually in my head)</li>
+</ol>
+<p>For the purposes of this post, I&rsquo;ll outline each different area of the image to show you my thought process:</p>
+<p><img src="/lets-make-twitter-part-3-vstack-hstack.png" alt="colorful rectangles outlining each vstack/hstack of the twitter clone&rsquo;s ui"></p>
+<p>I should work on a figma to SwiftUI conversion plugin, but for now, we&rsquo;ll just type it out manually.</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">[</span><span class="ss">:vstack</span>
+ <span class="p">(</span><span class="nf">foreach</span> <span class="p">[</span><span class="nv">post</span> <span class="nv">posts</span><span class="p">]</span>
+   <span class="p">(</span><span class="k">let </span><span class="p">[{</span><span class="ss">:account</span> <span class="nv">account</span><span class="p">}</span> <span class="nv">post</span><span class="p">]</span>
+     <span class="p">[</span><span class="ss">:hstack</span>
+      <span class="p">[</span><span class="ss">:img</span> <span class="p">{</span><span class="ss">:src</span> <span class="p">(</span><span class="nf">account</span> <span class="ss">:photo-url</span><span class="p">)}]</span>
+
+      <span class="p">[</span><span class="ss">:vstack</span>
+       <span class="p">[</span><span class="ss">:hstack</span> <span class="p">{</span><span class="ss">:spacing</span> <span class="s">&#34;s&#34;</span><span class="p">}</span>
+        <span class="p">(</span><span class="nf">account</span> <span class="ss">:display-name</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">account</span> <span class="ss">:name</span><span class="p">)</span>
+        <span class="p">[</span><span class="ss">:spacer</span><span class="p">]</span>
+        <span class="p">[</span><span class="ss">:time</span> <span class="p">{</span><span class="ss">:class</span> <span class="s">&#34;tr&#34;</span><span class="p">}</span> <span class="p">(</span><span class="nf">post</span> <span class="ss">:created-at</span><span class="p">))]</span>
+
+       <span class="p">(</span><span class="nf">post</span> <span class="ss">:body</span><span class="p">)</span>
+
+       <span class="p">[</span><span class="ss">:hstack</span> <span class="p">{</span><span class="ss">:stretch</span> <span class="s">&#34;&#34;</span><span class="p">}</span>
+        <span class="p">(</span><span class="nf">icon</span> <span class="ss">:reply</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">icon</span> <span class="ss">:repeat</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">icon</span> <span class="ss">:heart</span><span class="p">)]]]]))]</span>
+</code></pre></div><p>So hopefully you can sort of see the layout in the html. Also notice that with ridge, I didn&rsquo;t write a single line of css, no css grid, no flexbox styles, just vstack/hstack for layout. It combines the best of table layouts from 90s with flexbox responsive styles of the mid 2010s.</p>
+<p>I want to talk about how we get multiple tables into an array, because it&rsquo;s pretty important and this is something that happens across apps and sets traditional three-tier apps apart from spreadsheets and most of the no-code tools today.</p>
+<h2 id="orms-or-lack-thereof">ORMs or lack thereof</h2>
+<p>Typically, in most web frameworks, you are constrained to classes, objects and the mapping back and forth from the database to those objects. I like constraints, but I don&rsquo;t like the wrong ones, and I think ORMs make mountains out of mole hills. Here&rsquo;s how I overcome some of the constraints of only having functions and dictionaries in joy:</p>
+<h3 id="multiple-tables-in-one-array-of-dictionaries">Multiple tables in one array of dictionaries</h3>
+<p>In this case, we have the <code>post</code> table and the <code>account</code> table and we would like to loop through all of the posts in reverse chronological order (newest first) and also show who posted it.</p>
+<p>Laying that out is kind of a mouthful, but here&rsquo;s how it works in practice:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">posts</span> <span class="p">(</span><span class="nf">db/fetch-all</span> <span class="p">[</span><span class="ss">:post</span><span class="p">]</span>
+                         <span class="ss">:order</span> <span class="s">&#34;created_at desc&#34;</span>
+                         <span class="ss">:limit</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">accounts</span> <span class="p">(</span><span class="nf">db/fetch-all</span> <span class="p">[</span><span class="ss">:account</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">set-account</span> <span class="p">[</span><span class="nv">accounts</span> <span class="nv">row</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">row</span> <span class="ss">:account-id</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">set </span><span class="nv">row</span> <span class="ss">:account</span> <span class="p">(</span><span class="nb">find </span><span class="err">|</span><span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nf">$</span> <span class="ss">:id</span><span class="p">)</span> <span class="p">(</span><span class="nf">row</span> <span class="ss">:account-id</span><span class="p">))</span>
+                            <span class="nv">accounts</span><span class="p">))</span>
+    <span class="nv">row</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">map </span><span class="err">|</span><span class="p">(</span><span class="nf">set-account</span> <span class="nv">accounts</span> <span class="nv">$</span><span class="p">)</span> <span class="nv">posts</span><span class="p">)</span>
+</code></pre></div><p>It&rsquo;s kind of repetitive and not that great, let&rsquo;s fix it so it works for any table one level deep:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">posts</span> <span class="p">(</span><span class="nf">db/fetch-all</span> <span class="p">[</span><span class="ss">:post</span><span class="p">]</span>
+                         <span class="ss">:order</span> <span class="s">&#34;created_at desc&#34;</span>
+                         <span class="ss">:limit</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">accounts</span> <span class="p">(</span><span class="nf">db/fetch-all</span> <span class="p">[</span><span class="ss">:account</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">lift</span> <span class="p">[</span><span class="nv">table</span> <span class="nv">fk-rows</span> <span class="nv">row</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">if-let </span><span class="p">[</span><span class="nv">fk-col</span> <span class="p">(</span><span class="nb">keyword </span><span class="p">(</span><span class="nf">string</span> <span class="nv">table</span> <span class="s">&#34;-id&#34;</span><span class="p">))</span>
+           <span class="nv">fk-id</span> <span class="p">(</span><span class="nb">get </span><span class="nv">row</span> <span class="nv">fk-col</span><span class="p">)</span>
+           <span class="nv">fk-row</span> <span class="p">(</span><span class="nb">find </span><span class="err">|</span><span class="p">(</span><span class="nb">= </span><span class="nv">fk-id</span> <span class="p">(</span><span class="nf">$</span> <span class="ss">:id</span><span class="p">))</span> <span class="nv">fk-rows</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nb">set </span><span class="nv">row</span> <span class="nv">table</span> <span class="nv">fk-row</span><span class="p">)</span>
+    <span class="nv">row</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">map </span><span class="err">|</span><span class="p">(</span><span class="nf">lift</span> <span class="ss">:account</span> <span class="nv">accounts</span> <span class="nv">row</span><span class="p">)</span> <span class="nv">posts</span><span class="p">)</span>
+</code></pre></div><p>It&rsquo;s more complex, but it does the trick for any two tables (assuming joy&rsquo;s convention of id for column and foreign key names). Both of these things kind of hide what we&rsquo;re really trying to do and they only work for a very small set of data. At this point I would normally either defer to sql/joins or just take advantage of the fact that <a href="https://www.sqlite.org/np1queryprob.html">n+1&rsquo;s aren&rsquo;t really a problem for sqlite</a>. We&rsquo;ll do the sql + joins thing first since it is the most efficient solution:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="cm">/* db/timeline.sql */</span>
+
+<span class="k">select</span>
+  <span class="n">post</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+  <span class="n">post</span><span class="p">.</span><span class="n">body</span><span class="p">,</span>
+  <span class="n">post</span><span class="p">.</span><span class="n">updated_at</span><span class="p">,</span>
+  <span class="n">post</span><span class="p">.</span><span class="n">created_at</span><span class="p">,</span>
+  <span class="n">account</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
+  <span class="n">account</span><span class="p">.</span><span class="n">display_name</span>
+<span class="k">from</span>
+  <span class="n">post</span>
+<span class="k">join</span>
+  <span class="n">account</span> <span class="k">on</span> <span class="n">account</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">post</span><span class="p">.</span><span class="n">account_id</span>
+<span class="k">order</span> <span class="k">by</span>
+  <span class="n">post</span><span class="p">.</span><span class="n">created_at</span> <span class="k">desc</span>
+<span class="k">limit</span>
+  <span class="mi">10</span>
+</code></pre></div><p>and then to use that in joy:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">posts</span> <span class="p">(</span><span class="nf">db/query</span> <span class="p">(</span><span class="nb">slurp </span><span class="s">&#34;db/timeline.sql&#34;</span><span class="p">)))</span>
+</code></pre></div><p>And there is no more preprocessing since we did everything in sql. Super efficient, works for much larger amounts of data, and accessing the foreign key table is as simple as <code>(post :account-name)</code> or <code>(post :account-display-name)</code>.</p>
+<p>Here&rsquo;s the other solution where you&rsquo;re trusting sqlite to do 10 queries on a page:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">posts</span> <span class="p">(</span><span class="nf">db/fetch-all</span> <span class="p">[</span><span class="ss">:post</span><span class="p">]</span>
+                         <span class="ss">:order</span> <span class="s">&#34;created_at desc&#34;</span>
+                         <span class="ss">:limit</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">foreach</span> <span class="p">[</span><span class="nv">post</span> <span class="nv">posts</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">account</span> <span class="p">(</span><span class="nf">db/find</span> <span class="ss">:account</span> <span class="p">(</span><span class="nf">post</span> <span class="ss">:account-id</span><span class="p">))]</span>
+    <span class="nv">...</span><span class="p">))</span>
+</code></pre></div><p>Also very simple, even simpler because we didn&rsquo;t have to write any sql at all, BUT I think the response time of the local server gives this away a little bit. Let me show you what the main file looks like now and some of the response times I&rsquo;m seeing with both implementations:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">use</span> <span class="nv">joy</span><span class="p">)</span>
+
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">layout</span> <span class="p">[{</span><span class="ss">:body</span> <span class="nv">body</span> <span class="ss">:request</span> <span class="nv">request</span><span class="p">}]</span>
+  <span class="p">(</span><span class="nf">text/html</span>
+    <span class="p">(</span><span class="nf">doctype</span> <span class="ss">:html5</span><span class="p">)</span>
+    <span class="p">[</span><span class="ss">:html</span> <span class="p">{</span><span class="ss">:lang</span> <span class="s">&#34;en&#34;</span><span class="p">}</span>
+     <span class="p">[</span><span class="ss">:head</span>
+      <span class="p">[</span><span class="ss">:title</span> <span class="s">&#34;patter&#34;</span><span class="p">]</span>
+
+      <span class="c1">; # meta</span>
+      <span class="c1">; # TODO: social</span>
+      <span class="p">[</span><span class="ss">:meta</span> <span class="p">{</span><span class="ss">:charset</span> <span class="s">&#34;utf-8&#34;</span><span class="p">}]</span>
+      <span class="p">[</span><span class="ss">:meta</span> <span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;viewport&#34;</span> <span class="ss">:content</span> <span class="s">&#34;width=device-width, initial-scale=1&#34;</span><span class="p">}]</span>
+      <span class="p">[</span><span class="ss">:meta</span> <span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;csrf-token&#34;</span> <span class="ss">:content</span> <span class="p">(</span><span class="nf">authenticity-token</span> <span class="nv">request</span><span class="p">)}]</span>
+
+      <span class="c1">; # css</span>
+      <span class="p">[</span><span class="ss">:link</span> <span class="p">{</span><span class="ss">:rel</span> <span class="s">&#34;stylesheet&#34;</span> <span class="ss">:media</span> <span class="s">&#34;(prefers-color-scheme: light), (prefers-color-scheme: none)&#34;</span> <span class="ss">:href</span> <span class="s">&#34;ridge-light.css&#34;</span><span class="p">}]</span>
+      <span class="p">[</span><span class="ss">:link</span> <span class="p">{</span><span class="ss">:rel</span> <span class="s">&#34;stylesheet&#34;</span> <span class="ss">:media</span> <span class="s">&#34;(prefers-color-scheme: dark)&#34;</span> <span class="ss">:href</span> <span class="s">&#34;ridge-dark.css&#34;</span><span class="p">}]</span>
+      <span class="p">[</span><span class="ss">:link</span> <span class="p">{</span><span class="ss">:rel</span> <span class="s">&#34;stylesheet&#34;</span> <span class="ss">:href</span> <span class="s">&#34;/ridge.css&#34;</span><span class="p">}]</span>
+      <span class="p">[</span><span class="ss">:link</span> <span class="p">{</span><span class="ss">:rel</span> <span class="s">&#34;stylesheet&#34;</span> <span class="ss">:href</span> <span class="s">&#34;/app.css&#34;</span><span class="p">}]</span>
+
+      <span class="c1">; # js</span>
+      <span class="p">[</span><span class="ss">:script</span> <span class="p">{</span><span class="ss">:src</span> <span class="s">&#34;/app.js&#34;</span> <span class="ss">:defer</span> <span class="s">&#34;&#34;</span><span class="p">}]]</span>
+
+     <span class="p">[</span><span class="ss">:body</span> <span class="p">{</span><span class="ss">:class</span> <span class="s">&#34;bg-background-alt&#34;</span><span class="p">}</span>
+      <span class="nv">body</span><span class="p">]]))</span>
+
+
+<span class="p">(</span><span class="nf">route</span> <span class="ss">:get</span> <span class="s">&#34;/&#34;</span> <span class="ss">:home</span><span class="p">)</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">home</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">def </span><span class="nv">rows</span> <span class="p">(</span><span class="nf">db/query</span> <span class="p">(</span><span class="nb">slurp </span><span class="s">&#34;db/sql/timeline.sql&#34;</span><span class="p">)))</span>
+
+  <span class="p">[</span><span class="ss">:vstack</span> <span class="p">{</span><span class="ss">:spacing</span> <span class="s">&#34;m&#34;</span> <span class="ss">:class</span> <span class="s">&#34;mw-xxl mx-auto pb-m&#34;</span><span class="p">}</span>
+   <span class="p">(</span><span class="nf">foreach</span> <span class="p">[</span><span class="nv">row</span> <span class="nv">rows</span><span class="p">]</span>
+     <span class="p">[</span><span class="ss">:hstack</span> <span class="p">{</span><span class="ss">:spacing</span> <span class="s">&#34;xs&#34;</span> <span class="ss">:align-y</span> <span class="s">&#34;top&#34;</span> <span class="ss">:class</span> <span class="s">&#34;bg-background pa-xs br-5&#34;</span><span class="p">}</span>
+      <span class="p">[</span><span class="ss">:img</span> <span class="p">{</span><span class="ss">:src</span> <span class="p">(</span><span class="nf">row</span> <span class="ss">:account-photo-url</span><span class="p">)</span> <span class="ss">:class</span> <span class="s">&#34;br-100&#34;</span><span class="p">}]</span>
+
+      <span class="p">[</span><span class="ss">:vstack</span> <span class="p">{</span><span class="ss">:spacing</span> <span class="s">&#34;xs&#34;</span><span class="p">}</span>
+       <span class="p">[</span><span class="ss">:hstack</span> <span class="p">{</span><span class="ss">:spacing</span> <span class="s">&#34;s&#34;</span><span class="p">}</span>
+        <span class="p">(</span><span class="nf">row</span> <span class="ss">:account-display-name</span><span class="p">)</span>
+        <span class="p">[</span><span class="ss">:div</span> <span class="p">{</span><span class="ss">:class</span> <span class="s">&#34;muted&#34;</span><span class="p">}</span>
+         <span class="p">(</span><span class="nf">string</span> <span class="s">&#34;@&#34;</span> <span class="p">(</span><span class="nf">row</span> <span class="ss">:account-name</span><span class="p">))]</span>
+        <span class="p">[</span><span class="ss">:spacer</span><span class="p">]</span>
+        <span class="p">[</span><span class="ss">:time</span> <span class="p">{</span><span class="ss">:data-seconds</span> <span class="p">(</span><span class="nf">row</span> <span class="ss">:created-at</span><span class="p">)</span> <span class="ss">:class</span> <span class="s">&#34;muted tr&#34;</span><span class="p">}</span>
+         <span class="p">(</span><span class="nf">row</span> <span class="ss">:created-at</span><span class="p">)]]</span>
+
+       <span class="p">[</span><span class="ss">:div</span> <span class="p">{</span><span class="ss">:class</span> <span class="s">&#34;h-l&#34;</span><span class="p">}</span>
+         <span class="p">(</span><span class="nf">row</span> <span class="ss">:body</span><span class="p">)]</span>
+
+       <span class="p">[</span><span class="ss">:hstack</span> <span class="p">{</span><span class="ss">:stretch</span> <span class="s">&#34;&#34;</span><span class="p">}</span>
+        <span class="p">(</span><span class="nf">icon</span> <span class="ss">:reply</span><span class="p">)</span>
+        <span class="p">[</span><span class="ss">:spacer</span><span class="p">]</span>
+        <span class="p">(</span><span class="nf">icon</span> <span class="ss">:arrow-repeat</span><span class="p">)</span>
+        <span class="p">[</span><span class="ss">:spacer</span><span class="p">]</span>
+        <span class="p">(</span><span class="nf">icon</span> <span class="ss">:heart</span><span class="p">)]]])])</span>
+
+
+<span class="p">(</span><span class="k">def </span><span class="nv">app</span> <span class="p">(</span><span class="nf">app</span> <span class="p">{</span><span class="ss">:layout</span> <span class="nv">layout</span><span class="p">}))</span>
+
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">main</span> <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">db/connect</span> <span class="p">(</span><span class="nf">env</span> <span class="ss">:database-url</span><span class="p">))</span>
+  <span class="p">(</span><span class="nf">server</span> <span class="nv">app</span> <span class="p">(</span><span class="nf">env</span> <span class="ss">:port</span><span class="p">)))</span>
+</code></pre></div><p>N+1 response times are around 30ms, join response times are around 26ms. So, not the best either way, but not too much difference. I usually stick with the n+1 because I put sqlite straight into &ldquo;production&rdquo;. Sounds like heresy, I know.</p>
+<p>Alright, so part 4 will be adding new posts and show you how htmx and joy get along.</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

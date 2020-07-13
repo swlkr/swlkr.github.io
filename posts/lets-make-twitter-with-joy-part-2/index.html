@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Lets Make Twitter With Joy: Part 2</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-07-11</div>
+      </div>
+    </hstack>
+
+    <h1 id="lets-make-twitter-with-joy-part-2">Let&rsquo;s make twitter with joy: part 2</h1>
+<p>Welcome to a series I call <strong>with joy</strong> where I clone popular websites/webapps with my web framework, <a href="https://github.com/joy-framework/joy">joy</a>.</p>
+<p>Alright, so <a href="/posts/lets-make-twitter-with-joy/">Part 1</a> was kind of bust. It left you with one plaintext route and no database, even though I said the app was going to be backed by a database. Let&rsquo;s remedy that situation. This time we&rsquo;re going to do two things:</p>
+<ol>
+<li>Start sending html like it&rsquo;s 1999</li>
+<li>Apply our twitter clone database schema migrations</li>
+</ol>
+<h2 id="send-html-and-make-it-pretty">Send HTML and make it pretty</h2>
+<p>Before you were calling <code>text/plain</code> which although it&rsquo;s good for debugging and <a href="https://en.wikipedia.org/wiki/Gopher_(protocol)">gopher</a>, not really ideal for browsers, can&rsquo;t style it and no images, and we want those because we&rsquo;re making the next great social network that&rsquo;s going to connect everybody and there won&rsquo;t be any conspiracy theories or hate-speech or thought-policing!</p>
+<h3 id="layouts">Layouts</h3>
+<p>In joy you typically have one layout function which I affectionately call <code>layout</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">layout</span> <span class="p">[{</span><span class="ss">:body</span> <span class="nv">body</span> <span class="ss">:request</span> <span class="nv">request</span><span class="p">}]</span>
+  <span class="p">(</span><span class="nf">text/html</span>
+    <span class="p">(</span><span class="nf">doctype</span> <span class="ss">:html5</span><span class="p">)</span>
+    <span class="p">[</span><span class="ss">:html</span> <span class="p">{</span><span class="ss">:lang</span> <span class="s">&#34;en&#34;</span><span class="p">}</span>
+     <span class="p">[</span><span class="ss">:head</span>
+      <span class="p">[</span><span class="ss">:title</span> <span class="s">&#34;patter&#34;</span><span class="p">]</span>
+
+      <span class="c1">; # meta</span>
+      <span class="c1">; # TODO: social</span>
+      <span class="p">[</span><span class="ss">:meta</span> <span class="p">{</span><span class="ss">:charset</span> <span class="s">&#34;utf-8&#34;</span><span class="p">}]</span>
+      <span class="p">[</span><span class="ss">:meta</span> <span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;viewport&#34;</span> <span class="ss">:content</span> <span class="s">&#34;width=device-width, initial-scale=1&#34;</span><span class="p">}]</span>
+      <span class="p">[</span><span class="ss">:meta</span> <span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;csrf-token&#34;</span> <span class="ss">:content</span> <span class="p">(</span><span class="nf">authenticity-token</span> <span class="nv">request</span><span class="p">)}]</span>
+
+      <span class="c1">; # css</span>
+      <span class="p">[</span><span class="ss">:link</span> <span class="p">{</span><span class="ss">:rel</span> <span class="s">&#34;stylesheet&#34;</span> <span class="ss">:media</span> <span class="s">&#34;(prefers-color-scheme: light), (prefers-color-scheme: none)&#34;</span> <span class="ss">:href</span> <span class="s">&#34;ridge-light.css&#34;</span><span class="p">}]</span>
+      <span class="p">[</span><span class="ss">:link</span> <span class="p">{</span><span class="ss">:rel</span> <span class="s">&#34;stylesheet&#34;</span> <span class="ss">:media</span> <span class="s">&#34;(prefers-color-scheme: dark)&#34;</span> <span class="ss">:href</span> <span class="s">&#34;ridge-dark.css&#34;</span><span class="p">}]</span>
+      <span class="p">[</span><span class="ss">:link</span> <span class="p">{</span><span class="ss">:rel</span> <span class="s">&#34;stylesheet&#34;</span> <span class="ss">:href</span> <span class="s">&#34;/ridge.css&#34;</span><span class="p">}]</span>
+      <span class="p">[</span><span class="ss">:link</span> <span class="p">{</span><span class="ss">:rel</span> <span class="s">&#34;stylesheet&#34;</span> <span class="ss">:href</span> <span class="s">&#34;/app.css&#34;</span><span class="p">}]</span>
+
+      <span class="c1">; # js</span>
+      <span class="p">[</span><span class="ss">:script</span> <span class="p">{</span><span class="ss">:src</span> <span class="s">&#34;/app.js&#34;</span> <span class="ss">:defer</span> <span class="s">&#34;&#34;</span><span class="p">}]]</span>
+
+     <span class="p">[</span><span class="ss">:body</span> <span class="nv">body</span><span class="p">]]))</span>
+</code></pre></div><p>There are a few things here that are foreign, the use of <a href="https://github.com/weavejester/hiccup">hiccup</a>, <a href="https://janet-lang.org/docs/destructuring.html">destructuring</a> function arguments, the <code>doctype</code> function, <code>text/html</code> function and the <code>authenticity-token</code> function. I&rsquo;ll go over each one right now:</p>
+<ul>
+<li>text/html</li>
+</ul>
+<p>This one is pretty easy to suss out. It takes a variable number of arguments and outputs html, here are some examples:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">text/html</span> <span class="p">[</span><span class="ss">:div</span><span class="p">])</span> <span class="c1">;# =&gt; &lt;div&gt;&lt;/div&gt;</span>
+<span class="p">(</span><span class="nf">text/html</span> <span class="p">[</span><span class="ss">:div</span> <span class="p">[</span><span class="ss">:span</span> <span class="s">&#34;hello&#34;</span><span class="p">]])</span> <span class="c1">;# =&gt; &lt;div&gt;&lt;span&gt;hello&lt;/span&gt;&lt;/div&gt;</span>
+<span class="p">(</span><span class="nf">text/html</span> <span class="p">[</span><span class="ss">:div</span> <span class="p">{</span><span class="ss">:class</span> <span class="s">&#34;class&#34;</span><span class="p">}])</span> <span class="c1">;# =&gt; &lt;div class=&#34;class&#34;&gt;&lt;/div&gt;</span>
+<span class="p">(</span><span class="nf">text/html</span> <span class="p">[</span><span class="ss">:div</span><span class="p">]</span> <span class="p">[</span><span class="ss">:div</span><span class="p">])</span> <span class="c1">;# =&gt; &lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;</span>
+</code></pre></div><ul>
+<li>doctype</li>
+</ul>
+<p>This one is also straightforward it returns the doctype for a given version of html:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">doctype</span> <span class="ss">:html5</span><span class="p">)</span> <span class="c1">;# =&gt; &#34;&lt;!DOCTYPE HTML&gt;&#34;</span>
+<span class="p">(</span><span class="nf">doctype</span> <span class="ss">:html4</span> <span class="ss">:strict</span><span class="p">)</span> <span class="c1">;# =&gt; &#34;&lt;!DOCTYPE HTML PUBLIC &#34;-//W3C//DTD HTML 4.01//EN&#34; &#34;http://www.w3.org/TR/html4/strict.dtd&#34;&gt;&#34;</span>
+</code></pre></div><p>So on and so forth, <a href="https://github.com/joy-framework/joy/blob/master/src/joy/html.janet#L20">check the source for the full list</a></p>
+<ul>
+<li>authenticity-token</li>
+</ul>
+<p>This is anti cross site request forgery, the sessions are stored in encrypted cookies with SameSite=Lax by default, but it&rsquo;s always good to still use CSRF in case someone is using a browser that doesn&rsquo;t suppose SameSite yet.</p>
+<ul>
+<li>hiccup</li>
+</ul>
+<p>It is strange at first, but after a while and after installing <a href="https://shaunlebron.github.io/parinfer/">parinfer</a> on your editor, it&rsquo;s nice not to have to close those dangling open tags. Of course, if you&rsquo;re a pragmatic programmer, you know <a href="https://gist.github.com/paulirish/1117438">you don&rsquo;t actually have to end those tags</a>, but in hiccup you NEVER have to end tags:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">[</span><span class="ss">:script</span> <span class="p">{</span><span class="ss">:src</span> <span class="s">&#34;/some-js-file.js&#34;</span><span class="p">}]</span> <span class="c1">;# =&gt; &lt;script src=&#34;/some-js-file.js&#34;&gt;&lt;/script&gt;</span>
+</code></pre></div><p>Let&rsquo;s wire up the layout to <code>app</code> and get this thing going:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # layout function is here...</span>
+
+<span class="p">(</span><span class="nf">route</span> <span class="ss">:get</span> <span class="s">&#34;/&#34;</span> <span class="ss">:home</span><span class="p">)</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">home</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
+  <span class="p">[</span><span class="ss">:h1</span> <span class="s">&#34;Welcome to patter&#34;</span><span class="p">])</span>
+
+
+<span class="p">(</span><span class="k">def </span><span class="nv">app</span> <span class="p">(</span><span class="nf">app</span> <span class="p">{</span><span class="ss">:layout</span> <span class="nv">layout</span><span class="p">}))</span>
+
+<span class="c1">; # main function is here...</span>
+</code></pre></div><p>Make sure to test your changes, or if you&rsquo;re a skilled hacker, <code>brew install entr</code> to get the server to restart on any changes with <code>jpm run watch</code>. Either way, restart the server to pick up the changes and if you&rsquo;re using <a href="https://ridgecss.com">ridge</a>, like I am, you&rsquo;ll see this in your browser:</p>
+<p><img src="/lets-make-twitter-part-2.png" alt="a screenshot showing safari and a very blank white background with an h1 saying &ldquo;welcome to patter&rdquo;"></p>
+<p>Now we&rsquo;re getting somewhere! Let&rsquo;s leave that for a second, maybe commit those changes and focus on the schema for now.</p>
+<h2 id="database-schema">Database schema</h2>
+<p>After thinking about this for a bit, twitter has quite a few more tables than I imagined at first, here&rsquo;s what I came up with for a bare bones clone:</p>
+<pre><code>account
+- id integer primary key
+- name text unique not null
+- display_name text
+- photo_url text
+- updated_at integer
+- created_at integer not null default(strftime('%s', 'now'))
+
+post
+- id integer primary key
+- account_id integer not null references account(id)
+- body text not null
+- updated_at integer
+- created_at integer not null default(strftime('%s', 'now'))
+
+tag
+- id integer primary key
+- name text unique not null
+- updated_at integer
+- created_at integer not null default(strftime('%s', 'now'))
+
+post_tag
+- id integer primary key
+- post_id integer not null references post(id)
+- tag_id integer not null references tag(id)
+- updated_at integer
+- created_at integer not null default(strftime('%s', 'now'))
+
+following
+- id integer primary key
+- follower_id integer not null references account(id)
+- followed_id integer not null references account(id)
+- updated_at integer
+- created_at integer not null default(strftime('%s', 'now'))
+- unique(follower_id, followed_id)
+
+like
+- id integer primary key
+- account_id integer not null references account(id)
+- post_id integer not null references post(id)
+- updated_at integer
+- created_at integer not null default(strftime('%s', 'now'))
+- unique(account_id, post_id)
+</code></pre><p>So barring any obvious problems like throttling, spam, or insane viral growth, this will do. There&rsquo;s a few things to note here:</p>
+<ul>
+<li>The table names are singular, not plural:</li>
+</ul>
+<p>Is it the sock drawer or the drawer where you put socks? Plural database names aren&rsquo;t a hard and fast rule, and in most cases it increases complexity by quite a bit to map back to singular variable names.</p>
+<ul>
+<li>Timestamps (update/created_at columns) are integers</li>
+</ul>
+<p>UTC epoch is the datetime format to end all datetime formats. Super easy to convert to other timezones, calculations like X days ago are super simple, javascript has great support for epoch. Stop storing datetime columns as human readable, give yourself a break.</p>
+<p>This post is getting a little long, but I wanted to go over a sweet cli feature of joy&rsquo;s that makes this stuff really easy:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">joy create table account <span class="s1">&#39;name text unique not null&#39;</span> <span class="s1">&#39;photo_url text&#39;</span>
+</code></pre></div><p>This creates a database migration in the <code>db</code> folder that looks like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- up
+</span><span class="c1"></span><span class="k">create</span> <span class="k">table</span> <span class="n">account</span> <span class="p">(</span>
+  <span class="n">id</span> <span class="nb">integer</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+  <span class="n">name</span> <span class="nb">text</span> <span class="k">unique</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+  <span class="n">display_name</span> <span class="nb">text</span><span class="p">,</span>
+  <span class="n">photo_url</span> <span class="nb">text</span><span class="p">,</span>
+  <span class="n">created_at</span> <span class="nb">integer</span> <span class="k">not</span> <span class="k">null</span> <span class="k">default</span><span class="p">(</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%s&#39;</span><span class="p">,</span> <span class="s1">&#39;now&#39;</span><span class="p">)),</span>
+  <span class="n">updated_at</span> <span class="nb">integer</span>
+<span class="p">)</span>
+
+<span class="c1">-- down
+</span><span class="c1"></span><span class="k">drop</span> <span class="k">table</span> <span class="n">account</span>
+</code></pre></div><p>You get the timestamps, and the increasing integer primary key column by default! And it&rsquo;s sql and not some weird DSL! Incredible! In the next part, I&rsquo;ll go over running the migrations and we can get on to the ui stuff.</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

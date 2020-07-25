@@ -1,6 +1,6 @@
 :root {
   --background: #fff;
-  --background-alt: #f8f8f8;
+  --background-alt: #fafafa;
   --background-inverse: #313a46;
 
   --main: #363636;
@@ -10,7 +10,7 @@
   --link: #0076d1;
   --focus: #0096bfab;
   --border: #dbdbdb;
-  --code: var(--main);
+  --code: var(--bright);
 
   --animation-duration: 0.1s;
   --button: var(--link);

@@ -443,7 +443,7 @@ a:hover {
   text-decoration: underline;
 }
 
-samp, time {
+samp, time, code {
   background:  var(--background-alt);
   color: var(--code);
   padding: 2.5px 5px;

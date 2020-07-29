@@ -6,10 +6,22 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Lets Make Twitter With Joy: Part 5</title>
+      <link>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-5/</link>
+      <pubDate>Tue, 28 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-5/</guid>
+      <description>Let&amp;rsquo;s make twitter with joy: part 5 Welcome to a series I call with joy where I clone popular websites/webapps with my web framework, joy.
+If you&amp;rsquo;re just tuning in Part 4 I went over how forms and submitted and some high level request/database handling stuff.
+In this part, I&amp;rsquo;m actually going to build the thing.
+Twitter breakdown Let&amp;rsquo;s breakdown twitter into parts so it&amp;rsquo;s easier to work on one feature at a time:</description>
+    </item>
     
     <item>
       <title>Lets Make Twitter With Joy: Part 4</title>

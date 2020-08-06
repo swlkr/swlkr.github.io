@@ -6,15 +6,25 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Switching from fswatch to entr</title>
+      <link>http://swlkr.github.io/posts/switching-from-fswatch-to-entr/</link>
+      <pubDate>Thu, 06 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/switching-from-fswatch-to-entr/</guid>
+      <description>Switching from fswatch to entr Restarting development servers has a long, storied history. No I&amp;rsquo;m kidding I&amp;rsquo;m not going to get into that, but I will say there are three main ways to see changes in your server show up on your web app:
+ Go to terminal then Ctrl+C then go to browser and Cmd+R Restart development server on file change, only have to Cmd+R Hot reload changes in browser on file change  Manual restart This is not premature optimization, it&amp;rsquo;s necessary.</description>
+    </item>
+    
+    <item>
       <title>Lets Make Twitter With Joy: Part 5</title>
       <link>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-5/</link>
-      <pubDate>Tue, 28 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-5/</guid>
       <description>Let&amp;rsquo;s make twitter with joy: part 5 Welcome to a series I call with joy where I clone popular websites/webapps with my web framework, joy.

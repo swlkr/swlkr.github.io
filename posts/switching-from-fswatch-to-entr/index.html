@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Switching from fswatch to entr</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-08-06</div>
+      </div>
+    </hstack>
+
+    <h1 id="switching-from-fswatch-to-entr">Switching from fswatch to entr</h1>
+<p>Restarting development servers has a long, storied history. No I&rsquo;m kidding I&rsquo;m not going to get into that, but I will say there are three main ways to see changes in your server show up on your web app:</p>
+<ol>
+<li>Go to terminal then Ctrl+C then go to browser and Cmd+R</li>
+<li>Restart development server on file change, only have to Cmd+R</li>
+<li>Hot reload changes in browser on file change</li>
+</ol>
+<h2 id="manual-restart">Manual restart</h2>
+<p>This is not premature optimization, it&rsquo;s necessary. You need to figure something out to avoid this, don&rsquo;t do this.</p>
+<h2 id="restart-on-file-change">Restart on file change</h2>
+<p>This is where I&rsquo;m currently at with joy, and I think most server side development takes place like this, even with some of the bigger web frameworks like rails. It stinks to have to lose your state if you opened a modal or typed some text in an input, but it&rsquo;s do-able.</p>
+<h2 id="hot-reload">Hot reload</h2>
+<p>This is the holy grail. I think it&rsquo;s possible to do this without the overhead of things like react, you could cobble together a websocket server that takes whatever currently html is showing, diff it against the newly restarted server and then put it back in the same page with javascript, modals stay open, text stays in the inputs, no state loss.</p>
+<h1 id="fswatch---entr">fswatch -&gt; entr</h1>
+<p>joy was using <a href="https://github.com/emcrisostomo/fswatch">fswatch</a> like this in the default template:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">fswatch -o . --exclude<span class="o">=</span><span class="s1">&#39;.git&#39;</span> --exclude<span class="o">=</span><span class="s1">&#39;.sqlite3&#39;</span> <span class="p">|</span> xargs -n1 -I<span class="o">{}</span> ./watch
+</code></pre></div><p>and this need a whole separate file with execution permission to restart the server:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/usr/bin/env sh
+</span><span class="cp"></span>
+pkill -xf <span class="s2">&#34;janet main.janet&#34;</span>
+sleep .5
+janet main.janet <span class="p">&amp;</span>
+</code></pre></div><p>Madness. I saw <a href="https://github.com/eradman/entr">entr</a> on HN and it was all over, I switched right away, same effect with less code:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">find . -name <span class="s1">&#39;*.janet&#39;</span> <span class="p">|</span> entr -r -d janet main.janet
+</code></pre></div><p>If the whole directory changes, it fails, but I can just put it in a <code>while</code> and it&rsquo;ll keep going. If you&rsquo;re using <code>fswatch</code>, switch to <code>entr</code>.</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

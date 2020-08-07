@@ -89,7 +89,7 @@ Now type this into the janet repl:</p>
 <div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">accounts</span> <span class="p">(</span><span class="nf">db/fetch-all</span> <span class="p">[</span><span class="ss">:account</span><span class="p">]))</span>
 
 <span class="p">(</span><span class="k">def </span><span class="nv">fake-posts</span>
-  <span class="p">(</span><span class="nf">as-&gt;</span> <span class="p">(</span><span class="nf">http/get</span> <span class="s">&#34;http://localhost:1313/fake-posts.txt&#34;</span><span class="p">)</span> <span class="nv">?</span>
+  <span class="p">(</span><span class="nf">as-&gt;</span> <span class="p">(</span><span class="nf">http/get</span> <span class="s">&#34;https://swlkr.com/fake-posts.txt&#34;</span><span class="p">)</span> <span class="nv">?</span>
         <span class="p">(</span><span class="nb">get </span><span class="nv">?</span> <span class="ss">:body</span><span class="p">)</span>
         <span class="p">(</span><span class="nf">string/split</span> <span class="s">&#34;\n&#34;</span> <span class="nv">?</span><span class="p">)</span>
         <span class="p">(</span><span class="nb">filter </span><span class="err">|</span><span class="p">(</span><span class="nb">not </span><span class="p">(</span><span class="nf">empty?</span> <span class="nv">$</span><span class="p">))</span> <span class="nv">?</span><span class="p">)))</span>

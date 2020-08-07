@@ -6,10 +6,21 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>7 Ruby Gems That Really Whip The Llama&#39;s Ass</title>
+      <link>http://swlkr.github.io/posts/seven-ruby-gems/</link>
+      <pubDate>Fri, 07 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/seven-ruby-gems/</guid>
+      <description>7 Ruby Gems That Really Whip The Llama’s Ass These are some gems I’ve come across in my storied rails programming career that helped me tremendously, and I hope they can help you too!
+1. chartkick If you’re doing any charting which if you’re working on enterprise saas you are, then this is your ticket to unheard of productivity gains
+2. groupdate This one goes hand in hand with chart kick and it really helps you move fast and make things</description>
+    </item>
     
     <item>
       <title>Switching from fswatch to entr</title>

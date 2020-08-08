@@ -6,10 +6,22 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 08 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Lets Make Twitter With Joy: Part 6</title>
+      <link>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-6/</link>
+      <pubDate>Sat, 08 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-6/</guid>
+      <description>Let&amp;rsquo;s make twitter with joy: part 6 Welcome to a series I call with joy where I clone popular websites/webapps with my web framework, joy.
+If you&amp;rsquo;re just tuning in here&amp;rsquo;s Part 5.
+Let&amp;rsquo;s look at where we are on the roadmap:
+ The feed ✅ (almost) Liking/Un-liking ✅ Following/Un-following Retweeting/Un-retweeting ✅ Favoriting/Un-favoriting ✅ Posting a post ✅ Profiles  So we&amp;rsquo;re coming to the end of this, thank goodness. Profiles and follow/unfollow.</description>
+    </item>
     
     <item>
       <title>7 Ruby Gems That Really Whip The Llama&#39;s Ass</title>

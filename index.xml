@@ -6,55 +6,10 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Lets Make Twitter With Joy: Part 6</title>
-      <link>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-6/</link>
-      <pubDate>Sat, 08 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-6/</guid>
-      <description>Let&amp;rsquo;s make twitter with joy: part 6 Welcome to a series I call with joy where I clone popular websites/webapps with my web framework, joy.
-If you&amp;rsquo;re just tuning in here&amp;rsquo;s Part 5.
-Let&amp;rsquo;s look at where we are on the roadmap:
- ✅ The feed (almost) ✅ Liking/Un-liking 🚧 Following/Un-following ✅ Retweeting/Un-retweeting ✅ Favoriting/Un-favoriting ✅ Posting a post 🚧 Profiles  So we&amp;rsquo;re coming to the end of this, thank goodness.</description>
-    </item>
-    
-    <item>
-      <title>7 Ruby Gems That Really Whip The Llama&#39;s Ass</title>
-      <link>http://swlkr.github.io/posts/seven-ruby-gems/</link>
-      <pubDate>Fri, 07 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>http://swlkr.github.io/posts/seven-ruby-gems/</guid>
-      <description>7 Ruby Gems That Really Whip The Llama’s Ass These are some gems I’ve come across in my storied rails programming career that helped me tremendously, and I hope they can help you too!
-1. chartkick If you’re doing any charting which if you’re working on enterprise saas you are, then this is your ticket to unheard of productivity gains
-2. groupdate This one goes hand in hand with chart kick and it really helps you move fast and make things</description>
-    </item>
-    
-    <item>
-      <title>Switching from fswatch to entr</title>
-      <link>http://swlkr.github.io/posts/switching-from-fswatch-to-entr/</link>
-      <pubDate>Thu, 06 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>http://swlkr.github.io/posts/switching-from-fswatch-to-entr/</guid>
-      <description>Switching from fswatch to entr Restarting development servers has a long, storied history. No I&amp;rsquo;m kidding I&amp;rsquo;m not going to get into that, but I will say there are three main ways to see changes in your server show up on your web app:
- Go to terminal then Ctrl+C then go to browser and Cmd+R Restart development server on file change, only have to Cmd+R Hot reload changes in browser on file change  Manual restart This is not premature optimization, it&amp;rsquo;s necessary.</description>
-    </item>
-    
-    <item>
-      <title>Lets Make Twitter With Joy: Part 5</title>
-      <link>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-5/</link>
-      <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>http://swlkr.github.io/posts/lets-make-twitter-with-joy-part-5/</guid>
-      <description>Let&amp;rsquo;s make twitter with joy: part 5 Welcome to a series I call with joy where I clone popular websites/webapps with my web framework, joy.
-If you&amp;rsquo;re just tuning in Part 4 I went over how forms and submitted and some high level request/database handling stuff.
-In this part, I&amp;rsquo;m actually going to build the thing.
-Twitter breakdown Let&amp;rsquo;s breakdown twitter into parts so it&amp;rsquo;s easier to work on one feature at a time:</description>
-    </item>
     
     <item>
       <title>Lets Make Twitter With Joy: Part 4</title>
@@ -189,7 +144,7 @@ I&amp;rsquo;m also trying to livestream or at least record me working on it and 
       <pubDate>Thu, 07 May 2020 00:00:00 +0000</pubDate>
       
       <guid>http://swlkr.github.io/posts/ask-janet/</guid>
-      <description>Ask Janet The question in a world of abundance is &amp;ldquo;why?&amp;rdquo;. What is the point of making yet another website?
+      <description>Ask Janet The question in a world of abundance is &amp;ldquo;why?&amp;quot;. What is the point of making yet another website?
 Well, I don&amp;rsquo;t have 1500 reputation on stackoverflow, so I can&amp;rsquo;t make a janet tag, and I would also like to stop searching through gitter for questions/answers. I feel like those are perfectly reasonable reasons to make a website.
 With that, I set out to use my ✨shiny ✨new web framework joy to recreate some of the bits of SO, but specifically for janet.</description>
     </item>

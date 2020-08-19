@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://swlkr.github.io/posts/janet-basics/</loc>
-    <lastmod>2020-07-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://swlkr.github.io/posts/</loc>
-    <lastmod>2020-07-02T00:00:00+00:00</lastmod>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://swlkr.github.io/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swlkr.github.io/posts/that-time-i-lost-a-months-worth-of-posts/</loc>
+    <lastmod>2020-08-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swlkr.github.io/posts/janet-basics/</loc>
     <lastmod>2020-07-02T00:00:00+00:00</lastmod>
   </url>
   

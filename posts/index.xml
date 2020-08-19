@@ -6,10 +6,21 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>That Time I Lost A month&#39;s Worth of Posts</title>
+      <link>http://swlkr.github.io/posts/that-time-i-lost-a-months-worth-of-posts/</link>
+      <pubDate>Wed, 19 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/that-time-i-lost-a-months-worth-of-posts/</guid>
+      <description>That Time I Lost A month&amp;rsquo;s Worth of Posts Remember that one time I decided to start blogging in earnest on my own domain as a static hugo site but I changed computers and didn&amp;rsquo;t push the source changes to github so I lost a month&amp;rsquo;s worth of blog posts?
+Good times.
+It&amp;rsquo;s actually kind of funny because I wrote this whole 6 part series on cloning twitter but it wasn&amp;rsquo;t really that good, I kind of phoned home for most of it, I don&amp;rsquo;t have to worry about it anymore though, because that&amp;rsquo;s that.</description>
+    </item>
     
     <item>
       <title>Janet Basics</title>

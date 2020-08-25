@@ -6,10 +6,24 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2020 10:24:27 -0600</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SBT Native Packager</title>
+      <link>http://swlkr.github.io/posts/sbt-native-packager/</link>
+      <pubDate>Tue, 25 Aug 2020 10:24:27 -0600</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/sbt-native-packager/</guid>
+      <description>Add SBT Native Packager To Your Scala Project Ever work on a scala project? Ever wanted to turn it into a Docker image without writing a Dockerfile?
+Well then, this short but sweet tutorial has you covered!
+First things first, the assumption is that you have an existing scala project.
+Next things next, go ahead and:
+touch project/plugins.sbt And add the following line to that newly created project/plugins.sbt
+addSbtPlugin(&amp;#34;com.typesafe.sbt&amp;#34; % &amp;#34;sbt-native-packager&amp;#34; % &amp;#34;1.</description>
+    </item>
     
     <item>
       <title>That Time I Lost A month&#39;s Worth of Posts</title>

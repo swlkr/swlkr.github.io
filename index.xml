@@ -6,10 +6,20 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 25 Aug 2020 10:24:27 -0600</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The internet sucks now; how to fix it</title>
+      <link>http://swlkr.github.io/posts/internet-sucks-now/</link>
+      <pubDate>Wed, 02 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/internet-sucks-now/</guid>
+      <description>The internet sucks now; how to fix it I&amp;rsquo;ve been a programmer since I was kid, I&amp;rsquo;m in a unique position, because I&amp;rsquo;m old enough to have seen the internet since it went commercial from the ARPANET in the early 90s and young enough to understand the appeal of things like tiktok. So that makes my advice ✨priceless ✨haha.
+It&amp;rsquo;s grown into a monster since the 90s with things like javascript and the advertising economy.</description>
+    </item>
     
     <item>
       <title>SBT Native Packager</title>

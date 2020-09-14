@@ -6,10 +6,21 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Joy vs Rails</title>
+      <link>http://swlkr.github.io/posts/joy-vs-rails/</link>
+      <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/joy-vs-rails/</guid>
+      <description>Joy vs Rails Here are some things that you do in rails and how to do them in joy:
+Routing The rails way: # routes.rb get &amp;#39;/&amp;#39; =&amp;gt; &amp;#39;home#index&amp;#39; # app/controllers/home.rb class HomeController &amp;lt; ApplicationController def index; end end # app/views/home/index.html.erb &amp;lt;h1&amp;gt;Home&amp;lt;/h1&amp;gt; Just want to point out, that&amp;rsquo;s three different files for one route
+The joy way: ; # routes/pages.janet (route :get &amp;#34;/&amp;#34; :home) (defn home [request] [:h1 &amp;#34;Home&amp;#34;]) Database Migrations The rails way class CreatePostsTable &amp;lt; ActiveRecord::Migration[5.</description>
+    </item>
     
     <item>
       <title>The internet sucks now; how to fix it</title>

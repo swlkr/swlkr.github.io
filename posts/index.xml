@@ -6,10 +6,21 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Circular Webcams in Twitch &amp; OBS</title>
+      <link>http://swlkr.github.io/posts/twitch-obs-circle-webcam/</link>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/twitch-obs-circle-webcam/</guid>
+      <description>Circular Webcams in Twitch &amp;amp; OBS This took me a quick minute, but it was pretty easy and you don&amp;rsquo;t even need any special OBS software!
+Here&amp;rsquo;s how to do it.
+Make two shapes in something like figma or sketch, one that is a rectangle the resolution of your camera, make that one transparent. Another that is a circle whatever color you want, that&amp;rsquo;s where the camera will go, it should look like this:</description>
+    </item>
     
     <item>
       <title>Joy vs Rails</title>

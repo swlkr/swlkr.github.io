@@ -6,10 +6,21 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tailwind CSS as a Style Database</title>
+      <link>http://swlkr.github.io/posts/tailwind-css-as-a-style-database/</link>
+      <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/tailwind-css-as-a-style-database/</guid>
+      <description>Tailwind CSS as a Style Database I was messing around with how to make web apps more quickly, like always, and I found a way to use hiccup, janet bindings and tailwind to do it.
+How does it work? There are two janet files:
+ html.janet classes.janet  classes.janet is responsible for taking the styles from the html.janet file, grabbing them from the tailwind.all.min.css file, taking only the styles that are in use and making a smaller tailwind.</description>
+    </item>
     
     <item>
       <title>Circular Webcams in Twitch &amp; OBS</title>

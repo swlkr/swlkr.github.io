@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Tailwind CSS as a Style Database</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-10-05</div>
+      </div>
+    </hstack>
+
+    <h1 id="tailwind-css-as-a-style-database">Tailwind CSS as a Style Database</h1>
+<p>I was messing around with how to make web apps more quickly, like always, and I found a way to use <a href="https://github.com/joy-framework/joy/blob/master/docs/html-rendering.md">hiccup</a>, <a href="https://janet-lang.org/docs/bindings.html">janet bindings</a> and <a href="https://tailwindcss.com">tailwind</a> to do it.</p>
+<h2 id="how-does-it-work">How does it work?</h2>
+<p>There are two janet files:</p>
+<ol>
+<li><code>html.janet</code></li>
+<li><code>classes.janet</code></li>
+</ol>
+<p><code>classes.janet</code> is responsible for taking the styles from the <code>html.janet</code> file, grabbing them from the <code>tailwind.all.min.css</code> file, taking only the styles that are in use and making a smaller <code>tailwind.min.css</code> file.</p>
+<p>Here&rsquo;s what <code>html.janet</code> looks like:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # html.janet</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nb">class </span><span class="p">[</span><span class="nv">el</span> <span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">keyword </span><span class="nv">el</span> <span class="p">(</span><span class="nf">splice</span> <span class="p">(</span><span class="nb">map </span><span class="err">|</span><span class="p">(</span><span class="nf">string</span> <span class="s">&#34;.&#34;</span> <span class="nv">$</span><span class="p">)</span> <span class="nv">args</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">h1</span> <span class="ss">:h1.text-5xl.text-gray-800</span><span class="p">)</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">h2</span> <span class="ss">:h2.text-3xl.text-gray-800</span><span class="p">)</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">h3</span> <span class="ss">:h3.text-xl.text-gray-800</span><span class="p">)</span>
+</code></pre></div><p>In reality there are more styles than just three but this is a blog post to show it off. So this is hiccup, or more specifically, janet keywords that represent html:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">use</span> <span class="nv">joy</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">h1</span> <span class="ss">:h1.text-5xl.text-gray-800</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">html</span> <span class="p">[</span><span class="nv">h1</span> <span class="s">&#34;hello&#34;</span><span class="p">])</span> <span class="c1">; # =&gt; &#34;&lt;h1 class=&#34;text-5xl text-gray-800&#34;&gt;hello&lt;/h1&gt;&#34;</span>
+</code></pre></div><p>So each binding represents an html element with a set of tailwind classes. A cool side effect is if you try to use an element that doesn&rsquo;t exist, you get a compiler error. Of course you can always use a keyword directly in your html if you don&rsquo;t need any tailwind styles.</p>
+<p>Moving on to <code>classes.janet</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # classes.janet</span>
+
+<span class="p">(</span><span class="nb">import </span><span class="nv">./html</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">classes</span> <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nf">all-bindings</span> <span class="p">(</span><span class="nf">curenv</span><span class="p">)</span> <span class="nv">true</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nb">filter </span><span class="err">|</span><span class="p">(</span><span class="nf">string/has-prefix?</span> <span class="s">&#34;html/&#34;</span> <span class="nv">$</span><span class="p">))</span>
+                  <span class="p">(</span><span class="nb">map </span><span class="nv">eval</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nb">filter </span><span class="nv">keyword?</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nb">mapcat </span><span class="err">|</span><span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nf">string/split</span> <span class="s">&#34;.&#34;</span> <span class="nv">$</span><span class="p">)</span> <span class="p">(</span><span class="nb">drop </span><span class="mi">1</span><span class="p">)))</span>
+                  <span class="p">(</span><span class="nf">distinct</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nf">sort</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nf">reverse</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nb">map </span><span class="err">|</span><span class="p">(</span><span class="nf">string/replace-all</span> <span class="o">`</span><span class="nv">/</span><span class="o">`</span> <span class="o">`</span><span class="sc">\/</span><span class="o">`</span> <span class="nv">$</span><span class="p">))</span>
+                  <span class="p">(</span><span class="nb">map </span><span class="err">|</span><span class="p">(</span><span class="nf">string/replace-all</span> <span class="o">`</span><span class="err">:</span><span class="o">`</span> <span class="o">`</span><span class="sc">\:</span><span class="o">`</span> <span class="nv">$</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">tailwind-min-css</span> <span class="p">(</span><span class="nb">slurp </span><span class="s">&#34;public/tailwind.all.min.css&#34;</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">normalize-css</span> <span class="p">(</span><span class="nf">string/slice</span> <span class="nv">tailwind-min-css</span> <span class="mi">0</span> <span class="p">(</span><span class="nb">inc </span><span class="p">(</span><span class="nf">string/find</span> <span class="s">&#34;}.container&#34;</span> <span class="nv">tailwind-min-css</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">css-class-peg</span> <span class="p">[</span><span class="nv">classes</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">peg/compile</span> <span class="o">~</span><span class="p">{</span><span class="ss">:main</span> <span class="p">(</span><span class="nf">%</span> <span class="p">(</span><span class="nf">any</span> <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nb">* </span><span class="p">(</span><span class="nf">&lt;-</span> <span class="ss">:class</span><span class="p">)</span> <span class="p">(</span><span class="nf">&lt;-</span> <span class="p">(</span><span class="nf">constant</span> <span class="s">&#34;}&#34;</span><span class="p">)))</span> <span class="mi">1</span><span class="p">)))</span>
+                 <span class="ss">:class</span> <span class="p">(</span><span class="nb">* </span><span class="s">&#34;.&#34;</span> <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">splice</span> ,<span class="nv">classes</span><span class="p">))</span> <span class="p">(</span><span class="nb">+ </span><span class="s">&#34;{&#34;</span> <span class="s">&#34;&gt;&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nb">some </span><span class="p">(</span><span class="nb">if-not </span><span class="s">&#34;}&#34;</span> <span class="mi">1</span><span class="p">)))}))</span>
+
+<span class="p">(</span><span class="nf">as-&gt;</span> <span class="p">(</span><span class="nf">css-class-peg</span> <span class="nv">classes</span><span class="p">)</span> <span class="nv">?</span>
+      <span class="p">(</span><span class="nf">peg/match</span> <span class="nv">?</span> <span class="nv">tailwind-min-css</span><span class="p">)</span>
+      <span class="p">(</span><span class="nb">first </span><span class="nv">?</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf">string</span> <span class="nv">normalize-css</span> <span class="nv">?</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf">spit</span> <span class="s">&#34;public/tailwind.min.css&#34;</span> <span class="nv">?</span><span class="p">))</span>
+</code></pre></div><p>This code does three things:</p>
+<ol>
+<li>import <code>html.janet</code> and read all of the bindings that start with <code>html/</code></li>
+<li>read <code>tailwind.all.min.css</code>, strip out the prefix (normalize-ish.css part) and grab only the classes used in <code>html.janet</code> with a PEG</li>
+<li>output a new <code>tailwind.min.css</code> file with <em>just</em> the classes used in <code>html.janet</code></li>
+</ol>
+<p>No node, npm or purgecss required!</p>
+<p>It&rsquo;s pretty rough at this point. I&rsquo;ve only used this in one project so far, but it works great! This may make it into future versions of joy or maybe just a library for working with tailwind (or another atomic css framework).</p>
+
+    <div class="pb4"></div>
+
+    <script data-goatcounter="https://swlkr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>

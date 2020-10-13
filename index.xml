@@ -6,10 +6,21 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 05 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Turning bullseye into a SaaS app</title>
+      <link>http://swlkr.github.io/posts/turning-bullseye-into-an-app/</link>
+      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/turning-bullseye-into-an-app/</guid>
+      <description>Foreword I wrote this in like 10 minutes and it&amp;rsquo;s a very rough outline of how I think about new side projects after years of failure. Oh I&amp;rsquo;m also still failing so don&amp;rsquo;t take this as a good way to think about your side projects.
+Anyway I thought this might be useful to look back on if I ever thought, &amp;ldquo;how come I never made a profitable web app?&amp;quot;.
+The main takeaway from this is how I outline the different phases:</description>
+    </item>
     
     <item>
       <title>Tailwind CSS as a Style Database</title>

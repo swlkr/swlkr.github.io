@@ -6,10 +6,21 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 22 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Joy Web Framework Manifesto</title>
+      <link>http://swlkr.github.io/posts/joys-manifesto/</link>
+      <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/joys-manifesto/</guid>
+      <description>The Joy Web Framework Manifesto I&amp;rsquo;m not really a manifesto person, but here it is anyway. Wasn&amp;rsquo;t sure what else to call it. Principles maybe?
+ RFD (routes, functions, database) LoB (locality of behavior) MOIST (move other interdependent stacks together)  RFD as opposed to MVC Routes, Functions and Database
+Usually you map controllers and models to database tables, but then it starts falling apart when you want something that combines multiple tables together or is a weird mix of having to modify n tables in a single request.</description>
+    </item>
     
     <item>
       <title>Turning bullseye into a SaaS app</title>

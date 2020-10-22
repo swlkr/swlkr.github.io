@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Joy Web Framework Manifesto</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-10-22</div>
+      </div>
+    </hstack>
+
+    <h1 id="the-joy-web-framework-manifesto">The Joy Web Framework Manifesto</h1>
+<p>I&rsquo;m not really a manifesto person, but here it is anyway. Wasn&rsquo;t sure what else to call it. Principles maybe?</p>
+<ul>
+<li>RFD (routes, functions, database)</li>
+<li>LoB (locality of behavior)</li>
+<li>MOIST (move other interdependent stacks together)</li>
+</ul>
+<h2 id="rfd-as-opposed-to-mvc">RFD as opposed to MVC</h2>
+<p>Routes, Functions and Database</p>
+<p>Usually you map controllers and models to database tables, but then it starts falling apart when you want something that combines multiple tables together or is a weird mix of having to modify n tables in a single request. So you wind up with concerns and other resources or service models that are backed by multiple tables or materialized views or something.</p>
+<p>Joy instead treats the database as one thing. Every database actions lives under <code>db/</code> You don’t need to fuss about with trying to come up with abstract “resources” to represent controllers/models/views. You can instead define one route that maps to one action that can take as many varied paths to the database as necessary.</p>
+<h2 id="locality-of-behavior">Locality of Behavior</h2>
+<p>Dont sweat over separation of concerns. Instead focus on how to make code more readable by putting related code close together in one file. An example of LoB is a typical Joy controller function:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="k">new </span><span class="p">[</span><span class="nv">request</span> <span class="o">&amp;</span><span class="nv">opt</span> <span class="nv">errors</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">post</span> <span class="p">(</span><span class="nf">body</span> <span class="nv">request</span><span class="p">)]</span>
+
+    <span class="p">[</span><span class="ss">:form</span> <span class="p">{</span><span class="ss">:method</span> <span class="ss">:post</span> <span class="ss">:action</span> <span class="s">&#34;/posts&#34;</span><span class="p">}</span>
+      <span class="p">[</span><span class="ss">:input</span> <span class="p">{</span><span class="ss">:type</span> <span class="s">&#34;text&#34;</span> <span class="ss">:name</span> <span class="s">&#34;name&#34;</span> <span class="ss">:value</span> <span class="p">(</span><span class="nf">post</span> <span class="ss">:name</span><span class="p">)}]</span>
+      <span class="p">[</span><span class="ss">:div</span> <span class="p">(</span><span class="nf">errors</span> <span class="ss">:name</span><span class="p">)]</span>
+
+      <span class="p">[</span><span class="ss">:textarea</span> <span class="p">{</span><span class="ss">:name</span> <span class="s">&#34;body&#34;</span><span class="p">}</span> <span class="p">(</span><span class="nf">post</span> <span class="ss">:body</span><span class="p">)]</span>
+      <span class="p">[</span><span class="ss">:div</span> <span class="p">(</span><span class="nf">errors</span> <span class="ss">:body</span><span class="p">)]</span>
+
+      <span class="p">[</span><span class="ss">:input</span> <span class="p">{</span><span class="ss">:type</span> <span class="s">&#34;submit&#34;</span> <span class="ss">:value</span> <span class="s">&#34;Save&#34;</span><span class="p">}]]))</span>
+</code></pre></div><p>The html (view) and the database access (controller/model) code live along side each other so when it comes time to understand “what happens when I visit this url?” its all right there. You don’t have to tab between multiple files in your editor.</p>
+<h2 id="move-other-interdependent-stacks-together">Move Other Interdependent Stacks Together</h2>
+<p>That last and final weird acronym in Joy&rsquo;s arsenal is MOIST. Don&rsquo;t separate the backend from the frontend. Don’t even separate css js and html! Browsers are <em>great</em> at rendering html directly from a response. You don&rsquo;t need to treat the backend as an api that returns json in graphql queries, you can remove whole layers of abstraction if you put html on the wire and have fragments of your page update. HTMX does this with a very simple API:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">[</span><span class="ss">:button</span> <span class="p">{</span><span class="ss">:hx-get</span> <span class="s">&#34;/click&#34;</span> <span class="ss">:hx-target</span> <span class="s">&#34;outerHTML&#34;</span><span class="p">}</span> <span class="s">&#34;Click me&#34;</span><span class="p">]</span>
+</code></pre></div><p>This tells the browser that when you click this button, replace that button with the html from the response. That&rsquo;s exactly what MOIST and LoB is all about. Everything that is dependent on something else should be together in the same file and if it works, the same line of code. By moving things together you are essentially creating a domain specific language for working with the web. At the same time, you are making it easier on your future self, when you come back to a line of code you don&rsquo;t need to go anywhere else to see what it does! Don&rsquo;t pull things apart just because they look different syntactically. HTML, CSS, Javascript, Janet and SQL can and should all live together in the same function. Only extract + reference things when and where it makes sense, but before you start making references and splitting things up try to make things shorter but still understandable first.</p>
+
+    <div class="pb4"></div>
+
+    <script data-goatcounter="https://swlkr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>

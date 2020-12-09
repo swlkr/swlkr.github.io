@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Low Code Server Side Websites</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-12-09</div>
+      </div>
+    </hstack>
+
+    <h1 id="low-code-server-side-websites">Low Code Server Side Websites</h1>
+<p>One overarching goal of mine ever since I got into this web development game &gt; 10 years ago after graduating as an electrical engineer was to make making websites the easiest it could possibly be. I started with rails, and that isn&rsquo;t the easiest place to start if you don&rsquo;t already understand:</p>
+<ul>
+<li>sql</li>
+<li>html</li>
+<li>css</li>
+<li>javascript</li>
+<li>html forms</li>
+<li>http</li>
+<li>background jobs</li>
+<li>websockets</li>
+</ul>
+<p>and how each of those parts fit together to make a great website or I guess you could call them web apps.</p>
+<p>There&rsquo;s a lot of room for improvement in the number of keystrokes to deployed website metric there. Rails tries to help by generating a bunch of text, but the sheer amount of text you need to get something done is still a barrier to entry for most individual website makers, or you could shorten that to indie web makers or even indie makers.</p>
+<p>So for the past I don&rsquo;t know how many years I&rsquo;ve been studying up on languages and possible technologies that I could use to make websites with the least amount of keystrokes. One possibility was clojure and I dove into that face first. It did work, I noticed a substantial reduction in number of keystrokes, but there was still this strange formalism that I couldn&rsquo;t shake, a duplication of namespaces repeated across every file, and believe you me, there were a <em>lot</em> of files. I learned a few things from those clojure years:</p>
+<ul>
+<li>sqlite is enough</li>
+<li>the jvm is more trouble than it&rsquo;s worth for small to medium websites (the 99%, of which I am one of)</li>
+<li>clojure itself felt formal and rigid even with macros</li>
+<li>single file websites are the holy grail</li>
+</ul>
+<p>One very productive person (tm) who you have probably heard of, <a href="https://levels.io">Pieter Levels</a>, also honed in on these aspects of web development, sqlite + single file. He uses php 7 which is interesting, but I never learned php, so not sure it would help me here.</p>
+<p>One &ldquo;web framework&rdquo; that has always been interesting to me is <a href="sinatrarb.com">sinatra</a>. So I remade it in <a href="https://janet-lang.org">janet</a></p>
+<p>I&rsquo;m currently calling it <a href="https://github.com/swlkr/osprey">osprey</a>.</p>
+<p>It&rsquo;s still really early days, and things will change, but <a href="https://github.com/swlkr/osprey/discussions">let me know what you think</a>!</p>
+
+    <div class="pb4"></div>
+
+    <script data-goatcounter="https://swlkr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>

@@ -6,10 +6,27 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 17 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>NEW MAGIC</title>
+      <link>http://swlkr.github.io/posts/new-magic/</link>
+      <pubDate>Thu, 17 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/new-magic/</guid>
+      <description>NEW MAGIC What is it?! What is the NEW MAGIC referenced in this tweet:
+The HEY stack:
+- Vanilla Ruby on Rails on the backend, running on edge
+- Stimulus, Turbolinks, Trix + NEW MAGIC on the front end
+- MySQL for DB (Vitess for sharding)
+- Redis for short-lived data + caching
+- ElasticSearch for indexing
+- AWS/K8S
+&amp;mdash; DHH (@dhh) June 24, 2020  Most people in the replies seem to think it&amp;rsquo;s some kind of combination of stimulusjs over websockets?</description>
+    </item>
     
     <item>
       <title>Low Code Server Side Websites</title>

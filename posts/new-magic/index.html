@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>NEW MAGIC</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2020-12-17</div>
+      </div>
+    </hstack>
+
+    <h1 id="new-magic">NEW MAGIC</h1>
+<p>What is it?! What is the NEW MAGIC referenced in this tweet:</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The HEY stack:<br>- Vanilla Ruby on Rails on the backend, running on edge<br>- Stimulus, Turbolinks, Trix + NEW MAGIC on the front end<br>- MySQL for DB (Vitess for sharding)<br>- Redis for short-lived data + caching<br>- ElasticSearch for indexing<br>- AWS/K8S</p>&mdash; DHH (@dhh) <a href="https://twitter.com/dhh/status/1275901955995385856?ref_src=twsrc%5Etfw">June 24, 2020</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>Most people in the replies seem to think it&rsquo;s some kind of combination of stimulusjs over websockets?</p>
+<p>Or maybe some kind of websocket-y reactive-ui thing that takes data from active record models and sends
+them over websockets.</p>
+<p>There&rsquo;s more hints in the thread below and in this <a href="https://news.ycombinator.com/item?id=23643458">HN thread here</a></p>
+<p>But that&rsquo;s neither here nor there. The larger trend I think to extract from this and laravel&rsquo;s websocket thing and phoenix&rsquo;s websocket thing is that monolithic web frameworks aren&rsquo;t backing down from heavy server side computation. Oh no. They are doubling down on it.</p>
+<p>This may be an equal and opposite reaction to the complexity that SPAs hath wrought.</p>
+<p>Logically, it makes a lot of sense.</p>
+<p>Currently, you make an http/1.1 connection (with keep alive), even if you&rsquo;re making an http/2 connection, that&rsquo;s just to caddy or nginx, the real proxied code underneath, probably apache is using http/1.1, and then that&rsquo;s it. The connection ends, you got your css, js, images, videos and html. You&rsquo;re good. Until you need to make another connection. Then it starts all over again.</p>
+<p>This is kind of dumb. Servers are really powerful now, they can keep a ton of connections open, no problem. Especially in the case of elixir with the erlang VM. So you may as well take advantage of this new found power and reduce your complexity at the same time.</p>
+<p>It turns out that HTML is alive and well and going forward, heavy client side frameworks with their battery sucking ways will go the way of the dinosaur.</p>
+<p>Stateful monolithic web frameworks, who would have thought?</p>
+
+    <div class="pb4"></div>
+
+    <script data-goatcounter="https://swlkr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>

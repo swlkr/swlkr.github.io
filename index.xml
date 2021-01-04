@@ -6,10 +6,21 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Jan 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>tw</title>
+      <link>http://swlkr.github.io/posts/tw/</link>
+      <pubDate>Mon, 04 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/tw/</guid>
+      <description>tw Just wanted to give a little update on my tailwind experiments from a couple of months ago: https://swlkr.com/posts/tailwind-css-as-a-style-database/
+I&amp;rsquo;ve streamlined it quite a bit and store the classes in memory instead of a separate file. So you can write the tailwind styles inline or wherever, just be sure to call two (or three functions).
+Let&amp;rsquo;s say you&amp;rsquo;re writing some janet-html and you want to use tailwind to style some things.</description>
+    </item>
     
     <item>
       <title>NEW MAGIC</title>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>RAD</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2021-01-24</div>
+      </div>
+    </hstack>
+
+    <h1 id="rad-the-alternative-to-mvc">RAD: The alternative to MVC</h1>
+<p>No this isn’t me reminiscing about the good old days of <a href="https://en.wikipedia.org/wiki/Rapid_application_development">rapid application development</a>. This is me trying to come up with a cool, pointless acronym for an alternative way of making web applications.</p>
+<h2 id="routes-actions-data">Routes Actions Data</h2>
+<p>You can think of this as &ldquo;everything is in a rails controller method&rdquo;</p>
+<h3 id="routes-and-actions">Routes and Actions</h3>
+<p>Routes and actions are conceptually one thing.</p>
+<ul>
+<li>GET /list/todos</li>
+<li>GET /read/todo/:id</li>
+<li>GET /create/todo</li>
+<li>POST /create/todo</li>
+<li>GET /update/todo/:id</li>
+<li>POST /update/todo/:id</li>
+<li>POST /delete/todo/:id</li>
+</ul>
+<p>The http method doesn&rsquo;t really matter anymore, it only matters if choosing between &ldquo;I want html&rdquo; or &ldquo;I want to change some state&rdquo; / &ldquo;send some data with the request&rdquo;.</p>
+<p>The url is what tells the whole story, your web application is now a list of actions the user can take, not a set of resources the user can take action on.</p>
+<p>It&rsquo;s generally verbs vs nouns.</p>
+<h3 id="database">Data(base)</h3>
+<p>This can be anything you&rsquo;d like, but at the moment, I&rsquo;m using a yesql inspired database library. You can think of it like &ldquo;tailwind&rdquo; for the database. You write plain old sql in a file to get syntax highlighting and use comments to name bits of sql that get turned into functions. It&rsquo;s crude but simple.</p>
+<p>The only rule here is to have it be plain data, not objects.</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">{</span><span class="ss">:this</span> <span class="s">&#34;will work&#34;</span><span class="p">}</span>
+
+<span class="p">[{</span><span class="ss">:so</span> <span class="s">&#34;will&#34;</span><span class="p">}</span> <span class="p">{</span><span class="ss">:this</span> <span class="s">&#34;&#34;</span><span class="p">}]</span>
+</code></pre></div><p>Plain data, similar to json or ruby hash maps can be abstracted and operated on by functions or macros easily, unlike objects that are sort of the end of the line when it comes to composition.</p>
+<p>Here&rsquo;s a concrete example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">import </span><span class="nv">./db</span><span class="p">)</span>
+
+<span class="c1">; # database migrations</span>
+<span class="p">(</span><span class="nf">db/create-table-todos</span><span class="p">)</span>
+
+<span class="c1">; # routes</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">/list/todos</span> <span class="s">&#34;/list/todos&#34;</span><span class="p">)</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">/create/todo</span> <span class="s">&#34;/create/todo&#34;</span><span class="p">)</span>
+
+<span class="c1">; # actions and database</span>
+<span class="p">(</span><span class="nf">GET</span> <span class="nv">/list/todos</span>
+     <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">todos</span> <span class="p">(</span><span class="nf">db/todos</span><span class="p">)]</span>
+      <span class="p">[</span><span class="ss">:ul</span>
+       <span class="p">(</span><span class="nf">foreach</span> <span class="p">[</span><span class="nv">todo</span> <span class="nv">todos</span><span class="p">]</span>
+        <span class="p">[</span><span class="ss">:li</span> <span class="p">(</span><span class="nf">todo</span> <span class="ss">:name</span><span class="p">)])]))</span>
+
+
+<span class="p">(</span><span class="nf">GET</span> <span class="nv">/create/todo</span>
+     <span class="p">(</span><span class="nf">form</span> <span class="p">{</span><span class="ss">:action</span> <span class="nv">/create/todo</span><span class="p">}</span>
+
+           <span class="p">[</span><span class="ss">:label</span> <span class="p">{</span><span class="ss">:for</span> <span class="s">&#34;name&#34;</span><span class="p">}</span> <span class="s">&#34;name&#34;</span><span class="p">]</span>
+           <span class="p">[</span><span class="ss">:input</span> <span class="p">{</span><span class="ss">:type</span> <span class="s">&#34;text&#34;</span> <span class="ss">:name</span> <span class="s">&#34;name&#34;</span> <span class="ss">:value</span> <span class="p">(</span><span class="nb">get </span><span class="nv">body</span> <span class="ss">:name</span><span class="p">)}]</span>
+
+           <span class="p">[</span><span class="ss">:a</span> <span class="p">{</span><span class="ss">:href</span> <span class="nv">/list/todos</span><span class="p">}</span> <span class="s">&#34;Cancel&#34;</span><span class="p">]</span>
+           <span class="p">[</span><span class="ss">:input</span> <span class="p">{</span><span class="ss">:type</span> <span class="s">&#34;submit&#34;</span> <span class="ss">:value</span> <span class="s">&#34;Save&#34;</span><span class="p">}]))</span>
+
+
+<span class="p">(</span><span class="nf">POST</span> <span class="nv">/create/todo</span>
+      <span class="p">(</span><span class="kd">def- </span><span class="nv">body</span> <span class="p">(</span><span class="nf">table/slice</span> <span class="nv">body</span> <span class="p">[</span><span class="ss">:name</span><span class="p">]))</span>
+
+      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">db/create-todo</span> <span class="nv">body</span><span class="p">))</span>
+          <span class="p">(</span><span class="nf">redirect</span> <span class="nv">/list/todos</span><span class="p">)</span>
+          <span class="p">(</span><span class="nf">render</span> <span class="nv">/create/todo</span><span class="p">)))</span>
+</code></pre></div><p>This is <code>db.janet</code>. The data layer is just this + 100 lines in suresql (and the <a href="https://github.com/janet-lang/sqlite3">sqlite3 wrapper</a>). The implementation is super simple, even though that&rsquo;s not necessarily what I was aiming for.</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # db.janet</span>
+<span class="p">(</span><span class="nb">import </span><span class="nv">suresql</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">import </span><span class="nv">sqlite3</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">connection</span> <span class="p">(</span><span class="nf">sqlite3/open</span> <span class="s">&#34;db.sqlite3&#34;</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">defqueries</span> <span class="s">&#34;todos.sql&#34;</span> <span class="p">{</span><span class="ss">:connection</span> <span class="nv">connection</span><span class="p">})</span>
+</code></pre></div><p>Here&rsquo;s <code>todos.sql</code>:</p>
+<p><a href="https://github.com/joy-framework/suresql">suresql</a> is just one approach, if you don&rsquo;t want to write sql there are other data access libraries you can use, or you can write your own!</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- name: create-table-todos
+</span><span class="c1"></span><span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="n">todos</span> <span class="p">(</span>
+  <span class="n">id</span> <span class="nb">integer</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+  <span class="n">name</span> <span class="nb">text</span> <span class="k">not</span> <span class="k">null</span>
+<span class="p">)</span>
+
+<span class="c1">-- name: todos
+</span><span class="c1"></span><span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">todos</span>
+
+<span class="c1">-- name: create-todo
+</span><span class="c1"></span><span class="k">insert</span> <span class="k">into</span> <span class="n">todos</span> <span class="p">(</span>
+  <span class="n">name</span>
+<span class="p">)</span> <span class="k">values</span> <span class="p">(</span>
+  <span class="p">:</span><span class="n">name</span>
+<span class="p">)</span>
+</code></pre></div><p>The moral of the story is, make web apps the way you want. Frameworks are nice but web apps are pretty easy to make, you might just want to write your own.</p>
+
+    <div class="pb4"></div>
+
+    <script data-goatcounter="https://swlkr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>

@@ -6,10 +6,22 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RAD</title>
+      <link>http://swlkr.github.io/posts/rad/</link>
+      <pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/rad/</guid>
+      <description>RAD: The alternative to MVC No this isn’t me reminiscing about the good old days of rapid application development. This is me trying to come up with a cool, pointless acronym for an alternative way of making web applications.
+Routes Actions Data You can think of this as &amp;ldquo;everything is in a rails controller method&amp;rdquo;
+Routes and Actions Routes and actions are conceptually one thing.
+ GET /list/todos GET /read/todo/:id GET /create/todo POST /create/todo GET /update/todo/:id POST /update/todo/:id POST /delete/todo/:id  The http method doesn&amp;rsquo;t really matter anymore, it only matters if choosing between &amp;ldquo;I want html&amp;rdquo; or &amp;ldquo;I want to change some state&amp;rdquo; / &amp;ldquo;send some data with the request&amp;rdquo;.</description>
+    </item>
     
     <item>
       <title>tw</title>

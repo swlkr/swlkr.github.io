@@ -6,10 +6,19 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 03 Feb 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>One File Websites With Janet</title>
+      <link>http://swlkr.github.io/posts/one-file-websites-with-janet/</link>
+      <pubDate>Wed, 03 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/one-file-websites-with-janet/</guid>
+      <description>One File Websites with Janet A weird, reoccurring theme on this blog and in my life is this idea of a one file website. I don&amp;rsquo;t know why I care so much, but I do. I even wrote a whole web thing on top of janet to do it! I&amp;rsquo;ll cut to the chase and give you a quick preview of what it looks like and then go over how to install it and get started on your own.</description>
+    </item>
     
     <item>
       <title>RAD</title>
@@ -21,6 +30,16 @@
 Routes Actions Data You can think of this as &amp;ldquo;everything is in a rails controller method&amp;rdquo;
 Routes and Actions Routes and actions are conceptually one thing.
  GET /list/todos GET /read/todo/:id GET /create/todo POST /create/todo GET /update/todo/:id POST /update/todo/:id POST /delete/todo/:id  The http method doesn&amp;rsquo;t really matter anymore, it only matters if choosing between &amp;ldquo;I want html&amp;rdquo; or &amp;ldquo;I want to change some state&amp;rdquo; / &amp;ldquo;send some data with the request&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>Rails all in one file</title>
+      <link>http://swlkr.github.io/posts/rails-all-in-one-file/</link>
+      <pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/rails-all-in-one-file/</guid>
+      <description>Rails all in one file It&amp;rsquo;s actually not that bad when you put it all together.
+# Migrations create_table :todos do |t| t.string :name end # app/models/todo.rb class Todo &amp;lt; ApplicationRecord end # app/controllers/todos_controller.rb class TodosController &amp;lt; ApplicationController def index @todos = Todo.all end def new @todo = Todo.new end def create @todo = Todo.new(todo_params) if @todo.save redirect_to todos_path else render :new end end private def todo_params params.require(:todo).permit(:name) end end # app/views/new.</description>
     </item>
     
     <item>

@@ -6,10 +6,23 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Reddit Tiktok</title>
+      <link>http://swlkr.github.io/posts/reddit-tiktok/</link>
+      <pubDate>Wed, 10 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/reddit-tiktok/</guid>
+      <description>Reddit Tiktok I mashed reddit and tiktok&amp;rsquo;s ui together, complete with css scroll snap, and lazy loading on each swipe.
+It&amp;rsquo;s not really a serious project, more like an example of what a mobile first, text first platform could look like. Without further ado:
+  The source is here
+I want to walk through the stack this project uses and how it could make deploying easy.
+The stack This is in the readme as well, so didn&amp;rsquo;t want to go too much in depth here, but:</description>
+    </item>
     
     <item>
       <title>One File Websites With Janet</title>
@@ -398,6 +411,15 @@ In a word, ads. There’s too many of them. The web actually works very poorly w
       
       <guid>http://swlkr.github.io/posts/the-static-web/</guid>
       <description>The static web You know it’s funny, I’ve been programming web &amp;ldquo;applications&amp;rdquo; for a decade now and just this year I’ve given up on them. Some of the ideas behind web apps were revolutionary at the time, stateless user interfaces, where the state isn’t stored in the application in memory, but on the server and in the database. There’s a lot to love about web applications, and a lot to hate.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://swlkr.github.io/reddit-tiktok/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/reddit-tiktok/</guid>
+      <description></description>
     </item>
     
   </channel>

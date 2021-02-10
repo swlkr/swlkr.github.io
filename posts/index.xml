@@ -6,10 +6,23 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Reddit Tiktok</title>
+      <link>http://swlkr.github.io/posts/reddit-tiktok/</link>
+      <pubDate>Wed, 10 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/reddit-tiktok/</guid>
+      <description>Reddit Tiktok I mashed reddit and tiktok&amp;rsquo;s ui together, complete with css scroll snap, and lazy loading on each swipe.
+It&amp;rsquo;s not really a serious project, more like an example of what a mobile first, text first platform could look like. Without further ado:
+  The source is here
+I want to walk through the stack this project uses and how it could make deploying easy.
+The stack This is in the readme as well, so didn&amp;rsquo;t want to go too much in depth here, but:</description>
+    </item>
     
     <item>
       <title>One File Websites With Janet</title>

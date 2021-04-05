@@ -6,10 +6,21 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 31 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Apr 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Reload roda with zeitwerk on vagrant</title>
+      <link>http://swlkr.github.io/posts/reload-roda-with-zeitwerk/</link>
+      <pubDate>Mon, 05 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/reload-roda-with-zeitwerk/</guid>
+      <description>Reload roda with zeitwerk on vagrant This is for anyone who is strugging with reloading roda with zeitwerk, listen and vagrant.
+# config.ru require &amp;#34;roda&amp;#34; require &amp;#34;zeitwerk&amp;#34; require &amp;#34;listen&amp;#34; loader = Zeitwerk::Loader.new loader.push_dir(__dir__) loader.enable_reloading loader.setup Listen.to(__dir__, only: /\.rb$/, force_polling: true) { loader.reload }.start run -&amp;gt;(env) { loader.reload App.call(env) } This assumes an app.rb file with class App &amp;lt; Roda
+You can run this with rackup in that directory, override port and host like this:</description>
+    </item>
     
     <item>
       <title>Big tech is AOL now</title>

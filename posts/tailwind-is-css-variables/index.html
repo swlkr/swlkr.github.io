@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Tailwind is just css variables</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2021-04-08</div>
+      </div>
+    </hstack>
+
+    <h1 id="tailwind-is-just-css-variables">Tailwind is just css variables</h1>
+<p>My argument against tailwind and all atomic css is that it can be reduced even further to just using regular css and css variables. Yes you will have to use a separate file instead of your template or html file, but isn’t that what split panes are for?</p>
+<p>I still think there is a place for atomic classes, mostly for margin/padding and things like that, but for the most part you should probably just use grid and flexbox for layout and then everything else should be a css variable. A good rule of thumb is to make sure you never have a hardcoded number in your css, always reference a variable. This keeps your design consistent.</p>
+<p>The key to consistency isn’t using a framework it’s choosing</p>
+<ul>
+<li>spacing scale (padding/margin)</li>
+<li>shadows</li>
+<li>borders</li>
+<li>colors</li>
+<li>font scale</li>
+</ul>
+<p>ahead of time and assigning them to css variables, and only referencing those variables.</p>
+<p>I’ve found I can move even faster without tailwind by just copying most of their css variables and writing a mix of classless css, atomic css, flexbox and grid. You should try it!</p>
+
+    <div class="pb4"></div>
+
+    <script data-goatcounter="https://swlkr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>

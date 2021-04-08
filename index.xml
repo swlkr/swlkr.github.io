@@ -6,10 +6,20 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 05 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 08 Apr 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tailwind is just css variables</title>
+      <link>http://swlkr.github.io/posts/tailwind-is-css-variables/</link>
+      <pubDate>Thu, 08 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/tailwind-is-css-variables/</guid>
+      <description>Tailwind is just css variables My argument against tailwind and all atomic css is that it can be reduced even further to just using regular css and css variables. Yes you will have to use a separate file instead of your template or html file, but isn’t that what split panes are for?
+I still think there is a place for atomic classes, mostly for margin/padding and things like that, but for the most part you should probably just use grid and flexbox for layout and then everything else should be a css variable.</description>
+    </item>
     
     <item>
       <title>Reload roda with zeitwerk on vagrant</title>

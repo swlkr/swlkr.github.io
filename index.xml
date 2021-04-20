@@ -6,10 +6,22 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 20 Apr 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>I wrote a bare-bones, free, open source CRM</title>
+      <link>http://swlkr.github.io/posts/i-wrote-a-crm/</link>
+      <pubDate>Tue, 20 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/i-wrote-a-crm/</guid>
+      <description>I wrote a bare-bones, free, open source CRM TL;DR I wrote a CRUD-tastic &amp;ldquo;CRM&amp;rdquo; web app to learn roda, sequel and turbo
+Check it out here Check out the source here
+It’s free to use, in fact it’s so free that you don’t even have to sign in to use it, just go to tinycrm.swlkr.com and BAM there it is.
+How can it be free? What’s the catch? Well the catch is that very few people (if anyone) will use it, so there’s no point to try to charge money if no one is going to pay me.</description>
+    </item>
     
     <item>
       <title>Tailwind is just css variables</title>

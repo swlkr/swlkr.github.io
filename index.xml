@@ -6,10 +6,31 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 26 Apr 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>I have to stop buying domains</title>
+      <link>http://swlkr.github.io/posts/i-have-to-stop-buying-domain-names/</link>
+      <pubDate>Mon, 26 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/i-have-to-stop-buying-domain-names/</guid>
+      <description>I have to stop buying domains I bought three domains over the last two weeks:
+ seans dot cloud isatiny dot app isatiny dot com  The first one is weird mostly because my name is not phonetic so as I soon as I bought it for $4 I knew it sucked, but it was already too late.
+Hopefully the last two will be the last two I will ever buy because I own about 40 domains and I let most of the them expire every year becuase I don&amp;rsquo;t want to pay the $8/year to keep them around.</description>
+    </item>
+    
+    <item>
+      <title>Exploring the infosec industry</title>
+      <link>http://swlkr.github.io/posts/web-security-industry/</link>
+      <pubDate>Wed, 21 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/web-security-industry/</guid>
+      <description>Exploring the infosec industry I could have also named this, what the heck is all of this b2b saas security stuff and how can I compete in this market?
+I know about the edges of this market but I didn&amp;rsquo;t know (and still don&amp;rsquo;t know) a ton about how it works or what&amp;rsquo;s worth paying for, or in the words of at least one famous influencer, what&amp;rsquo;s the different between:</description>
+    </item>
     
     <item>
       <title>I wrote a bare-bones, free, open source CRM</title>

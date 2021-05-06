@@ -6,10 +6,31 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>I made a free uptime monitor</title>
+      <link>http://swlkr.github.io/posts/i-made-a-free-uptime-monitor/</link>
+      <pubDate>Wed, 05 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/i-made-a-free-uptime-monitor/</guid>
+      <description>I made a free uptime monitor TL;DR I made a free uptime monitoring website, you can monitor any number of websites and they get checked at 5 minute intervals
+I really like uptime robot. I think it&amp;rsquo;s great. Uptime monitoring as a service is super simple conceptually. Make a get request at some interval, send an email or a text message or notification or something when a site goes down. There&amp;rsquo;s all sorts of ways you can take it too.</description>
+    </item>
+    
+    <item>
+      <title>Setting up and securing a brand spankin&#39; new vps with vultr</title>
+      <link>http://swlkr.github.io/posts/securing-new-vps/</link>
+      <pubDate>Wed, 28 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/securing-new-vps/</guid>
+      <description>Setting up and securing a brand spankin&amp;rsquo; new vps with vultr I&amp;rsquo;ll try to keep this brief but here&amp;rsquo;s how I went from a fresh ubuntu 20.04 VPS on vultr to a secured VPS on vultr
+Spin up a new VPS First things first, install the vultr CLI and spin up that new VPS
+brew tap vultr/vultr-cli brew install vultr-cli export VULTR_API_KEY=your_api_key vultr-cli server create --region &amp;lt;region-id&amp;gt; --plan &amp;lt;plan-id&amp;gt; --os &amp;lt;os-id&amp;gt; --hostname &amp;lt;hostname&amp;gt; Secure that VPS, pronto I read somewhere that you have ~10 minutes to secure a vanilla ubuntu VPS before it gets compromised by some script kiddie or a crypto miner or something.</description>
+    </item>
     
     <item>
       <title>I have to stop buying domains</title>

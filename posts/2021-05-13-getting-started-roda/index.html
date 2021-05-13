@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Getting started with roda</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2021-05-13</div>
+      </div>
+    </hstack>
+
+    <h1 id="getting-started-with-roda">Getting started with roda</h1>
+<p>I use docker in anger and in development so that&rsquo;s where I&rsquo;ll be starting:</p>
+<p>Go ahead and install docker if you don&rsquo;t have it already:</p>
+<p><a href="https://docs.docker.com/docker-for-mac/install/">https://docs.docker.com/docker-for-mac/install/</a></p>
+<p>Now you can use my ace Dockerfile and roda setup:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">git clone https://github.com/swlkr/roda-starter ~/Projects/your_project
+<span class="nb">cd</span> your_project
+docker compose up <span class="c1"># listening on http://localhost:9292</span>
+</code></pre></div><p>Head over to localhost:9292 and check it out!</p>
+<p>You should be able to sign up, login and logout via email (magic link) auth.</p>
+<p>There are no styles, so good luck trying to click those links.</p>
+<p>Here&rsquo;s a quick list from the readme of some cool features:</p>
+<ul>
+<li>a locked down content security policy (everything served from same domain)</li>
+<li>cross site request forgery tokens</li>
+<li>asset compilation in production</li>
+<li>a docker and docker compose file</li>
+<li>a .env file for docker to set env variables</li>
+<li><a href="http://sequel.jeremyevans.net">sequel</a> with model plugin</li>
+<li><a href="https://markaby.github.io">markaby</a> templates</li>
+<li>email auth with a migration, model, a mailer and a background job (<a href="https://github.com/brandonhilkert/sucker_punch">sucker_punch</a>) for that mailer</li>
+</ul>
+<p>I feel like this is pretty close to what rails gives you but without all of the <a href="https://dhh.dk/2012/rails-is-omakase.html">omakase</a> and higher memory usage.</p>
+
+    <div class="pb4"></div>
+
+    <script data-goatcounter="https://swlkr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>

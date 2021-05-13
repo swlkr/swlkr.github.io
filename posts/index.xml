@@ -6,10 +6,24 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Getting started with roda</title>
+      <link>http://swlkr.github.io/posts/2021-05-13-getting-started-roda/</link>
+      <pubDate>Thu, 13 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/2021-05-13-getting-started-roda/</guid>
+      <description>Getting started with roda I use docker in anger and in development so that&amp;rsquo;s where I&amp;rsquo;ll be starting:
+Go ahead and install docker if you don&amp;rsquo;t have it already:
+https://docs.docker.com/docker-for-mac/install/
+Now you can use my ace Dockerfile and roda setup:
+git clone https://github.com/swlkr/roda-starter ~/Projects/your_project cd your_project docker compose up # listening on http://localhost:9292 Head over to localhost:9292 and check it out!
+You should be able to sign up, login and logout via email (magic link) auth.</description>
+    </item>
     
     <item>
       <title>I made a free uptime monitor</title>

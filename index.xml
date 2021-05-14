@@ -17,12 +17,12 @@
       <pubDate>Thu, 13 May 2021 00:00:00 +0000</pubDate>
       
       <guid>http://swlkr.github.io/posts/2021-05-13-getting-started-roda/</guid>
-      <description>Getting started with roda I use docker in anger and in development so that&amp;rsquo;s where I&amp;rsquo;ll be starting:
+      <description>Getting started with roda TL;DR I made this handy roda-starter repo so you can make ruby websites that run faster and use less memory than rails!
+I use docker in anger and in development so that&amp;rsquo;s where I&amp;rsquo;ll be starting:
 Go ahead and install docker if you don&amp;rsquo;t have it already:
 https://docs.docker.com/docker-for-mac/install/
 Now you can use my ace Dockerfile and roda setup:
-git clone https://github.com/swlkr/roda-starter ~/Projects/your_project cd your_project docker compose up # listening on http://localhost:9292 Head over to localhost:9292 and check it out!
-You should be able to sign up, login and logout via email (magic link) auth.</description>
+git clone https://github.com/swlkr/roda-starter ~/Projects/your_project cd your_project docker compose up # listening on http://localhost:9292 Head over to localhost:9292 and check it out!</description>
     </item>
     
     <item>

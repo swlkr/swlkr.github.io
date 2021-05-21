@@ -6,10 +6,23 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vanilla js direct upload s3</title>
+      <link>http://swlkr.github.io/posts/2021-05-20-direct-upload-s3/</link>
+      <pubDate>Thu, 20 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/2021-05-20-direct-upload-s3/</guid>
+      <description>Vanilla js direct upload s3 I couldn&amp;rsquo;t find a great guide for getting s3 direct uploadings working with vanilla js and fetch so here is one
+I use shrine for the presigning but anything will work.
+S3 setup Don&amp;rsquo;t forget to set the CORS stuff and any bucket settings you want for your bucket, make sure to allow PutObject at least.
+Here&amp;rsquo;s my CORS config:
+[ { &amp;#34;AllowedHeaders&amp;#34;: [ &amp;#34;Authorization&amp;#34;, &amp;#34;x-amz-date&amp;#34;, &amp;#34;x-amz-content-sha256&amp;#34;, &amp;#34;content-type&amp;#34;, &amp;#34;content-disposition&amp;#34; ], &amp;#34;AllowedMethods&amp;#34;: [ &amp;#34;GET&amp;#34;, &amp;#34;PUT&amp;#34;, &amp;#34;POST&amp;#34;, &amp;#34;DELETE&amp;#34; ], &amp;#34;AllowedOrigins&amp;#34;: [ &amp;#34;*&amp;#34; ], &amp;#34;ExposeHeaders&amp;#34;: [ &amp;#34;x-amz-server-side-encryption&amp;#34;, &amp;#34;x-amz-request-id&amp;#34;, &amp;#34;x-amz-id-2&amp;#34;, &amp;#34;ETag&amp;#34; ], &amp;#34;MaxAgeSeconds&amp;#34;: 3000 } ] HTML Here&amp;rsquo;s the html, it&amp;rsquo;s just a form with a file upload</description>
+    </item>
     
     <item>
       <title>Getting started with roda</title>

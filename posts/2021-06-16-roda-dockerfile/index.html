@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>A very simple roda dockerfile for development</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2021-06-16</div>
+      </div>
+    </hstack>
+
+    <h1 id="a-very-simple-roda-dockerfile-for-development">A very simple roda dockerfile for development</h1>
+<p>I couldn&rsquo;t find a great guide for using docker / docker compose with roda in development so here&rsquo;s my attempt.</p>
+<p>Here&rsquo;s the Dockerfile:</p>
+<pre><code>FROM ruby:3.0.1-slim-buster
+
+RUN apt-get update -qq &amp;&amp; apt-get install -y build-essential libsqlite3-dev
+
+RUN apt-get install -y --no-install-recommends libjemalloc2
+RUN rm -rf /var/lib/apt/lists/*
+
+ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+
+ARG USER=app
+ARG GROUP=app
+ARG UID=1101
+ARG GID=1101
+
+RUN groupadd --gid $GID $GROUP
+RUN useradd --uid $UID --gid $GID --groups $GROUP -ms /bin/bash $USER
+
+RUN mkdir -p /var/app
+RUN chown -R $USER:$GROUP /var/app
+
+USER $USER
+WORKDIR /var/app
+
+COPY --chown=$USER Gemfile* /var/app/
+RUN bundle install
+
+COPY --chown=$USER . /var/app
+
+CMD [&quot;rerun&quot;, &quot;--pattern&quot;, &quot;rb,js,css,mab,ru&quot;, &quot;--force-polling&quot;, &quot;--&quot;, &quot;rackup&quot;, &quot;-o&quot;, &quot;0.0.0.0&quot;]
+</code></pre><p>This uses debian slim, jemalloc, and it assumes you already have a Gemfile and it assumes you want to use rerun instead
+of unreloader or zeitwerk or something.</p>
+<p>I understand alpine is smaller, and I understand multistage builds, but this is for development, not production.</p>
+<h2 id="compose">compose</h2>
+<p>Here&rsquo;s the docker-compose file:</p>
+<pre><code>version: '3'
+services:
+  web:
+    tty: true
+    env_file: .env
+    volumes:
+      - .:/var/app
+    build: .
+    ports:
+      - &quot;9292:9292&quot;
+</code></pre><p>That&rsquo;s it! It just copies everything to the local directory, reads a <code>.env</code> file for env vars and exposes the default rack port of 9292.</p>
+<p>This is what ships with <a href="https://github.com/swlkr/roda-starter">roda starter</a> by the way.</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

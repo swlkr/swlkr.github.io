@@ -6,10 +6,21 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 20 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A very simple roda dockerfile for development</title>
+      <link>http://swlkr.github.io/posts/2021-06-16-roda-dockerfile/</link>
+      <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/2021-06-16-roda-dockerfile/</guid>
+      <description>A very simple roda dockerfile for development I couldn&amp;rsquo;t find a great guide for using docker / docker compose with roda in development so here&amp;rsquo;s my attempt.
+Here&amp;rsquo;s the Dockerfile:
+FROM ruby:3.0.1-slim-buster RUN apt-get update -qq &amp;amp;&amp;amp; apt-get install -y build-essential libsqlite3-dev RUN apt-get install -y --no-install-recommends libjemalloc2 RUN rm -rf /var/lib/apt/lists/* ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2 ARG USER=app ARG GROUP=app ARG UID=1101 ARG GID=1101 RUN groupadd --gid $GID $GROUP RUN useradd --uid $UID --gid $GID --groups $GROUP -ms /bin/bash $USER RUN mkdir -p /var/app RUN chown -R $USER:$GROUP /var/app USER $USER WORKDIR /var/app COPY --chown=$USER Gemfile* /var/app/ RUN bundle install COPY --chown=$USER .</description>
+    </item>
     
     <item>
       <title>Vanilla js direct upload to S3</title>

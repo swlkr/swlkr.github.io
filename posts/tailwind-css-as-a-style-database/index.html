@@ -31,7 +31,7 @@
 </ol>
 <p><code>classes.janet</code> is responsible for taking the styles from the <code>html.janet</code> file, grabbing them from the <code>tailwind.all.min.css</code> file, taking only the styles that are in use and making a smaller <code>tailwind.min.css</code> file.</p>
 <p>Here&rsquo;s what <code>html.janet</code> looks like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # html.janet</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # html.janet</span>
 
 <span class="p">(</span><span class="kd">defn </span><span class="nb">class </span><span class="p">[</span><span class="nv">el</span> <span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
   <span class="p">(</span><span class="nb">keyword </span><span class="nv">el</span> <span class="p">(</span><span class="nf">splice</span> <span class="p">(</span><span class="nb">map </span><span class="err">|</span><span class="p">(</span><span class="nf">string</span> <span class="s">&#34;.&#34;</span> <span class="nv">$</span><span class="p">)</span> <span class="nv">args</span><span class="p">))))</span>
@@ -40,14 +40,14 @@
 <span class="p">(</span><span class="k">def </span><span class="nv">h2</span> <span class="ss">:h2.text-3xl.text-gray-800</span><span class="p">)</span>
 <span class="p">(</span><span class="k">def </span><span class="nv">h3</span> <span class="ss">:h3.text-xl.text-gray-800</span><span class="p">)</span>
 </code></pre></div><p>In reality there are more styles than just three but this is a blog post to show it off. So this is hiccup, or more specifically, janet keywords that represent html:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">use</span> <span class="nv">joy</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">use</span> <span class="nv">joy</span><span class="p">)</span>
 
 <span class="p">(</span><span class="k">def </span><span class="nv">h1</span> <span class="ss">:h1.text-5xl.text-gray-800</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nf">html</span> <span class="p">[</span><span class="nv">h1</span> <span class="s">&#34;hello&#34;</span><span class="p">])</span> <span class="c1">; # =&gt; &#34;&lt;h1 class=&#34;text-5xl text-gray-800&#34;&gt;hello&lt;/h1&gt;&#34;</span>
 </code></pre></div><p>So each binding represents an html element with a set of tailwind classes. A cool side effect is if you try to use an element that doesn&rsquo;t exist, you get a compiler error. Of course you can always use a keyword directly in your html if you don&rsquo;t need any tailwind styles.</p>
 <p>Moving on to <code>classes.janet</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # classes.janet</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # classes.janet</span>
 
 <span class="p">(</span><span class="nb">import </span><span class="nv">./html</span><span class="p">)</span>
 

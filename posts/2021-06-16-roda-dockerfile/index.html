@@ -24,7 +24,7 @@
     <h1 id="a-very-simple-roda-dockerfile-for-development">A very simple roda dockerfile for development</h1>
 <p>I couldn&rsquo;t find a great guide for using docker / docker compose with roda in development so here&rsquo;s my attempt.</p>
 <p>Here&rsquo;s the Dockerfile:</p>
-<pre><code>FROM ruby:3.0.1-slim-buster
+<pre tabindex="0"><code>FROM ruby:3.0.1-slim-buster
 
 RUN apt-get update -qq &amp;&amp; apt-get install -y build-essential libsqlite3-dev
 
@@ -58,7 +58,7 @@ of unreloader or zeitwerk or something.</p>
 <p>I understand alpine is smaller, and I understand multistage builds, but this is for development, not production.</p>
 <h2 id="compose">compose</h2>
 <p>Here&rsquo;s the docker-compose file:</p>
-<pre><code>version: '3'
+<pre tabindex="0"><code>version: '3'
 services:
   web:
     tty: true

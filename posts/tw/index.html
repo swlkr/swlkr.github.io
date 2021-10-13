@@ -33,7 +33,7 @@
 <p>This leads me to why I wrote <a href="https://github.com/swlkr/tw">tw</a>, you can get a per-page stylesheet so small that you don&rsquo;t even need a separate css file! You can stick the output right into a <code>&lt;style&gt;</code> tag in the <code>&lt;head&gt;</code> and that&rsquo;s that.</p>
 <p>Here&rsquo;s how it works:</p>
 <p>Let&rsquo;s take some fictitious <a href="https://github.com/swlkr/osprey">osprey</a> code:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">import </span><span class="nv">tw</span><span class="p">)</span>
 
 <span class="p">(</span><span class="k">def </span><span class="nv">home</span> <span class="s">&#34;/&#34;</span><span class="p">)</span>
@@ -70,14 +70,14 @@
 <p>This takes one argument, the path to your minified tailwind css file. This only works if the tailwind css file is minified, so that&rsquo;s important.</p>
 <p><a href="https://github.com/swlkr/tailwind-config">Here&rsquo;s the repo I use</a> to generate a pretty large tailwind.min.css with dark mode, focus and hover variants enabled.</p>
 <p>If you clone and already use vagrant you can get a <code>tailwind.min.css</code> file by running:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">vagrant up
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">vagrant up
 vagrant ssh
 <span class="nb">cd</span> /vagrant
 npm run tailwind
 npm run build
 </code></pre></div><p>Then copy <code>output.css</code> to your project and that&rsquo;s it, <code>tw</code> will take over!</p>
 <p>There are a few quality of life improvements you can make if you don&rsquo;t want to keep typing <code>tw/class</code> over and over again. I usually wind up settling on common styles pretty early on and I put those in macros like so:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">import </span><span class="nv">tw</span><span class="p">)</span>
 
 <span class="c1">; # these styles will be copied across all pages</span>

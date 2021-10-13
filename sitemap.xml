@@ -1,263 +1,162 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <url>
-    <loc>http://swlkr.github.io/posts/2021-06-16-roda-dockerfile/</loc>
-    <lastmod>2021-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
   <url>
     <loc>http://swlkr.github.io/posts/</loc>
-    <lastmod>2021-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2021-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://swlkr.github.io/posts/2021-10-13-sane-css/</loc>
+    <lastmod>2021-10-13T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://swlkr.github.io/</loc>
+    <lastmod>2021-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://swlkr.github.io/posts/2021-06-16-roda-dockerfile/</loc>
     <lastmod>2021-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/2021-05-20-direct-upload-s3/</loc>
     <lastmod>2021-05-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/2021-05-13-getting-started-roda/</loc>
     <lastmod>2021-05-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/i-made-a-free-uptime-monitor/</loc>
     <lastmod>2021-05-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/securing-new-vps/</loc>
     <lastmod>2021-04-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/i-have-to-stop-buying-domain-names/</loc>
     <lastmod>2021-04-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/web-security-industry/</loc>
     <lastmod>2021-04-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/i-wrote-a-crm/</loc>
     <lastmod>2021-04-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/tailwind-is-css-variables/</loc>
     <lastmod>2021-04-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/reload-roda-with-zeitwerk/</loc>
     <lastmod>2021-04-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/big-tech-is-aol-now/</loc>
     <lastmod>2021-03-31T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/reddit-tiktok/</loc>
     <lastmod>2021-02-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/one-file-websites-with-janet/</loc>
     <lastmod>2021-02-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/rad/</loc>
     <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/rails-all-in-one-file/</loc>
     <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/tw/</loc>
     <lastmod>2021-01-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/new-magic/</loc>
     <lastmod>2020-12-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/low-code-server-side-websites/</loc>
     <lastmod>2020-12-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/trust-as-a-service/</loc>
     <lastmod>2020-11-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/is-the-free-market-failing-us/</loc>
     <lastmod>2020-11-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/joys-manifesto/</loc>
     <lastmod>2020-10-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/turning-bullseye-into-an-app/</loc>
     <lastmod>2020-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/tailwind-css-as-a-style-database/</loc>
     <lastmod>2020-10-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/twitch-obs-circle-webcam/</loc>
     <lastmod>2020-09-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/joy-vs-rails/</loc>
     <lastmod>2020-09-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/internet-sucks-now/</loc>
     <lastmod>2020-09-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/sbt-native-packager/</loc>
     <lastmod>2020-08-25T10:24:27-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/that-time-i-lost-a-months-worth-of-posts/</loc>
     <lastmod>2020-08-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/janet-basics/</loc>
     <lastmod>2020-07-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/wwdc-2020/</loc>
     <lastmod>2020-06-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/hey-and-back-to-the-future/</loc>
     <lastmod>2020-06-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/i-closed-my-linkedin/</loc>
     <lastmod>2020-06-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/better-social-media/</loc>
     <lastmod>2020-06-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/the-making-of-ridge-css/</loc>
     <lastmod>2020-05-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/janet-docs/</loc>
     <lastmod>2020-05-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/joy-routes-as-functions/</loc>
     <lastmod>2020-05-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/ask-janet/</loc>
     <lastmod>2020-05-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/alpine-confirm-modal/</loc>
     <lastmod>2020-04-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/low-memory-websites/</loc>
     <lastmod>2020-04-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/email/</loc>
     <lastmod>2020-04-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/alpinejs/</loc>
     <lastmod>2020-04-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/classless-css/</loc>
     <lastmod>2020-04-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/cheap-server-journey/</loc>
     <lastmod>2020-03-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/the-future-of-user-interfaces/</loc>
     <lastmod>2020-03-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/clojure-isnt-for-me/</loc>
     <lastmod>2020-03-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/jamstack/</loc>
     <lastmod>2020-03-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/the-web-is-a-ghetto/</loc>
     <lastmod>2020-02-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/posts/the-static-web/</loc>
     <lastmod>2020-02-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>http://swlkr.github.io/tags/</loc>
   </url>
-  
 </urlset>

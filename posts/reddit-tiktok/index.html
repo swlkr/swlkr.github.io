@@ -25,8 +25,7 @@
 <p>I mashed reddit and tiktok&rsquo;s ui together, complete with css scroll snap, and lazy loading on each swipe.</p>
 <p>It&rsquo;s not really a serious project, more like an example of what a mobile first, text first
 platform could look like. Without further ado:</p>
-<figure>
-    <img src="/reddit-tiktok.gif" width="250"/> 
+<figure><img src="/reddit-tiktok.gif" width="250"/>
 </figure>
 
 <p>The source is <a href="https://github.com/swlkr/reddit-tiktok">here</a></p>
@@ -52,13 +51,13 @@ platform could look like. Without further ado:</p>
 </ol>
 <p>There&rsquo;s about 130 lines total, but I think the gist of what this stack brings can be summed up here:</p>
 <h3 id="the-stack-section">The stack section</h3>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">import </span><span class="nv">tw</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">import </span><span class="nv">sqlheavy/sqlheavy</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
 </code></pre></div><p>This is the &ldquo;stack&rdquo; in code. I don&rsquo;t use prefixes because I wrote everything and know what functions exist
 in which libraries, but if you&rsquo;re just getting started, feel free to use the prefixed versions.</p>
 <h3 id="the-database-section">The database section</h3>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # database schema</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # database schema</span>
 <span class="p">(</span><span class="nf">db/query</span> <span class="o">`</span>
 <span class="nv">create</span> <span class="nv">table</span> <span class="k">if </span><span class="nb">not </span><span class="nv">exists</span> <span class="nv">items</span> <span class="p">(</span>
   <span class="nv">id</span> <span class="nv">integer</span> <span class="nv">primary</span> <span class="nv">key</span>,
@@ -75,7 +74,7 @@ in which libraries, but if you&rsquo;re just getting started, feel free to use t
 sqlheavy docs for more info there.</p>
 <h3 id="the-ui-section">The UI section</h3>
 <p>I&rsquo;m going to skip the reddit importing stuff and just show you how to output html with that data</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">enable</span> <span class="ss">:static-files</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">enable</span> <span class="ss">:static-files</span><span class="p">)</span>
 
 
 <span class="c1">; #(def -layout-)</span>
@@ -136,7 +135,7 @@ sqlheavy docs for more info there.</p>
 <span class="p">(</span><span class="nf">tailwind-min-css</span> <span class="s">&#34;tailwind.min.css&#34;</span><span class="p">)</span>
 </code></pre></div><h3 id="the-http-server-section">The http server section</h3>
 <p>This just starts the osprey http server and serves those two routes, / and /next</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">server</span> <span class="mi">9001</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">server</span> <span class="mi">9001</span><span class="p">)</span>
 </code></pre></div>
     <div class="pb4"></div>
   </body>

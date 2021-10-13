@@ -6,10 +6,19 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Wed, 13 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sane CSS</title>
+      <link>http://swlkr.github.io/posts/2021-10-13-sane-css/</link>
+      <pubDate>Wed, 13 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/2021-10-13-sane-css/</guid>
+      <description>A sane way to organize your css There are quite a few ways to organize your css:
+ BEM Utility CSS Classless CSS  And countless others I haven&amp;rsquo;t even heard of.
+I want to toss another one onto the mix that handles a lot of the problems I was facing with the three above.
+The problem with my CSS was that I was mixing too many things:
+ how to handle responsive stuff ids AND classes for styling wanting to have a coherent visual style for things like forms and buttons but still do minor tweaks here and there?</description>
+    </item>
     
     <item>
       <title>A very simple roda dockerfile for development</title>
@@ -65,7 +74,7 @@ I really like uptime robot. I think it&amp;rsquo;s great. Uptime monitoring as a
       <pubDate>Wed, 28 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>http://swlkr.github.io/posts/securing-new-vps/</guid>
-      <description>Setting up and securing a brand spankin&amp;rsquo; new vps with vultr I&amp;rsquo;ll try to keep this brief but here&amp;rsquo;s how I went from a fresh ubuntu 20.04 VPS on vultr to a secured VPS on vultr
+      <description>Setting up and securing a brand spankin&#39; new vps with vultr I&amp;rsquo;ll try to keep this brief but here&amp;rsquo;s how I went from a fresh ubuntu 20.04 VPS on vultr to a secured VPS on vultr
 Spin up a new VPS First things first, install the vultr CLI and spin up that new VPS
 brew tap vultr/vultr-cli brew install vultr-cli export VULTR_API_KEY=your_api_key vultr-cli server create --region &amp;lt;region-id&amp;gt; --plan &amp;lt;plan-id&amp;gt; --os &amp;lt;os-id&amp;gt; --hostname &amp;lt;hostname&amp;gt; Secure that VPS, pronto I read somewhere that you have ~10 minutes to secure a vanilla ubuntu VPS before it gets compromised by some script kiddie or a crypto miner or something.</description>
     </item>
@@ -142,7 +151,7 @@ In the 90s and early 00s America On-Line used to send compact discs in the mail 
       <guid>http://swlkr.github.io/posts/reddit-tiktok/</guid>
       <description>Reddit Tiktok I mashed reddit and tiktok&amp;rsquo;s ui together, complete with css scroll snap, and lazy loading on each swipe.
 It&amp;rsquo;s not really a serious project, more like an example of what a mobile first, text first platform could look like. Without further ado:
-  The source is here
+ The source is here
 I want to walk through the stack this project uses and how it could make deploying easy.
 The stack This is in the readme as well, so didn&amp;rsquo;t want to go too much in depth here, but:</description>
     </item>
@@ -254,7 +263,7 @@ Usually you map controllers and models to database tables, but then it starts fa
       
       <guid>http://swlkr.github.io/posts/turning-bullseye-into-an-app/</guid>
       <description>Foreword I wrote this in like 10 minutes and it&amp;rsquo;s a very rough outline of how I think about new side projects after years of failure. Oh I&amp;rsquo;m also still failing so don&amp;rsquo;t take this as a good way to think about your side projects.
-Anyway I thought this might be useful to look back on if I ever thought, &amp;ldquo;how come I never made a profitable web app?&amp;quot;.
+Anyway I thought this might be useful to look back on if I ever thought, &amp;ldquo;how come I never made a profitable web app?&amp;rdquo;.
 The main takeaway from this is how I outline the different phases:</description>
     </item>
     
@@ -412,7 +421,7 @@ I&amp;rsquo;m also trying to livestream or at least record me working on it and 
       <pubDate>Thu, 07 May 2020 00:00:00 +0000</pubDate>
       
       <guid>http://swlkr.github.io/posts/ask-janet/</guid>
-      <description>Ask Janet The question in a world of abundance is &amp;ldquo;why?&amp;quot;. What is the point of making yet another website?
+      <description>Ask Janet The question in a world of abundance is &amp;ldquo;why?&amp;rdquo;. What is the point of making yet another website?
 Well, I don&amp;rsquo;t have 1500 reputation on stackoverflow, so I can&amp;rsquo;t make a janet tag, and I would also like to stop searching through gitter for questions/answers. I feel like those are perfectly reasonable reasons to make a website.
 With that, I set out to use my ✨shiny ✨new web framework joy to recreate some of the bits of SO, but specifically for janet.</description>
     </item>

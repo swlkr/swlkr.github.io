@@ -42,12 +42,12 @@
 <h3 id="database">Data(base)</h3>
 <p>This can be anything you&rsquo;d like, but at the moment, I&rsquo;m using a yesql inspired database library. You can think of it like &ldquo;tailwind&rdquo; for the database. You write plain old sql in a file to get syntax highlighting and use comments to name bits of sql that get turned into functions. It&rsquo;s crude but simple.</p>
 <p>The only rule here is to have it be plain data, not objects.</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">{</span><span class="ss">:this</span> <span class="s">&#34;will work&#34;</span><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">{</span><span class="ss">:this</span> <span class="s">&#34;will work&#34;</span><span class="p">}</span>
 
 <span class="p">[{</span><span class="ss">:so</span> <span class="s">&#34;will&#34;</span><span class="p">}</span> <span class="p">{</span><span class="ss">:this</span> <span class="s">&#34;&#34;</span><span class="p">}]</span>
 </code></pre></div><p>Plain data, similar to json or ruby hash maps can be abstracted and operated on by functions or macros easily, unlike objects that are sort of the end of the line when it comes to composition.</p>
 <p>Here&rsquo;s a concrete example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">import </span><span class="nv">./db</span><span class="p">)</span>
 
 <span class="c1">; # database migrations</span>
@@ -82,7 +82,7 @@
           <span class="p">(</span><span class="nf">redirect</span> <span class="nv">/list/todos</span><span class="p">)</span>
           <span class="p">(</span><span class="nf">render</span> <span class="nv">/create/todo</span><span class="p">)))</span>
 </code></pre></div><p>This is <code>db.janet</code>. The data layer is just this + 100 lines in suresql (and the <a href="https://github.com/janet-lang/sqlite3">sqlite3 wrapper</a>). The implementation is super simple, even though that&rsquo;s not necessarily what I was aiming for.</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # db.janet</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # db.janet</span>
 <span class="p">(</span><span class="nb">import </span><span class="nv">suresql</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">import </span><span class="nv">sqlite3</span><span class="p">)</span>
 
@@ -91,23 +91,23 @@
 <span class="p">(</span><span class="nf">defqueries</span> <span class="s">&#34;todos.sql&#34;</span> <span class="p">{</span><span class="ss">:connection</span> <span class="nv">connection</span><span class="p">})</span>
 </code></pre></div><p>Here&rsquo;s <code>todos.sql</code>:</p>
 <p><a href="https://github.com/joy-framework/suresql">suresql</a> is just one approach, if you don&rsquo;t want to write sql there are other data access libraries you can use, or you can write your own!</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- name: create-table-todos
-</span><span class="c1"></span><span class="k">create</span> <span class="k">table</span> <span class="k">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="n">todos</span> <span class="p">(</span>
-  <span class="n">id</span> <span class="nb">integer</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
-  <span class="n">name</span> <span class="nb">text</span> <span class="k">not</span> <span class="k">null</span>
-<span class="p">)</span>
-
-<span class="c1">-- name: todos
-</span><span class="c1"></span><span class="k">select</span> <span class="o">*</span>
-<span class="k">from</span> <span class="n">todos</span>
-
-<span class="c1">-- name: create-todo
-</span><span class="c1"></span><span class="k">insert</span> <span class="k">into</span> <span class="n">todos</span> <span class="p">(</span>
-  <span class="n">name</span>
-<span class="p">)</span> <span class="k">values</span> <span class="p">(</span>
-  <span class="p">:</span><span class="n">name</span>
-<span class="p">)</span>
-</code></pre></div><p>The moral of the story is, make web apps the way you want. Frameworks are nice but web apps are pretty easy to make, you might just want to write your own.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- name: create-table-todos
+</span><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">todos</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- name: todos
+</span><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">todos</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- name: create-todo
+</span><span class="c1"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">todos</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="n">name</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="p">:</span><span class="n">name</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span></code></pre></div><p>The moral of the story is, make web apps the way you want. Frameworks are nice but web apps are pretty easy to make, you might just want to write your own.</p>
 
     <div class="pb4"></div>
   </body>

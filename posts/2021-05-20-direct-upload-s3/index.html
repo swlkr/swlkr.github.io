@@ -27,7 +27,7 @@
 <h2 id="s3-setup">S3 setup</h2>
 <p>Don&rsquo;t forget to set the <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html#cors-example-2">CORS stuff</a> and any bucket settings you want for your bucket, make sure to allow <code>PutObject</code> at least.</p>
 <p>Here&rsquo;s my CORS config:</p>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">[</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">[</span>
     <span class="p">{</span>
         <span class="nt">&#34;AllowedHeaders&#34;</span><span class="p">:</span> <span class="p">[</span>
             <span class="s2">&#34;Authorization&#34;</span><span class="p">,</span>
@@ -56,12 +56,12 @@
 <span class="p">]</span>
 </code></pre></div><h2 id="html">HTML</h2>
 <p>Here&rsquo;s the html, it&rsquo;s just a form with a file upload</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;file&#34;</span> <span class="p">/&gt;</span>
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 </code></pre></div><h2 id="javascript">Javascript</h2>
 <p>Here&rsquo;s the good part, the whole point of this post. It&rsquo;s not the best code but it does work:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">s3</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">s3</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">upload</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">formData</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FormData</span><span class="p">();</span>
 
@@ -112,7 +112,7 @@
 <p>I&rsquo;ll show you the backend but it&rsquo;s not really interesting unless you&rsquo;re using <code>shinerb</code>:</p>
 <h2 id="backend">Backend</h2>
 <p>Here&rsquo;s the shrine config:</p>
-<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s2">&#34;shrine&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s2">&#34;shrine&#34;</span>
 <span class="nb">require</span> <span class="s2">&#34;shrine/storage/s3&#34;</span>
 
 <span class="n">s3_options</span> <span class="o">=</span> <span class="p">{</span>
@@ -132,7 +132,7 @@
 <span class="no">Shrine</span><span class="o">.</span><span class="n">plugin</span> <span class="ss">:restore_cached_data</span>
 <span class="no">Shrine</span><span class="o">.</span><span class="n">plugin</span> <span class="ss">:rack_file</span>
 </code></pre></div><p>And here&rsquo;s the hilariously short presign code:</p>
-<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">is</span> <span class="s2">&#34;s3-presigned-url&#34;</span> <span class="k">do</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">is</span> <span class="s2">&#34;s3-presigned-url&#34;</span> <span class="k">do</span>
   <span class="no">Shrine</span><span class="o">.</span><span class="n">storages</span><span class="o">[</span><span class="ss">:store</span><span class="o">].</span><span class="n">presign</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="s2">&#34;filename&#34;</span><span class="o">]</span><span class="p">,</span> <span class="nb">method</span><span class="p">:</span> <span class="ss">:post</span><span class="p">,</span> <span class="ss">content_type</span><span class="p">:</span> <span class="n">params</span><span class="o">[</span><span class="s2">&#34;contentType&#34;</span><span class="o">]</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre></div><p>Hopefully this helps someone out there!</p>

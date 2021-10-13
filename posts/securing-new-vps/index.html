@@ -21,23 +21,23 @@
       </div>
     </hstack>
 
-    <h1 id="setting-up-and-securing-a-brand-spankin-new-vps-with-vultr">Setting up and securing a brand spankin&rsquo; new vps with vultr</h1>
+    <h1 id="setting-up-and-securing-a-brand-spankin-new-vps-with-vultr">Setting up and securing a brand spankin' new vps with vultr</h1>
 <p>I&rsquo;ll try to keep this brief but here&rsquo;s how I went from a fresh ubuntu 20.04 <a href="https://www.vultr.com/?ref=7614094">VPS on vultr</a> to a secured VPS on vultr</p>
 <h2 id="spin-up-a-new-vps">Spin up a new VPS</h2>
 <p>First things first, install the vultr CLI and spin up that new VPS</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">brew tap vultr/vultr-cli
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">brew tap vultr/vultr-cli
 brew install vultr-cli
 <span class="nb">export</span> <span class="nv">VULTR_API_KEY</span><span class="o">=</span>your_api_key
 vultr-cli server create --region &lt;region-id&gt; --plan &lt;plan-id&gt; --os &lt;os-id&gt; --hostname &lt;hostname&gt;
 </code></pre></div><h2 id="secure-that-vps-pronto">Secure that VPS, pronto</h2>
 <p>I read somewhere that you have ~10 minutes to secure a vanilla ubuntu VPS before it gets compromised by some script kiddie or a crypto miner or something. So there&rsquo;s no time to waste here, don&rsquo;t just spin up your VPS and walk away, you have to do this as soon as possible.</p>
 <p>First, ssh into the thing as root, since you don&rsquo;t have another user yet</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ssh root@&lt;server host ip&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">ssh root@&lt;server host ip&gt;
 </code></pre></div><p>Next, run <a href="https://github.com/do-community/automated-setups/blob/master/Ubuntu-18.04/initial_server_setup.sh">this script from digitalocean</a></p>
 <p>Be sure to change <code>USERNAME=sammy</code> to <code>USERNAME=admin</code> or whatever you want</p>
 <p>Now that that&rsquo;s done, it&rsquo;s time to <a href="https://en.wikipedia.org/wiki/Double_Down_(sandwich)">double down</a> on <a href="https://tailscale.com/kb/1077/secure-server-ubuntu-18-04/">security with tailscale</a>.</p>
 <p>I&rsquo;ve copied over the steps here in case you&rsquo;re too lazy to click that link:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ssh admin@&lt;server host ip&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">ssh admin@&lt;server host ip&gt;
 
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/bionic.gpg <span class="p">|</span> sudo apt-key add -
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/bionic.list <span class="p">|</span> sudo tee /etc/apt/sources.list.d/tailscale.list
@@ -61,10 +61,10 @@ sudo ufw delete 22/tcp
 sudo ufw reload
 sudo service ssh restart
 </code></pre></div><p>Now you can test that tailscale is working by trying to ssh into your VPSs IP:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ssh admin@&lt;server host ip&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">ssh admin@&lt;server host ip&gt;
 ssh: connect to host &lt;server host ip&gt; port 22: Operation timed out
 </code></pre></div><p>That should fail with a timeout, now try tailscale&rsquo;s ip (don&rsquo;t forget to connect to tailscale first)</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ssh admin@&lt;copied 100.x.y.z address&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">ssh admin@&lt;copied 100.x.y.z address&gt;
 </code></pre></div><p>That&rsquo;s that! Your VPS is now as secure as it will ever be. Don&rsquo;t worry about udp on 41641, that&rsquo;s totally fine haha</p>
 
     <div class="pb4"></div>

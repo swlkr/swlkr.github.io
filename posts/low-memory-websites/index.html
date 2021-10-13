@@ -63,7 +63,7 @@
   (when (request :account)
     [:div &quot;You're logged in!&quot;]))
 </code></pre>
-<p>This will either return <code>nil</code> from <code>when</code> which will go on to return a 404 response or return a div with &ldquo;You&rsquo;re logged in!&quot;. One line to check if someone is authenticated or not, pretty nifty.</p>
+<p>This will either return <code>nil</code> from <code>when</code> which will go on to return a 404 response or return a div with &ldquo;You&rsquo;re logged in!&rdquo;. One line to check if someone is authenticated or not, pretty nifty.</p>
 <p>There are a few other things I&rsquo;m looking at stealing from <a href="https://github.com/sinatra/sinatra">sinatra</a> and a few more things that will be new, but the idea is to keep the scope super small and see how fast (if it is any faster in the end) I can make new websites and how little memory they use in &ldquo;production&rdquo;.</p>
 <p>There are a few more things related to middleware like layouts and built in <a href="https://github.com/turbolinks/turbolinks">turbolinks</a> support that I&rsquo;ll get to in a more in depth post. Oh and also <code>trout</code> is a working name and it&rsquo;s not open source yet, I&rsquo;m still trying to figure out ways to make website development even faster.</p>
 

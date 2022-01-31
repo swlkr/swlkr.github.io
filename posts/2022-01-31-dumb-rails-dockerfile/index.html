@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>A Rails Dockerfile</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2022-01-31</div>
+      </div>
+    </hstack>
+
+    <h1 id="a-rails-dockerfile">A Rails Dockerfile</h1>
+<p>I recently switched back to rails to actually ship some websites. I don&rsquo;t use rbenv or anything like that on my development machine, I use Docker everywhere. Here&rsquo;s a naive Dockerfile I&rsquo;ve been using in development:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">FROM docker.io/library/ruby:3.0.3-slim
+
+RUN apt-get update -qq <span class="o">&amp;&amp;</span> apt-get install -y --no-install-recommends curl build-essential git-core libjemalloc2 libsqlite3-dev <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*
+
+ENV <span class="nv">LD_PRELOAD</span><span class="o">=</span>/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+
+ARG <span class="nv">USER</span><span class="o">=</span>app
+ARG <span class="nv">GROUP</span><span class="o">=</span>app
+ARG <span class="nv">UID</span><span class="o">=</span><span class="m">1101</span>
+ARG <span class="nv">GID</span><span class="o">=</span><span class="m">1101</span>
+
+RUN groupadd --gid <span class="nv">$GID</span> <span class="nv">$GROUP</span>
+RUN useradd --uid <span class="nv">$UID</span> --gid <span class="nv">$GID</span> --groups <span class="nv">$GROUP</span> -ms /bin/bash <span class="nv">$USER</span>
+
+RUN mkdir -p /var/app
+RUN chown -R <span class="nv">$USER</span>:<span class="nv">$GROUP</span> /var/app
+
+USER <span class="nv">$USER</span>
+WORKDIR /var/app
+
+COPY --chown<span class="o">=</span><span class="nv">$USER</span> Gemfile* /var/app/
+RUN bundle install
+
+COPY --chown<span class="o">=</span><span class="nv">$USER</span> . /var/app
+
+ENTRYPOINT <span class="o">[</span><span class="s2">&#34;bin/docker/entrypoint&#34;</span><span class="o">]</span>
+
+CMD <span class="o">[</span><span class="s2">&#34;bundle&#34;</span>, <span class="s2">&#34;exec&#34;</span>, <span class="s2">&#34;puma&#34;</span><span class="o">]</span>
+</code></pre></div><p>I also have one for production, but don&rsquo;t think it&rsquo;s anything to write home about, but I&rsquo;ll put it here anyway:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">FROM docker.io/library/ruby:3.0.3-slim AS base
+
+RUN apt-get update -qq <span class="o">&amp;&amp;</span> apt-get install -y --no-install-recommends curl build-essential git-core libjemalloc2 libsqlite3-dev <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*
+
+ENV <span class="nv">LD_PRELOAD</span><span class="o">=</span>/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+
+FROM base AS dependencies
+
+COPY Gemfile Gemfile.lock ./
+
+RUN bundle config <span class="nb">set</span> without <span class="s2">&#34;development test&#34;</span> <span class="o">&amp;&amp;</span> bundle install --jobs<span class="o">=</span><span class="m">3</span> --retry<span class="o">=</span><span class="m">3</span>
+
+FROM base
+
+ARG <span class="nv">USER</span><span class="o">=</span>app
+ARG <span class="nv">GROUP</span><span class="o">=</span>app
+ARG <span class="nv">UID</span><span class="o">=</span><span class="m">1101</span>
+ARG <span class="nv">GID</span><span class="o">=</span><span class="m">1101</span>
+
+RUN groupadd --gid <span class="nv">$GID</span> <span class="nv">$GROUP</span>
+RUN useradd --uid <span class="nv">$UID</span> --gid <span class="nv">$GID</span> --groups <span class="nv">$GROUP</span> -ms /bin/bash <span class="nv">$USER</span>
+
+RUN mkdir -p /var/app
+RUN chown -R <span class="nv">$USER</span>:<span class="nv">$GROUP</span> /var/app
+
+USER <span class="nv">$USER</span>
+WORKDIR /var/app
+
+COPY --from<span class="o">=</span>dependencies /usr/local/bundle/ /usr/local/bundle/
+COPY --chown<span class="o">=</span><span class="nv">$USER</span> . /var/app
+
+CMD <span class="o">[</span><span class="s2">&#34;bundle&#34;</span>, <span class="s2">&#34;exec&#34;</span>, <span class="s2">&#34;puma&#34;</span><span class="o">]</span>
+</code></pre></div><p>It&rsquo;s pretty heavy, comes out to around ~500MB, could use some work on the size, might just abandon <code>jemalloc</code> since I&rsquo;m not even sure if it&rsquo;s working and alpine linux is way, way smaller.</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

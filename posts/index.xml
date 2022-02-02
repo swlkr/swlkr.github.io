@@ -6,7 +6,16 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rails Docker Development</title>
+      <link>http://swlkr.github.io/posts/2022-02-02-rails-docker-development/</link>
+      <pubDate>Wed, 02 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/2022-02-02-rails-docker-development/</guid>
+      <description>How to develop ruby on rails on docker I hate the idea that if I ever have to switch to another computer or something, like for example from my macbook pro to a framework laptop running mint or popOS or something, I&amp;rsquo;ll have to set my whole dev environment up again. That stinks, I don&amp;rsquo;t want that. So I use docker in development AND docker on the server via dokku. I&amp;rsquo;m always looking for better container runtimes like podman or colima but until I get to a completely linux dev environment, I&amp;rsquo;ll stick with docker desktop.</description>
+    </item>
+    
     <item>
       <title>A Rails Dockerfile</title>
       <link>http://swlkr.github.io/posts/2022-01-31-dumb-rails-dockerfile/</link>

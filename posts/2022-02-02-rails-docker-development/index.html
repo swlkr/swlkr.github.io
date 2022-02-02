@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Rails Docker Development</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2022-02-02</div>
+      </div>
+    </hstack>
+
+    <h1 id="how-to-develop-ruby-on-rails-on-docker">How to develop ruby on rails on docker</h1>
+<p>I hate the idea that if I ever have to switch to another computer or something, like for example from my macbook pro to a framework laptop running mint or popOS or something, I&rsquo;ll have to set my whole dev environment up again. That stinks, I don&rsquo;t want that. So I use docker in development AND docker on the server via dokku. I&rsquo;m always looking for better container runtimes like podman or colima but until I get to a completely linux dev environment, I&rsquo;ll stick with docker desktop.</p>
+<p>Alright, so starting a new rails 7 project with docker is not quite as simple as rbenv &hellip; rails new but it&rsquo;s close. Here&rsquo;s what I do:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">mkdir &lt;your_project&gt;
+<span class="nb">cd</span> &lt;your_project&gt;
+mkdir -p bin/docker
+touch Dockerfile Gemfile Gemfile.lock .env
+</code></pre></div><p>Put this in your <code>Dockerfile</code> or call it <code>Dockerfile.dev</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">FROM docker.io/library/ruby:3.0.3-slim
+
+RUN apt-get update -qq <span class="o">&amp;&amp;</span> apt-get install -y --no-install-recommends curl build-essential git-core libjemalloc2 libsqlite3-dev <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*
+
+ENV LD_PRELOAD /usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+
+ARG <span class="nv">USER</span><span class="o">=</span>app
+ARG <span class="nv">GROUP</span><span class="o">=</span>app
+ARG <span class="nv">UID</span><span class="o">=</span><span class="m">1101</span>
+ARG <span class="nv">GID</span><span class="o">=</span><span class="m">1101</span>
+
+RUN groupadd --gid <span class="nv">$GID</span> <span class="nv">$GROUP</span>
+RUN useradd --uid <span class="nv">$UID</span> --gid <span class="nv">$GID</span> --groups <span class="nv">$GROUP</span> -ms /bin/bash <span class="nv">$USER</span>
+
+RUN mkdir -p /var/app
+RUN chown -R <span class="nv">$USER</span>:<span class="nv">$GROUP</span> /var/app
+
+USER <span class="nv">$USER</span>
+WORKDIR /var/app
+
+COPY --chown<span class="o">=</span><span class="nv">$USER</span> Gemfile* /var/app/
+RUN bundle install
+
+COPY --chown<span class="o">=</span><span class="nv">$USER</span> . /var/app
+
+ENTRYPOINT <span class="o">[</span><span class="s2">&#34;bin/docker/entrypoint&#34;</span><span class="o">]</span>
+
+CMD <span class="o">[</span><span class="s2">&#34;bundle&#34;</span>, <span class="s2">&#34;exec&#34;</span>, <span class="s2">&#34;puma&#34;</span><span class="o">]</span>
+</code></pre></div><p>Put this in your <code>Gemfile</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">source</span> <span class="s2">&#34;https://rubygems.org&#34;</span>
+<span class="n">git_source</span><span class="p">(</span><span class="ss">:github</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">repo</span><span class="o">|</span> <span class="s2">&#34;https://github.com/</span><span class="si">#{</span><span class="n">repo</span><span class="si">}</span><span class="s2">.git&#34;</span> <span class="p">}</span>
+
+<span class="n">ruby</span> <span class="s2">&#34;3.0.3&#34;</span>
+
+<span class="c1"># Bundle edge Rails instead: gem &#34;rails&#34;, github: &#34;rails/rails&#34;, branch: &#34;main&#34;</span>
+<span class="n">gem</span> <span class="s2">&#34;rails&#34;</span><span class="p">,</span> <span class="s2">&#34;~&gt; 7.0.1&#34;</span>
+</code></pre></div><p>There are few docker scripts I use to make my life easier in <code>bin/docker</code> but I&rsquo;ll just talk about those in another post. For now, this is how I generate a new rails app via docker:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">docker build -t &lt;your_project&gt; -f Dockerfile.dev .
+docker run --rm -it -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/var/app --env-file .env &lt;your_project&gt; rails new --css<span class="o">=</span>tailwind --skip-jbuilder --skip-system-test --skip-action-mailbox --skip-bundle --force .
+</code></pre></div><p>After that runs you have to rebuild the dockerfile to run bundle install and install rails' dependencies:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">docker build -t &lt;your_project&gt; -f Dockerfile.dev
+</code></pre></div><p>Finally, you can boot your new rails app:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">docker run --rm -it -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/var/app --env-file .env --publish 3000:3000 &lt;your_project&gt;
+</code></pre></div><p>Unfortunately this doesn&rsquo;t run the tailwind stuff, that&rsquo;s in <code>Procfile.dev</code> so I download hivemind and then add a custom <code>bin/docker/up</code> script to handle that:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">curl -L -O https://github.com/DarthSim/hivemind/releases/download/v1.1.0/hivemind-v1.1.0-macos-amd64.gz
+tar xzf hivemind-v1.1.0-macos-adm64.gz
+mv hivemind bin/hivemind
+chmod +x bin/hivemind
+touch bin/docker/up
+</code></pre></div><p>Put this in <code>bin/docker/up</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+docker run --rm -it -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/var/app --env-file<span class="o">=</span>.env -p 3000:3000 --name <span class="s2">&#34;&lt;your_project&gt;&#34;</span> &lt;your_project&gt; bin/hivemind Procfile.dev
+</code></pre></div><p>Now if you run <code>bin/docker/up</code> in your rails directory tailwind AND rails will start together!</p>
+<p>All that work and your dev environment is now more or less portable, you&rsquo;ll still need hivemind but you can just copy it from project to project or put it in the <code>Dockerfile.dev</code></p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

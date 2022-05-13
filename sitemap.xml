@@ -3,12 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://swlkr.github.io/posts/</loc>
-    <lastmod>2022-02-02T00:00:00+00:00</lastmod>
+    <lastmod>2022-05-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://swlkr.github.io/posts/2022-02-02-rails-docker-development/</loc>
-    <lastmod>2022-02-02T00:00:00+00:00</lastmod>
+    <loc>http://swlkr.github.io/posts/2022-05-13-conceptual-compression-is-a-lie/</loc>
+    <lastmod>2022-05-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://swlkr.github.io/</loc>
+    <lastmod>2022-05-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://swlkr.github.io/posts/2022-02-02-rails-docker-development/</loc>
     <lastmod>2022-02-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://swlkr.github.io/posts/2022-01-31-dumb-rails-dockerfile/</loc>
@@ -163,8 +166,6 @@
   </url><url>
     <loc>http://swlkr.github.io/posts/the-static-web/</loc>
     <lastmod>2020-02-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://swlkr.github.io/posts/2022-05-13-conceptual-compression-is-a-lie/</loc>
   </url><url>
     <loc>http://swlkr.github.io/categories/</loc>
   </url><url>

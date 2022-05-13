@@ -6,7 +6,18 @@
     <description>Recent content on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://swlkr.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ruby on Rails&#39; Conceptual Compression is a Lie</title>
+      <link>http://swlkr.github.io/posts/2022-05-13-conceptual-compression-is-a-lie/</link>
+      <pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/2022-05-13-conceptual-compression-is-a-lie/</guid>
+      <description>Ruby on Rails&#39; Conceputal Compression is a Lie One of rails&#39; core things is conceptual compression.
+That is a lie.
+When I first got into web development around ~2009, it was two years after I had graduated with a degree in computer engineering, so you could say it was a career change. The hot framework of the day was ruby on rails, so I attempted to learn it. Keep in mind I didn&amp;rsquo;t know what SQL was or even what HTTP was, I was fresh out of college, with at most systems level programming knowledge, more FPGA knowledge than programming really.</description>
+    </item>
+    
     <item>
       <title>Rails Docker Development</title>
       <link>http://swlkr.github.io/posts/2022-02-02-rails-docker-development/</link>
@@ -573,15 +584,6 @@ In a word, ads. There’s too many of them. The web actually works very poorly w
       
       <guid>http://swlkr.github.io/posts/the-static-web/</guid>
       <description>The static web You know it’s funny, I’ve been programming web &amp;ldquo;applications&amp;rdquo; for a decade now and just this year I’ve given up on them. Some of the ideas behind web apps were revolutionary at the time, stateless user interfaces, where the state isn’t stored in the application in memory, but on the server and in the database. There’s a lot to love about web applications, and a lot to hate.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://swlkr.github.io/posts/2022-05-13-conceptual-compression-is-a-lie/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://swlkr.github.io/posts/2022-05-13-conceptual-compression-is-a-lie/</guid>
-      <description></description>
     </item>
     
   </channel>

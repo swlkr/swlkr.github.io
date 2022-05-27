@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Rust, Ruby and Complexity</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/ridge-light.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/ridge-dark.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: none)" href="/syntax.css" />
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="/syntax-dark.css" />
+    <link rel="stylesheet" href="/ridge.css" />
+  </head>
+  <body>
+    <hstack spacing="s" align-y="center">
+      <a href="/">
+        <img alt="profile image" class="br-100 h3 w3" src="/profile2.png" />
+      </a>
+      <div>
+        <div>Sean Walker</div>
+        <div>2022-05-27</div>
+      </div>
+    </hstack>
+
+    <h1 id="rust-ruby-and-complexity">Rust, Ruby and Complexity</h1>
+<p>I’ve been thinking about software development trade offs for a little while now, mostly around the concrete question:</p>
+<p><em>How can I run a bunch of dynamic websites on a $5/mo VPS?</em></p>
+<p>My $5/mo VPS journey has taken me near and far, from clojure and janet to things like lua, ruby, and most recently, rust.</p>
+<p>Over the past few years I’ve learned a thing or two about simplicity and conversely, complexity. Simplicity isn’t one thing, instead it’s a series of trade offs on where to move the complexity.</p>
+<p>Here are two examples:</p>
+<ol>
+<li>
+<p><strong>ruby</strong>, the programmers best friend, presents simplicity in the language, garbage collected, dynamically typed, interpreted, while moving the complexity to the runtime. This results in large memory usage and slow program execution, as in computation is slow, not startup time.</p>
+</li>
+<li>
+<p><strong>rust</strong>, the complexity is in the programming language, static typing, and manual-ish memory management. the runtime is simple (or at least simpler than ruby&rsquo;s). This results in low memory usage and fast program execution.</p>
+</li>
+</ol>
+<p>Like a lot of things in life, simplicity is actually many things: trade offs. It&rsquo;s a journey, not a destination.</p>
+
+    <div class="pb4"></div>
+  </body>
+</html>

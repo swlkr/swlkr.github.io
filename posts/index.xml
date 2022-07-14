@@ -6,7 +6,19 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 27 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Auth Apocalypse</title>
+      <link>http://swlkr.github.io/posts/2022-07-14-the-auth-apocalypse/</link>
+      <pubDate>Thu, 14 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/2022-07-14-the-auth-apocalypse/</guid>
+      <description>The Auth Apocalypse Hear me now and hear me well, the auth apocalypse is nigh.
+No but seriously some of the FAANG or whatever they’re called now has formed a consortium and they’re coming to eat open website authentication for lunch.
+Apple, Google, and Microsoft commit to expanded support for FIDO standard - Apple
+Whenever world beating corporations team up, it’s never a good thing. There’s really nothing we can do to stop this hijacking from happening, this is a “if you can’t beat ‘em join em situation.</description>
+    </item>
+    
     <item>
       <title>Rust, Ruby and Complexity</title>
       <link>http://swlkr.github.io/posts/2022-05-27-rust-ruby-and-complexity/</link>

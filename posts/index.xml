@@ -6,7 +6,18 @@
     <description>Recent content in Posts on swlkr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://swlkr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Thoughts on learning go</title>
+      <link>http://swlkr.github.io/posts/2022-07-23-thoughts-on-learning-go/</link>
+      <pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://swlkr.github.io/posts/2022-07-23-thoughts-on-learning-go/</guid>
+      <description>Thoughts on learning go I wanted to write down a few things related to jumping back into learning new languages, but specifically go. I evaluated a few statically typed languages in the C family for my foray back into static typing after clojure, janet, ruby, and javascript and decided on go since it seems to be purpose built for web development.
+Things I like about go:
+ Simplicity Flexible static types (interface{}) Huge standard library Tooling (LSP + vim-go) AOT compiles to single binary It’s fast!</description>
+    </item>
+    
     <item>
       <title>The Auth Apocalypse</title>
       <link>http://swlkr.github.io/posts/2022-07-14-the-auth-apocalypse/</link>

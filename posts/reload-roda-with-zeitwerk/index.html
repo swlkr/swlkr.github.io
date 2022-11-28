@@ -23,23 +23,23 @@
 
     <h1 id="reload-roda-with-zeitwerk-on-vagrant">Reload roda with zeitwerk on vagrant</h1>
 <p>This is for anyone who is strugging with reloading roda with zeitwerk, listen and vagrant.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># config.ru</span>
-<span class="nb">require</span> <span class="s2">&#34;roda&#34;</span>
-<span class="nb">require</span> <span class="s2">&#34;zeitwerk&#34;</span>
-<span class="nb">require</span> <span class="s2">&#34;listen&#34;</span>
-
-<span class="n">loader</span> <span class="o">=</span> <span class="no">Zeitwerk</span><span class="o">::</span><span class="no">Loader</span><span class="o">.</span><span class="n">new</span>
-<span class="n">loader</span><span class="o">.</span><span class="n">push_dir</span><span class="p">(</span><span class="n">__dir__</span><span class="p">)</span>
-<span class="n">loader</span><span class="o">.</span><span class="n">enable_reloading</span>
-<span class="n">loader</span><span class="o">.</span><span class="n">setup</span>
-
-<span class="no">Listen</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">__dir__</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="sr">/\.rb$/</span><span class="p">,</span> <span class="ss">force_polling</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span> <span class="p">{</span> <span class="n">loader</span><span class="o">.</span><span class="n">reload</span> <span class="p">}</span><span class="o">.</span><span class="n">start</span>
-
-<span class="n">run</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">loader</span><span class="o">.</span><span class="n">reload</span>
-  <span class="no">App</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div><p>This assumes an app.rb file with <code>class App &lt; Roda</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="c1"># config.ru</span>
+</span></span><span class="line"><span class="cl"><span class="nb">require</span> <span class="s2">&#34;roda&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">require</span> <span class="s2">&#34;zeitwerk&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">require</span> <span class="s2">&#34;listen&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">loader</span> <span class="o">=</span> <span class="no">Zeitwerk</span><span class="o">::</span><span class="no">Loader</span><span class="o">.</span><span class="n">new</span>
+</span></span><span class="line"><span class="cl"><span class="n">loader</span><span class="o">.</span><span class="n">push_dir</span><span class="p">(</span><span class="n">__dir__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">loader</span><span class="o">.</span><span class="n">enable_reloading</span>
+</span></span><span class="line"><span class="cl"><span class="n">loader</span><span class="o">.</span><span class="n">setup</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="no">Listen</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">__dir__</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="sr">/\.rb$/</span><span class="p">,</span> <span class="ss">force_polling</span><span class="p">:</span> <span class="kp">true</span><span class="p">)</span> <span class="p">{</span> <span class="n">loader</span><span class="o">.</span><span class="n">reload</span> <span class="p">}</span><span class="o">.</span><span class="n">start</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">run</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">loader</span><span class="o">.</span><span class="n">reload</span>
+</span></span><span class="line"><span class="cl">  <span class="no">App</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This assumes an app.rb file with <code>class App &lt; Roda</code></p>
 <p>You can run this with <code>rackup</code> in that directory, override port and host like this:</p>
 <p>Override port and host with:</p>
 <p><code>rackup -p 9001 -o 0.0.0.0</code></p>

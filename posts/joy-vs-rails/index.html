@@ -25,56 +25,56 @@
 <p>Here are some things that you do in rails and how to do them in <a href="https://joyframework.com">joy</a>:</p>
 <h2 id="routing">Routing</h2>
 <h3 id="the-rails-way">The rails way:</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># routes.rb</span>
-
-<span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;home#index&#39;</span>
-
-<span class="c1"># app/controllers/home.rb</span>
-
-<span class="k">class</span> <span class="nc">HomeController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-  <span class="k">def</span> <span class="nf">index</span><span class="p">;</span> <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="c1"># app/views/home/index.html.erb</span>
-
-<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="no">Home</span><span class="o">&lt;</span><span class="sr">/h1&gt;
-</span></code></pre></div><p>Just want to point out, that&rsquo;s three different files for one route</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="c1"># routes.rb</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;home#index&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># app/controllers/home.rb</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">HomeController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">index</span><span class="p">;</span> <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># app/views/home/index.html.erb</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="no">Home</span><span class="o">&lt;</span><span class="sr">/h1&gt;
+</span></span></span></code></pre></div><p>Just want to point out, that&rsquo;s three different files for one route</p>
 <h3 id="the-joy-way">The joy way:</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # routes/pages.janet</span>
-
-<span class="p">(</span><span class="nf">route</span> <span class="ss">:get</span> <span class="s">&#34;/&#34;</span> <span class="ss">:home</span><span class="p">)</span>
-
-<span class="p">(</span><span class="kd">defn </span><span class="nv">home</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
-  <span class="p">[</span><span class="ss">:h1</span> <span class="s">&#34;Home&#34;</span><span class="p">])</span>
-</code></pre></div><h2 id="database-migrations">Database Migrations</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="c1">; # routes/pages.janet</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">route</span> <span class="ss">:get</span> <span class="s">&#34;/&#34;</span> <span class="ss">:home</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kd">defn </span><span class="nv">home</span> <span class="p">[</span><span class="nv">request</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="ss">:h1</span> <span class="s">&#34;Home&#34;</span><span class="p">])</span>
+</span></span></code></pre></div><h2 id="database-migrations">Database Migrations</h2>
 <h3 id="the-rails-way-1">The rails way</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">CreatePostsTable</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span><span class="o">[</span><span class="mi">5</span><span class="o">.</span><span class="mi">1</span><span class="o">]</span>
-  <span class="k">def</span> <span class="nf">change</span>
-    <span class="n">create_table</span> <span class="ss">:posts</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
-      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:title</span>
-      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:body</span>
-
-      <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div><h3 id="the-joy-way-1">The joy way</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- up
-</span><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span><span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">title</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">body</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="p">(</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%s&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;now&#39;</span><span class="p">)),</span><span class="w">
-</span><span class="w">  </span><span class="n">updated_at</span><span class="w"> </span><span class="nb">integer</span><span class="w">
-</span><span class="w"></span><span class="p">)</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c1">-- down
-</span><span class="c1"></span><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">posts</span><span class="w">
-</span></code></pre></div><p>I&rsquo;ll give it to rails that although it hides a few things, it definitely makes table definitions readable vs plain sql. And it can also do plain sql migrations as well.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CreatePostsTable</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span><span class="o">[</span><span class="mi">5</span><span class="o">.</span><span class="mi">1</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">change</span>
+</span></span><span class="line"><span class="cl">    <span class="n">create_table</span> <span class="ss">:posts</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl">      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:title</span>
+</span></span><span class="line"><span class="cl">      <span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:body</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">  <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></div><h3 id="the-joy-way-1">The joy way</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- up
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">posts</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">title</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">body</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">created_at</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="p">(</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%s&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;now&#39;</span><span class="p">)),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">updated_at</span><span class="w"> </span><span class="nb">integer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- down
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">posts</span><span class="w">
+</span></span></span></code></pre></div><p>I&rsquo;ll give it to rails that although it hides a few things, it definitely makes table definitions readable vs plain sql. And it can also do plain sql migrations as well.</p>
 <h2 id="code-generation">Code Generation</h2>
 <h3 id="the-rails-way-2">The rails way</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">rails g scaffold posts title:string body:string
-</code></pre></div><p>This generates <strong>eight</strong> files:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">rails g scaffold posts title:string body:string
+</span></span></code></pre></div><p>This generates <strong>eight</strong> files:</p>
 <ul>
 <li>A database migration file</li>
 <li>A model file</li>
@@ -84,9 +84,9 @@
 </ul>
 <h3 id="the-joy-way-2">The joy way</h3>
 <p>Joy doesn&rsquo;t have an equivalent <code>scaffold</code> generator yet, so you need to run two commands</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">joy create table posts <span class="s1">&#39;title text&#39;</span> <span class="s1">&#39;body text&#39;</span>
-joy create controller posts
-</code></pre></div><p>This generates <strong>two</strong> files:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">joy create table posts <span class="s1">&#39;title text&#39;</span> <span class="s1">&#39;body text&#39;</span>
+</span></span><span class="line"><span class="cl">joy create controller posts
+</span></span></code></pre></div><p>This generates <strong>two</strong> files:</p>
 <ul>
 <li>A database migration file</li>
 <li>A controller file which defines the routes and route functions</li>

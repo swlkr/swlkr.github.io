@@ -15,7 +15,7 @@
       <guid>http://swlkr.github.io/posts/2022-07-23-thoughts-on-learning-go/</guid>
       <description>Thoughts on learning go I wanted to write down a few things related to jumping back into learning new languages, but specifically go. I evaluated a few statically typed languages in the C family for my foray back into static typing after clojure, janet, ruby, and javascript and decided on go since it seems to be purpose built for web development.
 Things I like about go:
- Simplicity Flexible static types (interface{}) Huge standard library Tooling (LSP + vim-go) AOT compiles to single binary It’s fast!</description>
+Simplicity Flexible static types (interface{}) Huge standard library Tooling (LSP + vim-go) AOT compiles to single binary It’s fast!</description>
     </item>
     
     <item>
@@ -48,7 +48,7 @@ Over the past few years I’ve learned a thing or two about simplicity and conve
       <pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate>
       
       <guid>http://swlkr.github.io/posts/2022-05-13-conceptual-compression-is-a-lie/</guid>
-      <description>Ruby on Rails&#39; Conceputal Compression is a Lie One of rails&#39; core things is conceptual compression.
+      <description>Ruby on Rails&amp;rsquo; Conceputal Compression is a Lie One of rails&amp;rsquo; core things is conceptual compression.
 That is a lie.
 When I first got into web development around ~2009, it was two years after I had graduated with a degree in computer engineering, so you could say it was a career change. The hot framework of the day was ruby on rails, so I attempted to learn it. Keep in mind I didn&amp;rsquo;t know what SQL was or even what HTTP was, I was fresh out of college, with at most systems level programming knowledge, more FPGA knowledge than programming really.</description>
     </item>
@@ -80,7 +80,7 @@ FROM docker.io/library/ruby:3.0.3-slim RUN apt-get update -qq &amp;amp;&amp;amp;
       <guid>http://swlkr.github.io/posts/2022-01-12-made-another-webframework/</guid>
       <description>I made another web framework Yes, there’s something wrong with me and i swear this is the last one.
 Not totally satisfied with rails but wanted to get most of the advantages of the ruby ecosystem, I made a “rails lite” (like sqlite) and I named it radical. It’s not really for anyone but it’s there if anyone wants to use it, go right ahead. Some high level features:
- models views controllers no singular/plural requirements optional assets/bundling default strict csp config in fact only resource routes (from rails) are supported only supports one level nested routes  I actually really like it, but I don&amp;rsquo;t think I have the time or the energy to sink into another open source ruby web framework.</description>
+models views controllers no singular/plural requirements optional assets/bundling default strict csp config in fact only resource routes (from rails) are supported only supports one level nested routes I actually really like it, but I don&amp;rsquo;t think I have the time or the energy to sink into another open source ruby web framework.</description>
     </item>
     
     <item>
@@ -90,10 +90,10 @@ Not totally satisfied with rails but wanted to get most of the advantages of the
       
       <guid>http://swlkr.github.io/posts/2021-10-13-sane-css/</guid>
       <description>A sane way to organize your css There are quite a few ways to organize your css:
- BEM Utility CSS Classless CSS  And countless others I haven&amp;rsquo;t even heard of.
+BEM Utility CSS Classless CSS And countless others I haven&amp;rsquo;t even heard of.
 I want to toss another one onto the mix that handles a lot of the problems I was facing with the three above.
 The problem with my CSS was that I was mixing too many things:
- how to handle responsive stuff ids AND classes for styling wanting to have a coherent visual style for things like forms and buttons but still do minor tweaks here and there?</description>
+how to handle responsive stuff ids AND classes for styling wanting to have a coherent visual style for things like forms and buttons but still do minor tweaks here and there?</description>
     </item>
     
     <item>
@@ -150,7 +150,7 @@ I really like uptime robot. I think it&amp;rsquo;s great. Uptime monitoring as a
       <pubDate>Wed, 28 Apr 2021 00:00:00 +0000</pubDate>
       
       <guid>http://swlkr.github.io/posts/securing-new-vps/</guid>
-      <description>Setting up and securing a brand spankin&#39; new vps with vultr I&amp;rsquo;ll try to keep this brief but here&amp;rsquo;s how I went from a fresh ubuntu 20.04 VPS on vultr to a secured VPS on vultr
+      <description>Setting up and securing a brand spankin&amp;rsquo; new vps with vultr I&amp;rsquo;ll try to keep this brief but here&amp;rsquo;s how I went from a fresh ubuntu 20.04 VPS on vultr to a secured VPS on vultr
 Spin up a new VPS First things first, install the vultr CLI and spin up that new VPS
 brew tap vultr/vultr-cli brew install vultr-cli export VULTR_API_KEY=your_api_key vultr-cli server create --region &amp;lt;region-id&amp;gt; --plan &amp;lt;plan-id&amp;gt; --os &amp;lt;os-id&amp;gt; --hostname &amp;lt;hostname&amp;gt; Secure that VPS, pronto I read somewhere that you have ~10 minutes to secure a vanilla ubuntu VPS before it gets compromised by some script kiddie or a crypto miner or something.</description>
     </item>
@@ -162,7 +162,7 @@ brew tap vultr/vultr-cli brew install vultr-cli export VULTR_API_KEY=your_api_ke
       
       <guid>http://swlkr.github.io/posts/i-have-to-stop-buying-domain-names/</guid>
       <description>I have to stop buying domains I bought three domains over the last two weeks:
- seans dot cloud isatiny dot app isatiny dot com  The first one is weird mostly because my name is not phonetic so as I soon as I bought it for $4 I knew it sucked, but it was already too late.
+seans dot cloud isatiny dot app isatiny dot com The first one is weird mostly because my name is not phonetic so as I soon as I bought it for $4 I knew it sucked, but it was already too late.
 Hopefully the last two will be the last two I will ever buy because I own about 40 domains and I let most of the them expire every year becuase I don&amp;rsquo;t want to pay the $8/year to keep them around.</description>
     </item>
     
@@ -227,7 +227,7 @@ In the 90s and early 00s America On-Line used to send compact discs in the mail 
       <guid>http://swlkr.github.io/posts/reddit-tiktok/</guid>
       <description>Reddit Tiktok I mashed reddit and tiktok&amp;rsquo;s ui together, complete with css scroll snap, and lazy loading on each swipe.
 It&amp;rsquo;s not really a serious project, more like an example of what a mobile first, text first platform could look like. Without further ado:
- The source is here
+The source is here
 I want to walk through the stack this project uses and how it could make deploying easy.
 The stack This is in the readme as well, so didn&amp;rsquo;t want to go too much in depth here, but:</description>
     </item>
@@ -250,7 +250,7 @@ The stack This is in the readme as well, so didn&amp;rsquo;t want to go too much
       <description>RAD: The alternative to MVC No this isn’t me reminiscing about the good old days of rapid application development. This is me trying to come up with a cool, pointless acronym for an alternative way of making web applications.
 Routes Actions Data You can think of this as &amp;ldquo;everything is in a rails controller method&amp;rdquo;
 Routes and Actions Routes and actions are conceptually one thing.
- GET /list/todos GET /read/todo/:id GET /create/todo POST /create/todo GET /update/todo/:id POST /update/todo/:id POST /delete/todo/:id  The http method doesn&amp;rsquo;t really matter anymore, it only matters if choosing between &amp;ldquo;I want html&amp;rdquo; or &amp;ldquo;I want to change some state&amp;rdquo; / &amp;ldquo;send some data with the request&amp;rdquo;.</description>
+GET /list/todos GET /read/todo/:id GET /create/todo POST /create/todo GET /update/todo/:id POST /update/todo/:id POST /delete/todo/:id The http method doesn&amp;rsquo;t really matter anymore, it only matters if choosing between &amp;ldquo;I want html&amp;rdquo; or &amp;ldquo;I want to change some state&amp;rdquo; / &amp;ldquo;send some data with the request&amp;rdquo;.</description>
     </item>
     
     <item>
@@ -288,7 +288,7 @@ The HEY stack:
 - Redis for short-lived data + caching
 - ElasticSearch for indexing
 - AWS/K8S
-&amp;mdash; DHH (@dhh) June 24, 2020  Most people in the replies seem to think it&amp;rsquo;s some kind of combination of stimulusjs over websockets?</description>
+&amp;mdash; DHH (@dhh) June 24, 2020 Most people in the replies seem to think it&amp;rsquo;s some kind of combination of stimulusjs over websockets?</description>
     </item>
     
     <item>
@@ -298,7 +298,7 @@ The HEY stack:
       
       <guid>http://swlkr.github.io/posts/low-code-server-side-websites/</guid>
       <description>Low Code Server Side Websites One overarching goal of mine ever since I got into this web development game &amp;gt; 10 years ago after graduating as an electrical engineer was to make making websites the easiest it could possibly be. I started with rails, and that isn&amp;rsquo;t the easiest place to start if you don&amp;rsquo;t already understand:
- sql html css javascript html forms http background jobs websockets  and how each of those parts fit together to make a great website or I guess you could call them web apps.</description>
+sql html css javascript html forms http background jobs websockets and how each of those parts fit together to make a great website or I guess you could call them web apps.</description>
     </item>
     
     <item>
@@ -308,7 +308,7 @@ The HEY stack:
       
       <guid>http://swlkr.github.io/posts/trust-as-a-service/</guid>
       <description>SaaS is TaaS After trying and failing for quite a while, much longer than most people to build a SaaS, you could say i’m SaaD. I’ve also learned a thing or two about failing, and one thing i’ve learned is that software businesses aren’t really about software, they’re about trust.
- Build an audience Work in public High touch sales  All of those things are the same thing. They’re helping you build trust between you and your future customers.</description>
+Build an audience Work in public High touch sales All of those things are the same thing. They’re helping you build trust between you and your future customers.</description>
     </item>
     
     <item>
@@ -328,7 +328,7 @@ A few years back, much like most hardcore hacker news readers, I read a book by 
       
       <guid>http://swlkr.github.io/posts/joys-manifesto/</guid>
       <description>The Joy Web Framework Manifesto I&amp;rsquo;m not really a manifesto person, but here it is anyway. Wasn&amp;rsquo;t sure what else to call it. Principles maybe?
- RFD (routes, functions, database) LoB (locality of behavior) MOIST (move other interdependent stacks together)  RFD as opposed to MVC Routes, Functions and Database
+RFD (routes, functions, database) LoB (locality of behavior) MOIST (move other interdependent stacks together) RFD as opposed to MVC Routes, Functions and Database
 Usually you map controllers and models to database tables, but then it starts falling apart when you want something that combines multiple tables together or is a weird mix of having to modify n tables in a single request.</description>
     </item>
     
@@ -351,7 +351,7 @@ The main takeaway from this is how I outline the different phases:</description>
       <guid>http://swlkr.github.io/posts/tailwind-css-as-a-style-database/</guid>
       <description>Tailwind CSS as a Style Database I was messing around with how to make web apps more quickly, like always, and I found a way to use hiccup, janet bindings and tailwind to do it.
 How does it work? There are two janet files:
- html.janet classes.janet  classes.janet is responsible for taking the styles from the html.janet file, grabbing them from the tailwind.all.min.css file, taking only the styles that are in use and making a smaller tailwind.</description>
+html.janet classes.janet classes.janet is responsible for taking the styles from the html.janet file, grabbing them from the tailwind.all.min.css file, taking only the styles that are in use and making a smaller tailwind.</description>
     </item>
     
     <item>
@@ -467,7 +467,8 @@ Since I&amp;rsquo;m writing weekly now, I should probably take more notes throug
       <guid>http://swlkr.github.io/posts/the-making-of-ridge-css/</guid>
       <description>The making of ridge.css As with most things I do at the computer, this was born out of frustration with existing tooling.
 If I had to order my fustrations, they would roughly fall in this order:
- rails bootstrap tachyons / tailwind / atomic css react.js multi-file web app development  I&amp;rsquo;ve been tackling these one by one, by either switching to something else that already exists or making my own:</description>
+rails bootstrap tachyons / tailwind / atomic css react.js multi-file web app development I&amp;rsquo;ve been tackling these one by one, by either switching to something else that already exists or making my own:
+rails -&amp;gt; joy (still has a long way to go) bootstrap -&amp;gt; tachyons.</description>
     </item>
     
     <item>
@@ -576,7 +577,7 @@ Let&amp;rsquo;s start with what the goal is here. The goal is to run several hig
       
       <guid>http://swlkr.github.io/posts/the-future-of-user-interfaces/</guid>
       <description>The future of user interfaces How do we really want to interact with computers? I don’t actually want to tap on a screen, I actually want to&amp;hellip;
- write a blog post record music write some code watch a video listen to a podcast  So how do I do these things today? I figure out an app to do the thing and then I remember the icon and the name and tap it.</description>
+write a blog post record music write some code watch a video listen to a podcast So how do I do these things today? I figure out an app to do the thing and then I remember the icon and the name and tap it.</description>
     </item>
     
     <item>
@@ -587,7 +588,7 @@ Let&amp;rsquo;s start with what the goal is here. The goal is to run several hig
       <guid>http://swlkr.github.io/posts/clojure-isnt-for-me/</guid>
       <description>Clojure isn&amp;rsquo;t for me I’m writing here today to tell you about my five year long obsession with clojure and why I recently quit obsessing over it.
 The truth is, I knew it was never for me.
- I wasn’t a java programmer before I found clojure, I was a ruby (on rails) programmer. I don&amp;rsquo;t write enterprise web apps as my side projects I don&amp;rsquo;t need web scale resource hungry web server architectures   To the people who have never programmed in either ecosystem, they look pretty similar, but the reality of working with each of them daily is a lot more nuanced than that.</description>
+I wasn’t a java programmer before I found clojure, I was a ruby (on rails) programmer. I don&amp;rsquo;t write enterprise web apps as my side projects I don&amp;rsquo;t need web scale resource hungry web server architectures To the people who have never programmed in either ecosystem, they look pretty similar, but the reality of working with each of them daily is a lot more nuanced than that.</description>
     </item>
     
     <item>

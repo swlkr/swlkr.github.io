@@ -46,71 +46,71 @@
 </ul>
 <p>I started to go down the tailwind/variant path but I noticed that it might be easier to just treat various widths separately.
 There&rsquo;s where I am now, doing the dumbest thing possible:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">lg</span> <span class="p">{</span>
-  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">md</span> <span class="p">{</span>
-  <span class="n">diplay</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">sm</span> <span class="p">{</span>
-  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">.</span><span class="nc">xs</span> <span class="p">{</span>
-  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="p">@</span><span class="k">media</span><span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">640px</span><span class="o">)</span> <span class="p">{</span>
-  <span class="p">.</span><span class="nc">xs</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="p">.</span><span class="nc">sm</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="p">@</span><span class="k">media</span><span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">1024px</span><span class="o">)</span> <span class="p">{</span>
-  <span class="p">.</span><span class="nc">xs</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="p">.</span><span class="nc">md</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="p">@</span><span class="k">media</span><span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">1280px</span><span class="o">)</span> <span class="p">{</span>
-  <span class="p">.</span><span class="nc">lg</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="p">.</span><span class="nc">xs</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>I&rsquo;ve come up with something like this before, but I just wanted to write it down.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">lg</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">md</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">diplay</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">sm</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">xs</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">media</span><span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">640px</span><span class="o">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nc">xs</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nc">sm</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">media</span><span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">1024px</span><span class="o">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nc">xs</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nc">md</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">media</span><span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">1280px</span><span class="o">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nc">lg</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nc">xs</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>I&rsquo;ve come up with something like this before, but I just wanted to write it down.</p>
 <p>Here&rsquo;s how I use it:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;lg&#34;</span><span class="p">&gt;</span>
-  show this on displays greater than 1280px
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;md&#34;</span><span class="p">&gt;</span>
-  show this on displays less than 1280px and greater than 1024px
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;sm&#34;</span><span class="p">&gt;</span>
-  show this on displays less than 1024px and greater than 640px
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;xs&#34;</span><span class="p">&gt;</span>
-  show this on displays less than 640px
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>show this on all displays<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div><p>You can make this more granular if you want, anything less than 640px gets &ldquo;mobile&rdquo; treatment.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;lg&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  show this on displays greater than 1280px
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;md&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  show this on displays less than 1280px and greater than 1024px
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;sm&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  show this on displays less than 1024px and greater than 640px
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;xs&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  show this on displays less than 640px
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>show this on all displays<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>You can make this more granular if you want, anything less than 640px gets &ldquo;mobile&rdquo; treatment.</p>
 <h2 id="2-ids-and-classes-for-styling">2. ids AND classes for styling</h2>
 <p>Don&rsquo;t use ids for styling, only for hooks into js or input elements, that&rsquo;s it.</p>
 <p>Use classes for styling only, not for js stuff. Or if you have to use classes for js, make a separate class <code>js-whatever</code> that means it&rsquo;s for js.</p>
@@ -122,62 +122,62 @@ There&rsquo;s where I am now, doing the dumbest thing possible:</p>
 <p>Unfortunately I still found myself putting random utility classes in my html because I wanted to tweak a button or have a link look like a button or a button look like a link or something.</p>
 <p>I still don&rsquo;t have a great answer to this problem, the thing I&rsquo;ve been lately is style things classless-ly (like by their elements, no classes) with pollen&rsquo;s css variables and then when it comes time to override, create classes for the things you want, like <code>.button</code> similar to bootstrap but easy to override.</p>
 <p>Here&rsquo;s a more concrete example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="nt">a</span> <span class="p">{</span>
-  <span class="k">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="kc">color</span><span class="o">-</span><span class="kc">indigo</span><span class="mi">-500</span><span class="p">);</span>
-  <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nt">button</span> <span class="p">{</span>
-  <span class="k">padding</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">size</span><span class="mi">-4</span><span class="p">);</span>
-  <span class="k">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="kc">color</span><span class="o">-</span><span class="kc">indigo</span><span class="mi">-500</span><span class="p">);</span>
-  <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* for buttons that want to be links: */</span>
-
-<span class="p">.</span><span class="nc">button</span> <span class="p">{</span>
-  <span class="k">padding</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">size</span><span class="mi">-4</span><span class="p">);</span>
-  <span class="k">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="kc">color</span><span class="o">-</span><span class="kc">indigo</span><span class="mi">-500</span><span class="p">);</span>
-  <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* for links that want to be buttons */</span>
-
-<span class="p">.</span><span class="nc">link</span> <span class="p">{</span>
-  <span class="k">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="kc">color</span><span class="o">-</span><span class="kc">indigo</span><span class="mi">-500</span><span class="p">);</span>
-  <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>There is a little duplication to separate the visual classes from the classless elements, but I think it does two things:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">a</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="kc">color</span><span class="o">-</span><span class="kc">indigo</span><span class="mi">-500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">button</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">padding</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">size</span><span class="mi">-4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="kc">color</span><span class="o">-</span><span class="kc">indigo</span><span class="mi">-500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">/* for buttons that want to be links: */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">button</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">padding</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">size</span><span class="mi">-4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="kc">color</span><span class="o">-</span><span class="kc">indigo</span><span class="mi">-500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">/* for links that want to be buttons */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">link</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="kc">color</span><span class="o">-</span><span class="kc">indigo</span><span class="mi">-500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>There is a little duplication to separate the visual classes from the classless elements, but I think it does two things:</p>
 <ol>
 <li>Gets rid of specificity problems from doing <code>button, .button {}</code> and <code>a, .link {}</code> together.</li>
 <li>Makes it a little nicer:</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-
-<span class="c">&lt;!-- vs --&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;button&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;link&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-</code></pre></div><p>A little duplication goes a long way.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- vs --&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;button&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;link&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>A little duplication goes a long way.</p>
 <h2 id="4-css-for-broad-layout-things-like-gridflex">4. css for broad layout things like grid/flex</h2>
 <p>This is a separate concern from all of the rest of the css, so it gets it own section.</p>
 <p>Flexbox really solves this nicely and coupled with css grid most of the large layout issues are gone.</p>
 <p>I use flexbox like how it&rsquo;s used in SwiftUI:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="nt">vstack</span> <span class="p">{</span>
-  <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-  <span class="k">flex-direction</span><span class="p">:</span> <span class="kc">column</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nt">hstack</span> <span class="p">{</span>
-  <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-  <span class="k">flex-direction</span><span class="p">:</span> <span class="kc">row</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nt">spacer</span> <span class="p">{</span>
-  <span class="k">flex</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>You can make those classes if you want or put dashes in them if you&rsquo;re worried about compatibility problems.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">vstack</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">flex-direction</span><span class="p">:</span> <span class="kc">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">hstack</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">flex-direction</span><span class="p">:</span> <span class="kc">row</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">spacer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">flex</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>You can make those classes if you want or put dashes in them if you&rsquo;re worried about compatibility problems.</p>
 <p>Alright, that&rsquo;s the jist of my thinking on how to structure css. Hope it helps you regain your sanity when dealing with css, because in the end there&rsquo;s no one size fits all solution, tailwind, BEM and classless css are nice but they aren&rsquo;t a silver bullet.</p>
 
     <div class="pb4"></div>

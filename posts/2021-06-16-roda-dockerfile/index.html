@@ -52,13 +52,13 @@ RUN bundle install
 
 COPY --chown=$USER . /var/app
 
-CMD [&quot;rerun&quot;, &quot;--pattern&quot;, &quot;rb,js,css,mab,ru&quot;, &quot;--force-polling&quot;, &quot;--&quot;, &quot;rackup&quot;, &quot;-o&quot;, &quot;0.0.0.0&quot;]
+CMD [&#34;rerun&#34;, &#34;--pattern&#34;, &#34;rb,js,css,mab,ru&#34;, &#34;--force-polling&#34;, &#34;--&#34;, &#34;rackup&#34;, &#34;-o&#34;, &#34;0.0.0.0&#34;]
 </code></pre><p>This uses debian slim, jemalloc, and it assumes you already have a Gemfile and it assumes you want to use rerun instead
 of unreloader or zeitwerk or something.</p>
 <p>I understand alpine is smaller, and I understand multistage builds, but this is for development, not production.</p>
 <h2 id="compose">compose</h2>
 <p>Here&rsquo;s the docker-compose file:</p>
-<pre tabindex="0"><code>version: '3'
+<pre tabindex="0"><code>version: &#39;3&#39;
 services:
   web:
     tty: true
@@ -67,7 +67,7 @@ services:
       - .:/var/app
     build: .
     ports:
-      - &quot;9292:9292&quot;
+      - &#34;9292:9292&#34;
 </code></pre><p>That&rsquo;s it! It just copies everything to the local directory, reads a <code>.env</code> file for env vars and exposes the default rack port of 9292.</p>
 <p>This is what ships with <a href="https://github.com/swlkr/roda-starter">roda starter</a> by the way.</p>
 

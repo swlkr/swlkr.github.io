@@ -22,65 +22,65 @@
     </hstack>
 
     <h1 id="janet-basics">Janet Basics</h1>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="c1">; # A pound sign (or hashtag) starts a one-line comment.</span>
-<span class="c1">; # I&#39;m using clojure&#39;s ; comments because chroma doesn&#39;t support janet</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">comment</span>
-  <span class="nv">Wrapping</span> <span class="nv">something</span> <span class="nv">in</span> <span class="nv">the</span>
-  <span class="nb">comment </span><span class="nv">form</span> <span class="nv">makes</span> <span class="nv">a</span> <span class="nv">multiline</span> <span class="nv">comment</span><span class="p">)</span>
-</code></pre></div><h2 id="variables-and-flow-control">Variables and flow control</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">num</span> <span class="mi">42</span><span class="p">)</span> <span class="c1">; # All numbers are double precision floating point numbers</span>
-
-<span class="s">&#34;A few more numbers&#34;</span>
-
-<span class="p">(</span><span class="k">def </span><span class="nv">num1</span> <span class="mi">10</span><span class="nv">_000</span><span class="p">)</span> <span class="c1">; # you can use underscores as decimal places, like ruby</span>
-
-<span class="p">(</span><span class="k">def </span><span class="nv">s</span> <span class="s">&#34;the good place&#34;</span><span class="p">)</span> <span class="c1">; # Immutable strings</span>
-<span class="p">(</span><span class="k">def </span><span class="nv">s</span> <span class="o">`</span><span class="nv">Backticks</span>
-        <span class="nv">start/end</span> <span class="nv">multine</span> <span class="nv">strings</span><span class="o">`</span><span class="p">)</span> <span class="c1">; # backticks for multiline strings</span>
-<span class="p">(</span><span class="k">def </span><span class="nv">t</span> <span class="nv">nil</span><span class="p">)</span> <span class="c1">; # nil is a thing</span>
-
-<span class="c1">; # loops can be done with either map, loop or while</span>
-<span class="p">(</span><span class="nf">while</span> <span class="p">(</span><span class="nb">&lt; </span><span class="nv">i</span> <span class="mi">50</span><span class="p">)</span>
-  <span class="p">(</span><span class="nf">++</span> <span class="nv">i</span><span class="p">))</span>
-
-<span class="c1">; # If clauses:</span>
-<span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">num</span> <span class="mi">40</span><span class="p">)</span>
-  <span class="p">(</span><span class="nb">print </span><span class="s">&#34;over 40&#34;</span><span class="p">)</span>
-  <span class="p">(</span><span class="nf">do</span>
-    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">not= </span><span class="nv">s</span> <span class="s">&#34;the good place&#34;</span><span class="p">)</span>
-      <span class="p">(</span><span class="nb">print </span><span class="s">&#34;not over 40&#34;</span><span class="p">)</span>       <span class="c1">; # you don&#39;t need a second form necessarily</span>
-    <span class="p">(</span><span class="k">var </span><span class="nv">this-is-local</span> <span class="mi">5</span><span class="p">))))</span>      <span class="c1">; # variables are lexically scoped by default</span>
-
-<span class="c1">; # How to make a variable global (to a file)</span>
-<span class="c1">; # outside of any do&#39;s or any loops or anything</span>
-<span class="p">(</span><span class="k">var </span><span class="nv">x</span> <span class="s">&#34;im global&#34;</span><span class="p">)</span>
-
-<span class="c1">; # String concatentation uses the (string) or (print) forms</span>
-
-<span class="p">(</span><span class="nf">string</span> <span class="s">&#34;winter is coming &#34;</span> <span class="s">&#34;quickly&#34;</span><span class="p">)</span> <span class="c1">; # =&gt; &#34;winter is coming quickly&#34;</span>
-<span class="p">(</span><span class="nb">print </span><span class="s">&#34;winter is coming&#34;</span> <span class="s">&#34;quickly&#34;</span><span class="p">)</span> <span class="c1">; # =&gt; &#34;winter is comingquickly&#34;</span>
-
-<span class="c1">; # Undefined variables throw errors.</span>
-<span class="c1">; # This is an error:</span>
-<span class="p">(</span><span class="k">def </span><span class="nv">x</span> <span class="nv">an-unknown-variable</span><span class="p">)</span> <span class="c1">; # =&gt; compile error: unknown symbol an-unknown-variable while compiling repl</span>
-
-<span class="p">(</span><span class="k">def </span><span class="nv">a-bool-value</span> <span class="nv">false</span><span class="p">)</span>
-
-<span class="c1">; # nil and false are falsy, 0 and &#34;&#34; are not!</span>
-<span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">not </span><span class="nv">aBoolValue</span><span class="p">)</span> <span class="p">(</span><span class="nb">print </span><span class="s">&#34;twas false&#34;</span><span class="p">))</span>
-
-<span class="c1">; # &#39;or&#39; and &#39;and&#39; are short-circuited.</span>
-<span class="p">(</span><span class="k">def </span><span class="nv">ans</span> <span class="p">(</span><span class="nb">or </span><span class="p">(</span><span class="nb">and </span><span class="nv">a-bool-value</span> <span class="s">&#34;yes&#34;</span><span class="p">)</span> <span class="s">&#34;no&#34;</span><span class="p">))</span> <span class="c1">; # =&gt; &#34;no&#34;</span>
-
-<span class="p">(</span><span class="k">var </span><span class="nv">a-sum</span> <span class="mi">0</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">for </span><span class="nv">i</span> <span class="mi">1</span> <span class="mi">100</span> <span class="c1">; # the range does NOT include both ends</span>
-  <span class="p">(</span><span class="nf">+=</span> <span class="nv">a-sum</span> <span class="nv">i</span><span class="p">))</span>
-
-<span class="c1">; # Another loop construct:</span>
-<span class="p">(</span><span class="k">var </span><span class="nv">sum</span> <span class="mi">0</span><span class="p">)</span>
-<span class="p">(</span><span class="k">loop </span><span class="p">[</span><span class="nv">i</span> <span class="ss">:range</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">10</span><span class="p">]</span> <span class="ss">:when</span> <span class="p">(</span><span class="nf">even?</span> <span class="nv">i</span><span class="p">)]</span> <span class="p">(</span><span class="nf">+=</span> <span class="nv">sum</span> <span class="nv">i</span><span class="p">))</span>
-<span class="p">(</span><span class="nb">print </span><span class="nv">sum</span><span class="p">)</span> <span class="c1">; # prints 20</span>
-</code></pre></div><h2 id="references">References</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="c1">; # A pound sign (or hashtag) starts a one-line comment.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; # I&#39;m using clojure&#39;s ; comments because chroma doesn&#39;t support janet</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">comment</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">Wrapping</span> <span class="nv">something</span> <span class="nv">in</span> <span class="nv">the</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">comment </span><span class="nv">form</span> <span class="nv">makes</span> <span class="nv">a</span> <span class="nv">multiline</span> <span class="nv">comment</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="variables-and-flow-control">Variables and flow control</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">num</span> <span class="mi">42</span><span class="p">)</span> <span class="c1">; # All numbers are double precision floating point numbers</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s">&#34;A few more numbers&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">num1</span> <span class="mi">10</span><span class="nv">_000</span><span class="p">)</span> <span class="c1">; # you can use underscores as decimal places, like ruby</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">s</span> <span class="s">&#34;the good place&#34;</span><span class="p">)</span> <span class="c1">; # Immutable strings</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">s</span> <span class="o">`</span><span class="nv">Backticks</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">start/end</span> <span class="nv">multine</span> <span class="nv">strings</span><span class="o">`</span><span class="p">)</span> <span class="c1">; # backticks for multiline strings</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">t</span> <span class="nv">nil</span><span class="p">)</span> <span class="c1">; # nil is a thing</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">; # loops can be done with either map, loop or while</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">while</span> <span class="p">(</span><span class="nb">&lt; </span><span class="nv">i</span> <span class="mi">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">++</span> <span class="nv">i</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">; # If clauses:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">num</span> <span class="mi">40</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">print </span><span class="s">&#34;over 40&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">do</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">not= </span><span class="nv">s</span> <span class="s">&#34;the good place&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nb">print </span><span class="s">&#34;not over 40&#34;</span><span class="p">)</span>       <span class="c1">; # you don&#39;t need a second form necessarily</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">var </span><span class="nv">this-is-local</span> <span class="mi">5</span><span class="p">))))</span>      <span class="c1">; # variables are lexically scoped by default</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">; # How to make a variable global (to a file)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; # outside of any do&#39;s or any loops or anything</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">var </span><span class="nv">x</span> <span class="s">&#34;im global&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">; # String concatentation uses the (string) or (print) forms</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">string</span> <span class="s">&#34;winter is coming &#34;</span> <span class="s">&#34;quickly&#34;</span><span class="p">)</span> <span class="c1">; # =&gt; &#34;winter is coming quickly&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">print </span><span class="s">&#34;winter is coming&#34;</span> <span class="s">&#34;quickly&#34;</span><span class="p">)</span> <span class="c1">; # =&gt; &#34;winter is comingquickly&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">; # Undefined variables throw errors.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; # This is an error:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">x</span> <span class="nv">an-unknown-variable</span><span class="p">)</span> <span class="c1">; # =&gt; compile error: unknown symbol an-unknown-variable while compiling repl</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">a-bool-value</span> <span class="nv">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">; # nil and false are falsy, 0 and &#34;&#34; are not!</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">not </span><span class="nv">aBoolValue</span><span class="p">)</span> <span class="p">(</span><span class="nb">print </span><span class="s">&#34;twas false&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">; # &#39;or&#39; and &#39;and&#39; are short-circuited.</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">ans</span> <span class="p">(</span><span class="nb">or </span><span class="p">(</span><span class="nb">and </span><span class="nv">a-bool-value</span> <span class="s">&#34;yes&#34;</span><span class="p">)</span> <span class="s">&#34;no&#34;</span><span class="p">))</span> <span class="c1">; # =&gt; &#34;no&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">var </span><span class="nv">a-sum</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">for </span><span class="nv">i</span> <span class="mi">1</span> <span class="mi">100</span> <span class="c1">; # the range does NOT include both ends</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">+=</span> <span class="nv">a-sum</span> <span class="nv">i</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">; # Another loop construct:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">var </span><span class="nv">sum</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">loop </span><span class="p">[</span><span class="nv">i</span> <span class="ss">:range</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">10</span><span class="p">]</span> <span class="ss">:when</span> <span class="p">(</span><span class="nf">even?</span> <span class="nv">i</span><span class="p">)]</span> <span class="p">(</span><span class="nf">+=</span> <span class="nv">sum</span> <span class="nv">i</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">print </span><span class="nv">sum</span><span class="p">)</span> <span class="c1">; # prints 20</span>
+</span></span></code></pre></div><h2 id="references">References</h2>
 <p>Check out <a href="https://janet-lang.org/docs/index.html">the official docs</a> for more info, and be sure to check out the <a href="https://gitter.im/janet-language/community">gitter channel</a> if you have any questions or just want to say hi.</p>
 <p>There&rsquo;s also <a href="https://janetdocs.com">janet docs</a> which is a very unofficial community docs site I put together with the <a href="https://joyframework.com">joy web framework</a> that I also put together.</p>
 <p>I&rsquo;ll update this post with more examples in the vein of <a href="https://learnxinyminutes.com">https://learnxinyminutes.com</a> eventually.</p>

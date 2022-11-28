@@ -23,27 +23,27 @@
 
     <h1 id="one-file-websites-with-janet">One File Websites with Janet</h1>
 <p>A weird, reoccurring theme on this blog and in my life is this idea of a one file website. I don&rsquo;t know why I care so much, but I do. I even wrote a whole <a href="https://github.com/swlkr/osprey">web thing</a> on top of <a href="https://janet-lang.org">janet</a> to do it! I&rsquo;ll cut to the chase and give you a quick preview of what it looks like and then go over how to install it and get started on your own.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">use</span> <span class="nv">osprey</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nf">GET</span> <span class="s">&#34;/&#34;</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nf">server</span> <span class="mi">9001</span><span class="p">)</span>
-</code></pre></div><p>That&rsquo;s it, that&rsquo;s a whole website, three lines of code, I don&rsquo;t believe it can get any terser than this, but I&rsquo;d love to be proven wrong.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">use</span> <span class="nv">osprey</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">GET</span> <span class="s">&#34;/&#34;</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">server</span> <span class="mi">9001</span><span class="p">)</span>
+</span></span></code></pre></div><p>That&rsquo;s it, that&rsquo;s a whole website, three lines of code, I don&rsquo;t believe it can get any terser than this, but I&rsquo;d love to be proven wrong.</p>
 <p>If you like what you see here, and want to see if it actually works, keep reading.</p>
 <h2 id="step-1-installation">Step 1: Installation</h2>
 <p>The first step on your one file website journey is to install janet.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">brew install janet
-</code></pre></div><p>I use homebrew on macOS and linux and you should too!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">brew install janet
+</span></span></code></pre></div><p>I use homebrew on macOS and linux and you should too!</p>
 <h2 id="step-2-creating-the-one-file">Step 2: Creating the one file</h2>
 <p>Now that you have that going, save the code above to a file with a <code>.janet</code> extension with your terminal, go ahead and copy the lines you see here and paste them in that terminal:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">touch main.janet <span class="o">&amp;&amp;</span>
-<span class="nb">echo</span> <span class="s1">&#39;(use osprey)\n\n(GET &#34;/&#34; &#34;hello&#34;)\n\n(server 9001)&#39;</span> &gt; main.janet <span class="o">&amp;&amp;</span>
-janet main.janet
-</code></pre></div><p>The server should start right up on port 9001!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">touch main.janet <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;(use osprey)\n\n(GET &#34;/&#34; &#34;hello&#34;)\n\n(server 9001)&#39;</span> &gt; main.janet <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">janet main.janet
+</span></span></code></pre></div><p>The server should start right up on port 9001!</p>
 <h2 id="step-3-testing-it-out">Step 3: Testing it out</h2>
 <p>Open up another terminal and test it out with <code>curl</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">curl localhost:9001
-</code></pre></div><p>You should see hello! It&rsquo;s working!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl localhost:9001
+</span></span></code></pre></div><p>You should see hello! It&rsquo;s working!</p>
 <p>That&rsquo;s the very basics of a one file website with janet. Things can get quite a bit crazier but I&rsquo;ll save that for another post.</p>
 
     <div class="pb4"></div>

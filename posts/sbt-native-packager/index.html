@@ -27,20 +27,20 @@ without writing a Dockerfile?</p>
 <p>Well then, this short but sweet tutorial has you covered!</p>
 <p>First things first, the assumption is that you have an existing scala project.</p>
 <p>Next things next, go ahead and:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">touch project/plugins.sbt
-</code></pre></div><p>And add the following line to that newly created <code>project/plugins.sbt</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">&#34;com.typesafe.sbt&#34;</span> <span class="o">%</span> <span class="s">&#34;sbt-native-packager&#34;</span> <span class="o">%</span> <span class="s">&#34;1.7.5&#34;</span><span class="o">)</span>
-</code></pre></div><p>The version will probably have changed by the time you read this, don&rsquo;t forget to use the latest.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">touch project/plugins.sbt
+</span></span></code></pre></div><p>And add the following line to that newly created <code>project/plugins.sbt</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">&#34;com.typesafe.sbt&#34;</span> <span class="o">%</span> <span class="s">&#34;sbt-native-packager&#34;</span> <span class="o">%</span> <span class="s">&#34;1.7.5&#34;</span><span class="o">)</span>
+</span></span></code></pre></div><p>The version will probably have changed by the time you read this, don&rsquo;t forget to use the latest.</p>
 <p>You can go ahead and fire up your sbt console if you want, it should download the required dependencies.</p>
 <p>The last step is to add the following two lines to your <code>build.sbt</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">JavaAppPackaging</span><span class="o">)</span>
-</code></pre></div><p>and optionally:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="n">dockerUpdateLatest</span> <span class="k">:</span><span class="o">=</span> <span class="kc">true</span>
-</code></pre></div><p>Alright, now that you have all of that ready to go, run this from your shell:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">sbt docker:publishLocal
-</code></pre></div><p>And, assuming your docker cli bits are running, you should be able to verify you now have a docker image:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">docker image ls
-</code></pre></div><p>Happy hacking!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="n">enablePlugins</span><span class="o">(</span><span class="nc">JavaAppPackaging</span><span class="o">)</span>
+</span></span></code></pre></div><p>and optionally:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="n">dockerUpdateLatest</span> <span class="k">:</span><span class="o">=</span> <span class="kc">true</span>
+</span></span></code></pre></div><p>Alright, now that you have all of that ready to go, run this from your shell:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sbt docker:publishLocal
+</span></span></code></pre></div><p>And, assuming your docker cli bits are running, you should be able to verify you now have a docker image:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker image ls
+</span></span></code></pre></div><p>Happy hacking!</p>
 
     <div class="pb4"></div>
   </body>

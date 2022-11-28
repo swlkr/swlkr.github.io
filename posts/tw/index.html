@@ -33,33 +33,33 @@
 <p>This leads me to why I wrote <a href="https://github.com/swlkr/tw">tw</a>, you can get a per-page stylesheet so small that you don&rsquo;t even need a separate css file! You can stick the output right into a <code>&lt;style&gt;</code> tag in the <code>&lt;head&gt;</code> and that&rsquo;s that.</p>
 <p>Here&rsquo;s how it works:</p>
 <p>Let&rsquo;s take some fictitious <a href="https://github.com/swlkr/osprey">osprey</a> code:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">import </span><span class="nv">tw</span><span class="p">)</span>
-
-<span class="p">(</span><span class="k">def </span><span class="nv">home</span> <span class="s">&#34;/&#34;</span><span class="p">)</span>
-<span class="p">(</span><span class="k">def </span><span class="nv">/hello</span> <span class="s">&#34;/hello&#34;</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nf">tw/url</span> <span class="nv">home</span><span class="p">)</span>
-<span class="p">(</span><span class="nf">GET</span> <span class="nv">home</span>
-  <span class="p">[</span><span class="ss">:html</span>
-   <span class="p">[</span><span class="ss">:head</span>
-    <span class="p">[</span><span class="ss">:style</span> <span class="p">(</span><span class="nf">html/unsafe</span> <span class="p">(</span><span class="nf">tw/style</span> <span class="nv">home</span><span class="p">))]]</span>
-   <span class="p">[</span><span class="ss">:body</span> <span class="p">{</span><span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="s">&#34;container&#34;</span><span class="p">)}</span>
-    <span class="p">[</span><span class="ss">:button</span> <span class="p">{</span><span class="ss">:href</span> <span class="nv">/hello</span> <span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="s">&#34;p-4 transition transform hover:scale-110 rounded-md bg-gray-800 text-white dark:bg-white dark:text-gray-800&#34;</span><span class="p">)}</span>
-      <span class="s">&#34;I&#39;m a button&#34;</span><span class="p">]]])</span>
-
-<span class="p">(</span><span class="nf">tw/url</span> <span class="nv">/hello</span><span class="p">)</span>
-<span class="p">(</span><span class="nf">GET</span> <span class="nv">/hello</span>
-  <span class="p">[</span><span class="ss">:html</span>
-   <span class="p">[</span><span class="ss">:head</span>
-    <span class="p">[</span><span class="ss">:style</span> <span class="p">(</span><span class="nf">html/unsafe</span> <span class="p">(</span><span class="nf">tw/style</span> <span class="nv">/hello</span><span class="p">))]]</span>
-   <span class="p">[</span><span class="ss">:body</span> <span class="p">{</span><span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="s">&#34;container&#34;</span><span class="p">)}</span>
-    <span class="p">[</span><span class="ss">:a</span> <span class="p">{</span><span class="ss">:href</span> <span class="nv">home</span> <span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="s">&#34;hover:underline text-gray-800&#34;</span><span class="p">)}]]])</span>
-
-<span class="p">(</span><span class="nf">tw/tailwind.min.css</span> <span class="s">&#34;tailwind.min.css&#34;</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nf">server</span> <span class="mi">9001</span><span class="p">)</span>
-</code></pre></div><p>There are a few things going on here that aren&rsquo;t obvious, so let me go over them one by one.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">import </span><span class="nv">tw</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">home</span> <span class="s">&#34;/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">/hello</span> <span class="s">&#34;/hello&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">tw/url</span> <span class="nv">home</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">GET</span> <span class="nv">home</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="ss">:html</span>
+</span></span><span class="line"><span class="cl">   <span class="p">[</span><span class="ss">:head</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="ss">:style</span> <span class="p">(</span><span class="nf">html/unsafe</span> <span class="p">(</span><span class="nf">tw/style</span> <span class="nv">home</span><span class="p">))]]</span>
+</span></span><span class="line"><span class="cl">   <span class="p">[</span><span class="ss">:body</span> <span class="p">{</span><span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="s">&#34;container&#34;</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="ss">:button</span> <span class="p">{</span><span class="ss">:href</span> <span class="nv">/hello</span> <span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="s">&#34;p-4 transition transform hover:scale-110 rounded-md bg-gray-800 text-white dark:bg-white dark:text-gray-800&#34;</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">      <span class="s">&#34;I&#39;m a button&#34;</span><span class="p">]]])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">tw/url</span> <span class="nv">/hello</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">GET</span> <span class="nv">/hello</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="ss">:html</span>
+</span></span><span class="line"><span class="cl">   <span class="p">[</span><span class="ss">:head</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="ss">:style</span> <span class="p">(</span><span class="nf">html/unsafe</span> <span class="p">(</span><span class="nf">tw/style</span> <span class="nv">/hello</span><span class="p">))]]</span>
+</span></span><span class="line"><span class="cl">   <span class="p">[</span><span class="ss">:body</span> <span class="p">{</span><span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="s">&#34;container&#34;</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="ss">:a</span> <span class="p">{</span><span class="ss">:href</span> <span class="nv">home</span> <span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="s">&#34;hover:underline text-gray-800&#34;</span><span class="p">)}]]])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">tw/tailwind.min.css</span> <span class="s">&#34;tailwind.min.css&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">server</span> <span class="mi">9001</span><span class="p">)</span>
+</span></span></code></pre></div><p>There are a few things going on here that aren&rsquo;t obvious, so let me go over them one by one.</p>
 <h2 id="twurl">tw/url</h2>
 <p>This function is called before you call <code>tw/class</code> and it sets the current url that you want to target with just the styles you need.</p>
 <h2 id="twstyle">tw/style</h2>
@@ -70,50 +70,50 @@
 <p>This takes one argument, the path to your minified tailwind css file. This only works if the tailwind css file is minified, so that&rsquo;s important.</p>
 <p><a href="https://github.com/swlkr/tailwind-config">Here&rsquo;s the repo I use</a> to generate a pretty large tailwind.min.css with dark mode, focus and hover variants enabled.</p>
 <p>If you clone and already use vagrant you can get a <code>tailwind.min.css</code> file by running:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">vagrant up
-vagrant ssh
-<span class="nb">cd</span> /vagrant
-npm run tailwind
-npm run build
-</code></pre></div><p>Then copy <code>output.css</code> to your project and that&rsquo;s it, <code>tw</code> will take over!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">vagrant up
+</span></span><span class="line"><span class="cl">vagrant ssh
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /vagrant
+</span></span><span class="line"><span class="cl">npm run tailwind
+</span></span><span class="line"><span class="cl">npm run build
+</span></span></code></pre></div><p>Then copy <code>output.css</code> to your project and that&rsquo;s it, <code>tw</code> will take over!</p>
 <p>There are a few quality of life improvements you can make if you don&rsquo;t want to keep typing <code>tw/class</code> over and over again. I usually wind up settling on common styles pretty early on and I put those in macros like so:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">import </span><span class="nv">tw</span><span class="p">)</span>
-
-<span class="c1">; # these styles will be copied across all pages</span>
-<span class="p">(</span><span class="nf">tw/url</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
-<span class="p">(</span><span class="k">def </span><span class="nv">.container</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="s">&#34;container&#34;</span><span class="p">))</span>
-
-<span class="c1">; # these are just strings, reuse will come from</span>
-<span class="c1">; # tw/class, tw/url since they aren&#39;t used</span>
-<span class="c1">; # on all pages</span>
-<span class="p">(</span><span class="k">def </span><span class="nv">link</span> <span class="s">&#34;hover:underline text-gray-800&#34;</span><span class="p">)</span>
-<span class="p">(</span><span class="k">def </span><span class="nv">btn</span> <span class="s">&#34;p-4 transition transform hover:scale-110 rounded-md bg-gray-800 text-white dark:bg-white dark:text-gray-800&#34;</span><span class="p">)</span>
-
-<span class="p">(</span><span class="k">def </span><span class="nv">home</span> <span class="s">&#34;/&#34;</span><span class="p">)</span>
-<span class="p">(</span><span class="k">def </span><span class="nv">/hello</span> <span class="s">&#34;/hello&#34;</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nf">tw/url</span> <span class="nv">home</span><span class="p">)</span>
-<span class="p">(</span><span class="nf">GET</span> <span class="nv">home</span>
-     <span class="p">[</span><span class="ss">:html</span>
-      <span class="p">[</span><span class="ss">:head</span>
-       <span class="p">[</span><span class="ss">:style</span> <span class="p">(</span><span class="nf">html/unsafe</span> <span class="p">(</span><span class="nf">tw/style</span> <span class="nv">home</span><span class="p">))]]</span>
-      <span class="p">[</span><span class="ss">:body</span> <span class="p">{</span><span class="ss">:class</span> <span class="nv">.container</span><span class="p">}</span>
-        <span class="p">[</span><span class="ss">:button</span> <span class="p">{</span><span class="ss">:href</span> <span class="nv">/hello</span> <span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="nv">btn</span><span class="p">)}</span>
-          <span class="s">&#34;I&#39;m a button&#34;</span><span class="p">]]])</span>
-
-<span class="p">(</span><span class="nf">tw/url</span> <span class="nv">/hello</span><span class="p">)</span>
-<span class="p">(</span><span class="nf">GET</span> <span class="nv">/hello</span>
-     <span class="p">[</span><span class="ss">:html</span>
-      <span class="p">[</span><span class="ss">:head</span>
-       <span class="p">[</span><span class="ss">:style</span> <span class="p">(</span><span class="nf">html/unsafe</span> <span class="p">(</span><span class="nf">tw/style</span> <span class="nv">/hello</span><span class="p">))]]</span>
-      <span class="p">[</span><span class="ss">:body</span> <span class="p">{</span><span class="ss">:class</span> <span class="nv">.container</span><span class="p">}</span>
-       <span class="p">[</span><span class="ss">:a</span> <span class="p">{</span><span class="ss">:href</span> <span class="nv">home</span> <span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="nv">link</span><span class="p">)}]]])</span>
-
-<span class="p">(</span><span class="nf">tw/tailwind.min.css</span> <span class="s">&#34;tailwind.min.css&#34;</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nf">server</span> <span class="mi">9001</span><span class="p">)</span>
-</code></pre></div><p>Everything that is used across multiple pages lives in the global &ldquo;tw/url&rdquo; this way and with janet&rsquo;s flexible variable names you can make that <code>janet-html</code> look really close to css with the <code>.</code> prefix for classes.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">import </span><span class="nv">osprey</span> <span class="ss">:prefix</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">import </span><span class="nv">tw</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">; # these styles will be copied across all pages</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">tw/url</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">.container</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="s">&#34;container&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">; # these are just strings, reuse will come from</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; # tw/class, tw/url since they aren&#39;t used</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; # on all pages</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">link</span> <span class="s">&#34;hover:underline text-gray-800&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">btn</span> <span class="s">&#34;p-4 transition transform hover:scale-110 rounded-md bg-gray-800 text-white dark:bg-white dark:text-gray-800&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">home</span> <span class="s">&#34;/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">def </span><span class="nv">/hello</span> <span class="s">&#34;/hello&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">tw/url</span> <span class="nv">home</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">GET</span> <span class="nv">home</span>
+</span></span><span class="line"><span class="cl">     <span class="p">[</span><span class="ss">:html</span>
+</span></span><span class="line"><span class="cl">      <span class="p">[</span><span class="ss">:head</span>
+</span></span><span class="line"><span class="cl">       <span class="p">[</span><span class="ss">:style</span> <span class="p">(</span><span class="nf">html/unsafe</span> <span class="p">(</span><span class="nf">tw/style</span> <span class="nv">home</span><span class="p">))]]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">[</span><span class="ss">:body</span> <span class="p">{</span><span class="ss">:class</span> <span class="nv">.container</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="ss">:button</span> <span class="p">{</span><span class="ss">:href</span> <span class="nv">/hello</span> <span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="nv">btn</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">          <span class="s">&#34;I&#39;m a button&#34;</span><span class="p">]]])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">tw/url</span> <span class="nv">/hello</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">GET</span> <span class="nv">/hello</span>
+</span></span><span class="line"><span class="cl">     <span class="p">[</span><span class="ss">:html</span>
+</span></span><span class="line"><span class="cl">      <span class="p">[</span><span class="ss">:head</span>
+</span></span><span class="line"><span class="cl">       <span class="p">[</span><span class="ss">:style</span> <span class="p">(</span><span class="nf">html/unsafe</span> <span class="p">(</span><span class="nf">tw/style</span> <span class="nv">/hello</span><span class="p">))]]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">[</span><span class="ss">:body</span> <span class="p">{</span><span class="ss">:class</span> <span class="nv">.container</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">       <span class="p">[</span><span class="ss">:a</span> <span class="p">{</span><span class="ss">:href</span> <span class="nv">home</span> <span class="ss">:class</span> <span class="p">(</span><span class="nf">tw/class</span> <span class="nv">link</span><span class="p">)}]]])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">tw/tailwind.min.css</span> <span class="s">&#34;tailwind.min.css&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">server</span> <span class="mi">9001</span><span class="p">)</span>
+</span></span></code></pre></div><p>Everything that is used across multiple pages lives in the global &ldquo;tw/url&rdquo; this way and with janet&rsquo;s flexible variable names you can make that <code>janet-html</code> look really close to css with the <code>.</code> prefix for classes.</p>
 
     <div class="pb4"></div>
   </body>
